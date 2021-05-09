@@ -7,13 +7,19 @@
     <mat-nav-list>
       
       <div>
-        <app-menu-soci></app-menu-soci>
+        <a routerLink = 'home' ><button mat-button>HOME</button></a>
+      </div>
+      <div>
+        <app-menu-soci mat-list-item></app-menu-soci>
       </div>
       <div>
         <app-menu-eventi mat-list-item></app-menu-eventi>
       </div>
       <div>
         <app-menu-iscrizioni mat-list-item></app-menu-iscrizioni>
+      </div>
+      <div>
+        <a href = #><button mat-button>LOGOUT</button></a>
       </div>
       
       <!--
@@ -43,8 +49,8 @@
     </mat-toolbar>
     <!-- Add Content Here --> 
 
-    <app-mat-board></app-mat-board>
-    <app-mat-table></app-mat-table>
+    <router-outlet></router-outlet>
+    
 
   </mat-sidenav-content>
 </mat-sidenav-container>

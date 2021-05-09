@@ -23,6 +23,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MenuSociComponent } from './menu-soci/menu-soci.component';
 import { MenuEventiComponent } from './menu-eventi/menu-eventi.component';
 import { MenuIscrizioniComponent } from './menu-iscrizioni/menu-iscrizioni.component';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { MenuIscrizioniComponent } from './menu-iscrizioni/menu-iscrizioni.compo
     MatBoardComponent,
     MenuSociComponent,
     MenuEventiComponent,
-    MenuIscrizioniComponent
+    MenuIscrizioniComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
