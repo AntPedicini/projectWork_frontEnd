@@ -20,6 +20,9 @@ import { MatBoardComponent } from './mat-board/mat-board.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
+import { MenuSociComponent } from './menu-soci/menu-soci.component';
+import { MenuEventiComponent } from './menu-eventi/menu-eventi.component';
+import { MenuIscrizioniComponent } from './menu-iscrizioni/menu-iscrizioni.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,10 @@ import { MatMenuModule } from '@angular/material/menu';
     MyComponentComponent,
     MatNavComponent,
     MatTableComponent,
-    MatBoardComponent
+    MatBoardComponent,
+    MenuSociComponent,
+    MenuEventiComponent,
+    MenuIscrizioniComponent
   ],
   imports: [
     BrowserModule,
