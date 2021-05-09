@@ -24,6 +24,17 @@ import { MenuSociComponent } from './menu-soci/menu-soci.component';
 import { MenuEventiComponent } from './menu-eventi/menu-eventi.component';
 import { MenuIscrizioniComponent } from './menu-iscrizioni/menu-iscrizioni.component';
 import { LogoutComponent } from './logout/logout.component';
+import { MemberFormComponent } from './member-form/member-form.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatRadioModule } from '@angular/material/radio';
+import { ReactiveFormsModule } from '@angular/forms';
+import { TableMemberComponent } from './table-member/table-member.component';
+import { TableAutoComponent } from './table-auto/table-auto.component';
+import { TableEventComponent } from './table-event/table-event.component';
+import { TablePresenceComponent } from './table-presence/table-presence.component';
+import { EventFormComponent } from './event-form/event-form.component';
+import { RegistrationFormComponent } from './registration-form/registration-form.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +46,14 @@ import { LogoutComponent } from './logout/logout.component';
     MenuSociComponent,
     MenuEventiComponent,
     MenuIscrizioniComponent,
-    LogoutComponent
+    LogoutComponent,
+    MemberFormComponent,
+    TableMemberComponent,
+    TableAutoComponent,
+    TableEventComponent,
+    TablePresenceComponent,
+    EventFormComponent,
+    RegistrationFormComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +70,11 @@ import { LogoutComponent } from './logout/logout.component';
     MatSortModule,
     MatGridListModule,
     MatCardModule,
-    MatMenuModule
+    MatMenuModule,
+    MatInputModule,
+    MatSelectModule,
+    MatRadioModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

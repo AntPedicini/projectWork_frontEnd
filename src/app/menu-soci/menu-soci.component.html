@@ -1,6 +1,6 @@
 <button mat-button [matMenuTriggerFor]="menu">SOCI/AUTO</button>
 <mat-menu #menu="matMenu">
-  <a href = #><button mat-menu-item>Registra Socio/Auto</button></a>
-  <a href = #><button mat-menu-item>Visualizza Soci</button></a>
-  <a href = #><button mat-menu-item>Visualizza Auto</button></a>
+  <a routerLink = 'newMember'><button mat-menu-item>Registra Socio/Auto</button></a>
+  <a routerLink = 'showMember'><button mat-menu-item>Visualizza Soci</button></a>
+  <a routerLink = 'showCar'><button mat-menu-item>Visualizza Auto</button></a>
 </mat-menu>
