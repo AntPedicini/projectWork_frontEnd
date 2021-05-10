@@ -35,6 +35,7 @@ import { TableEventComponent } from './table-event/table-event.component';
 import { TablePresenceComponent } from './table-presence/table-presence.component';
 import { EventFormComponent } from './event-form/event-form.component';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
+import { MenuComponent } from './menu/menu.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { RegistrationFormComponent } from './registration-form/registration-form
     TableEventComponent,
     TablePresenceComponent,
     EventFormComponent,
-    RegistrationFormComponent
+    RegistrationFormComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,

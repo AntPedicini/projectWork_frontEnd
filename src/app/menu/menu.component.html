@@ -1,0 +1,22 @@
+<a routerLink = 'home' ><button class="menu" mat-button>HOME</button></a>
+
+<button class="menu" mat-button [matMenuTriggerFor]="menuSoci">SOCI/AUTO</button>
+<mat-menu #menuSoci="matMenu">
+  <a routerLink = 'newMember'><button mat-menu-item>Registra Socio/Auto</button></a>
+  <a routerLink = 'showMember'><button mat-menu-item>Visualizza Soci</button></a>
+  <a routerLink = 'showCar'><button mat-menu-item>Visualizza Auto</button></a>
+</mat-menu>
+
+<button class="menu" mat-button [matMenuTriggerFor]="menuEventi">EVENTI</button>
+<mat-menu #menuEventi="matMenu">
+  <a routerLink = 'newEvent'><button mat-menu-item>Nuovo Evento</button></a>
+  <a routerLink = 'showEvent'><button mat-menu-item>Visualizza Eventi</button></a>
+</mat-menu>
+
+<button class="menu" class="menu" mat-button [matMenuTriggerFor]="menuIscrizioni">ISCRIZIONI</button>
+<mat-menu #menuIscrizioni="matMenu">
+  <a routerLink = 'newRegistration'><button mat-menu-item>Nuova Iscrizione</button></a>
+  <a routerLink = 'showPresence'><button mat-menu-item>Visualizza Iscrizione</button></a>
+</mat-menu>
+
+<a href = #><button class="menu" mat-button>LOGOUT</button></a>
