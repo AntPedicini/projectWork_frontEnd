@@ -20,10 +20,6 @@ import { MatBoardComponent } from './mat-board/mat-board.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
-import { MenuSociComponent } from './menu-soci/menu-soci.component';
-import { MenuEventiComponent } from './menu-eventi/menu-eventi.component';
-import { MenuIscrizioniComponent } from './menu-iscrizioni/menu-iscrizioni.component';
-import { LogoutComponent } from './logout/logout.component';
 import { MemberFormComponent } from './member-form/member-form.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -44,10 +40,6 @@ import { MenuComponent } from './menu/menu.component';
     MatNavComponent,
     MatTableComponent,
     MatBoardComponent,
-    MenuSociComponent,
-    MenuEventiComponent,
-    MenuIscrizioniComponent,
-    LogoutComponent,
     MemberFormComponent,
     TableMemberComponent,
     TableAutoComponent,
