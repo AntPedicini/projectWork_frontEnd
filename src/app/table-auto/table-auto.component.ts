@@ -16,7 +16,7 @@ export class TableAutoComponent implements AfterViewInit {
   dataSource: TableAutoDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name'];
+  displayedColumns = ['targa', 'ID_tessera', 'marca', 'modello', 'anno','immatricolazione', 'ASI'];
 
   constructor() {
     this.dataSource = new TableAutoDataSource();
@@ -26,5 +26,10 @@ export class TableAutoComponent implements AfterViewInit {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
+  }
+
+    applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }
