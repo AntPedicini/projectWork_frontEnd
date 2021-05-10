@@ -19,7 +19,8 @@ export interface TableEventItem {
 // TODO: replace this with real data from your application
 const EXAMPLE_DATA: TableEventItem[] = [
   { cod_evento: 1, nome_evento: 'GIORNATA NAZIONALE VEICOLI D EPOCA', data_inizio: '2021-09-26', data_fine: '2021-09-27', location: 'Reggio Calabria',descrizione: 'I saloni "Milano AutoClassica" e "Modena Motor Gallery" nello stesso weekend.', costo_unitario: 35.7 , posti_disponibili: 100},
-  { cod_evento: 2, nome_evento: 'ASI SOLIDALE: RALLY THERAPY', data_inizio: '2021-09-26', data_fine: '2021-09-26', location: 'Bolzano',descrizione: 'Rally Passato e Presente,dalle vetture d epoca alle vetture moderne.', costo_unitario: 32.9 , posti_disponibili: 200}
+  { cod_evento: 2, nome_evento: 'ASI SOLIDALE: RALLY THERAPY', data_inizio: '2021-09-26', data_fine: '2021-09-26', location: 'Bolzano',descrizione: 'Rally Passato e Presente,dalle vetture d epoca alle vetture moderne.', costo_unitario: 32.9 , posti_disponibili: 200},
+  { cod_evento: 3, nome_evento: 'XXIII RONDE DELLE ZOLFARE', data_inizio: '2021-05-07', data_fine: '2021-05-09', location: 'Caltanissetta',descrizione: 'Manifestazione turistica con rilevamenti di passaggio di autostoriche.', costo_unitario: 54.5 , posti_disponibili: 300}
 
 ];
 

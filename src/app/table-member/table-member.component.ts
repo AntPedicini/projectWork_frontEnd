@@ -4,6 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { TableMemberDataSource, TableMemberItem } from './table-member-datasource';
 
+
 @Component({
   selector: 'app-table-member',
   templateUrl: './table-member.component.html',
@@ -16,7 +17,7 @@ export class TableMemberComponent implements AfterViewInit {
   dataSource: TableMemberDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name'];
+  displayedColumns = ['tessera', 'nome', 'cognome', 'nato_il','codice_fiscale', 'indirizzo', 'email', 'consiglio', 'segretario'];
 
   constructor() {
     this.dataSource = new TableMemberDataSource();
@@ -27,4 +28,11 @@ export class TableMemberComponent implements AfterViewInit {
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
   }
+
+  
+  getValue(val: boolean): boolean{
+    return val;
+  }
+
+  
 }

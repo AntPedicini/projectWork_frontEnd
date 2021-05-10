@@ -32,6 +32,7 @@ import { TablePresenceComponent } from './table-presence/table-presence.componen
 import { EventFormComponent } from './event-form/event-form.component';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
 import { MenuComponent } from './menu/menu.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { MenuComponent } from './menu/menu.component';
     MatInputModule,
     MatSelectModule,
     MatRadioModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]
