@@ -4,6 +4,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { TableEventDataSource, TableEventItem } from './table-event-datasource';
 
+import {animate, state, style, transition, trigger} from '@angular/animations';
+
 @Component({
   selector: 'app-table-event',
   templateUrl: './table-event.component.html',
@@ -16,7 +18,7 @@ export class TableEventComponent implements AfterViewInit {
   dataSource: TableEventDataSource;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name'];
+  displayedColumns = ['cod_evento', 'nome_evento', 'data_inizio', 'data_fine', 'location', 'costo_unitario', 'posti_disponibili'];
 
   constructor() {
     this.dataSource = new TableEventDataSource();
@@ -27,4 +29,5 @@ export class TableEventComponent implements AfterViewInit {
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
   }
+
 }

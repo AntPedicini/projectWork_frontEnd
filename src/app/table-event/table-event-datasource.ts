@@ -6,32 +6,21 @@ import { Observable, of as observableOf, merge } from 'rxjs';
 
 // TODO: Replace this with your own data model type
 export interface TableEventItem {
-  name: string;
-  id: number;
+  cod_evento: number;
+  nome_evento: string;
+  data_inizio: string;
+  data_fine: string;
+  location: string;
+  descrizione: string;
+  costo_unitario: number;
+  posti_disponibili: number;
 }
 
 // TODO: replace this with real data from your application
 const EXAMPLE_DATA: TableEventItem[] = [
-  {id: 1, name: 'Hydrogen'},
-  {id: 2, name: 'Helium'},
-  {id: 3, name: 'Lithium'},
-  {id: 4, name: 'Beryllium'},
-  {id: 5, name: 'Boron'},
-  {id: 6, name: 'Carbon'},
-  {id: 7, name: 'Nitrogen'},
-  {id: 8, name: 'Oxygen'},
-  {id: 9, name: 'Fluorine'},
-  {id: 10, name: 'Neon'},
-  {id: 11, name: 'Sodium'},
-  {id: 12, name: 'Magnesium'},
-  {id: 13, name: 'Aluminum'},
-  {id: 14, name: 'Silicon'},
-  {id: 15, name: 'Phosphorus'},
-  {id: 16, name: 'Sulfur'},
-  {id: 17, name: 'Chlorine'},
-  {id: 18, name: 'Argon'},
-  {id: 19, name: 'Potassium'},
-  {id: 20, name: 'Calcium'},
+  { cod_evento: 1, nome_evento: 'GIORNATA NAZIONALE VEICOLI D EPOCA', data_inizio: '2021-09-26', data_fine: '2021-09-27', location: 'Reggio Calabria',descrizione: 'I saloni "Milano AutoClassica" e "Modena Motor Gallery" nello stesso weekend.', costo_unitario: 35.7 , posti_disponibili: 100},
+  { cod_evento: 2, nome_evento: 'ASI SOLIDALE: RALLY THERAPY', data_inizio: '2021-09-26', data_fine: '2021-09-26', location: 'Bolzano',descrizione: 'Rally Passato e Presente,dalle vetture d epoca alle vetture moderne.', costo_unitario: 32.9 , posti_disponibili: 200}
+
 ];
 
 /**
@@ -97,8 +86,9 @@ export class TableEventDataSource extends DataSource<TableEventItem> {
     return data.sort((a, b) => {
       const isAsc = this.sort?.direction === 'asc';
       switch (this.sort?.active) {
-        case 'name': return compare(a.name, b.name, isAsc);
-        case 'id': return compare(+a.id, +b.id, isAsc);
+        case 'cod_evento': return compare(a.cod_evento, b.cod_evento, isAsc);
+        case 'nome_evento': return compare(+a.nome_evento, +b.nome_evento, isAsc);
+        case 'location': return compare(+a.location, +b.location, isAsc);
         default: return 0;
       }
     });

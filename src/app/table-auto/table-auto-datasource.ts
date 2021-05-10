@@ -22,7 +22,7 @@ const EXAMPLE_DATA: TableAutoItem[] = [
   {targa:'XXX112XXX', ID_tessera: 1, marca: 'Bugatti', modello: 'Type 57SC', anno: 1936, immatricolazione: '1940-06-04', ASI:'1112' },
   {targa:'XXX222XXX', ID_tessera: 2, marca: 'Mercedes', modello: 'W196R', anno: 1954, immatricolazione: '1971-12-30', ASI:'2222' },
   {targa:'XXX333XXX', ID_tessera: 3, marca: 'Ferrari', modello: '275 GTB/4 N.A.R.T', anno: 1967, immatricolazione: '1980-07-02', ASI: '' },
-  {targa:'XXX444XXX', ID_tessera: NaN, marca: 'Ferrari', modello: '275 GTB/C Speciale', anno: 1964, immatricolazione: '275 GTB/C Speciale', ASI: '' }
+  {targa:'XXX444XXX', ID_tessera: NaN, marca: 'Ferrari', modello: '275 GTB/C Speciale', anno: 1964, immatricolazione: '1975-04-13', ASI: '' }
 
 ];
 
@@ -96,8 +96,11 @@ export class TableAutoDataSource extends DataSource<TableAutoItem> {
     return data.sort((a, b) => {
       const isAsc = this.sort?.direction === 'asc';
       switch (this.sort?.active) {
-        case 'name': return compare(a.ID_tessera, b.ID_tessera, isAsc);
-        case 'id': return compare(+a.targa, +b.targa, isAsc);
+        case 'targa': return compare(a.targa, b.targa, isAsc);
+        case 'ID_tessera': return compare(+a.ID_tessera, +b.ID_tessera, isAsc);
+        case 'anno': return compare(+a.anno, +b.anno, isAsc);
+        case 'marca': return compare(+a.marca, +b.marca, isAsc);
+        case 'immatricolazione': return compare(+a.immatricolazione, +b.immatricolazione, isAsc);
         default: return 0;
       }
     });
