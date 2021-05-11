@@ -9,7 +9,7 @@ import { MatSelectModule } from '@angular/material/select';
 
 import { RegistrationFormComponent } from './registration-form.component';
 
-describe('RegistrationFormComponent', () => {
+describe('RegistrationFormComponent', () => {  
   let component: RegistrationFormComponent;
   let fixture: ComponentFixture<RegistrationFormComponent>;
 
