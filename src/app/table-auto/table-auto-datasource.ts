@@ -3,6 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
+import { getLocaleDateFormat } from '@angular/common';
 
 // TODO: Replace this with your own data model type
 export interface TableAutoItem {
@@ -26,6 +27,8 @@ const EXAMPLE_DATA: TableAutoItem[] = [
 
 ];
 
+
+
 /**
  * Data source for the TableAuto view. This class should
  * encapsulate all logic for fetching and manipulating the displayed data
@@ -35,7 +38,6 @@ export class TableAutoDataSource extends DataSource<TableAutoItem> {
   data: TableAutoItem[] = EXAMPLE_DATA;
   paginator: MatPaginator | undefined;
   sort: MatSort | undefined;
-  filter: string | undefined;
 
   constructor() {
     super();
@@ -113,3 +115,7 @@ function compare(a: string | number, b: string | number, isAsc: boolean): number
 }
 
 
+function getData(): TableAutoItem[]
+{
+  return EXAMPLE_DATA;
+}
