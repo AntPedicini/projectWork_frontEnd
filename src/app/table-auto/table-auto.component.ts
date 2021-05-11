@@ -40,14 +40,67 @@ export class TableAutoComponent {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
+
+
   }
 
+  tesseraFilter(event: Event) {
 
-  applyFilter(event: Event) {
+    //imposta i campi di ricerca sul quale agisce il filtro
+    this.dataSource.filterPredicate = (data: TableAutoItem, filter: any) => {
+      return data.ID_tessera.toString()   .includes(filter);
+     };
+
+    //filtra le righe in base al criterio del filterPredicate
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  allFilter(event: Event) {
+
+    this.dataSource.filterPredicate = (data: TableAutoItem, filter: any) => {
+    return  data.targa.trim().toLowerCase()   .includes(filter.trim().toLowerCase()) ||
+            data.ID_tessera.toString().trim().toLowerCase()   .includes(filter.trim().toLowerCase()) ||
+            data.ASI.trim().toLowerCase()   .includes(filter.trim().toLowerCase()) ||
+            data.anno.toString().trim().toLowerCase()   .includes(filter.trim().toLowerCase()) ||
+            data.immatricolazione.trim().toLowerCase()   .includes(filter.trim().toLowerCase()) ||
+            data.marca.trim().toLowerCase()   .includes(filter.trim().toLowerCase()) ||
+            data.modello.trim().toLowerCase()   .includes(filter.trim().toLowerCase());
+    };
+
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  targaFilter(event: Event) {
+
+    this.dataSource.filterPredicate = (data: TableAutoItem, filter: any) => {
+    return data.targa.trim().toLowerCase()   .includes(filter.trim().toLowerCase());
+    };
+
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  annoFilter(event: Event) {
+
+    this.dataSource.filterPredicate = (data: TableAutoItem, filter: any) => {
+    return data.anno.toString().trim().toLowerCase()   .includes(filter.trim().toLowerCase());
+    };
+
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  ASIFilter(event: Event) {
+
+    this.dataSource.filterPredicate = (data: TableAutoItem, filter: any) => {
+    return data.ASI.trim().toLowerCase()   .includes(filter.trim().toLowerCase());
+    };
+
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 
 }
 
