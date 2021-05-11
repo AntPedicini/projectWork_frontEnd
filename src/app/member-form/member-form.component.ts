@@ -1,11 +1,11 @@
-import { Component, NgModule } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-member-form',
   templateUrl: './member-form.component.html',
   styleUrls: ['./member-form.component.css'],
-  
 })
 
 export class MemberFormComponent {
@@ -45,8 +45,29 @@ export class MemberFormComponent {
   constructor(private fb: FormBuilder) {}
 
   //Import foto
-  onFileSelected(event: any){
-    console.log(event);
+  //Import 1++ foto
+  urls:any[]=[]
+  selectFiles(event: any){
+    if(event.target.files){
+      for(var i=0;i<File.length;i++){
+        var reader=new FileReader()
+        reader.readAsDataURL(event.target.files[i])
+        reader.onload=(event:any)=>{
+          this.urls.push(event.target.result)
+        }
+      }
+    }
+  }
+
+  //Reset import
+  @ViewChild('myInput', { static: false })
+  InputVar!: ElementRef;
+
+  reset() {
+    this.InputVar.nativeElement.value = "";
+    while(this.urls.length!=0){
+      this.urls.length--;
+    }
   }
 
   //Submit
@@ -56,3 +77,8 @@ export class MemberFormComponent {
 }
 
 export class DatepickerOverviewExample {}
+function push(result: any): never[] {
+  throw new Error('Function not implemented.');
+}
+
+

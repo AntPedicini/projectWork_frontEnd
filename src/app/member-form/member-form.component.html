@@ -28,7 +28,7 @@
               Data <strong>obbligatoria!</strong>
             </mat-error>
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-date-range-picker #picker></mat-date-range-picker>
+            <mat-date-range-picker touchUi #picker></mat-date-range-picker>
           </mat-form-field>
         </div>
       </div>
@@ -75,9 +75,9 @@
         <div class="col">
           <mat-form-field color="primary" class="fill">
               <mat-label>Data di nascita</mat-label>
-              <input matInput [matDatepicker]="picker" formControlName="data_nascita">
-              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker color="primary"></mat-datepicker>
+              <input matInput [matDatepicker]="picke" formControlName="data_nascita">
+              <mat-datepicker-toggle matSuffix [for]="picke"></mat-datepicker-toggle>
+              <mat-datepicker touchUi #picke color="primary"></mat-datepicker>
               <mat-error *ngIf="addressForm.controls['data_nascita'].hasError('required')">
                 Data di nascita <strong>obbligatoria!</strong>
               </mat-error>
@@ -137,7 +137,7 @@
         <div class="col">
           <section class="example-section">
             <!--<mat-checkbox class="example-margin" formControlName="segretario">Segretario</mat-checkbox>-->
-            <mat-slide-toggle formControlName="segretario" color="warn">Segretario</mat-slide-toggle>
+            <mat-slide-toggle formControlName="segretario" color="primary">Segretario</mat-slide-toggle>
           </section>
         </div>
       </div>
@@ -181,10 +181,11 @@
         <!-- ANNO -->
         <div class="col">
           <mat-form-field color="primary" class="full-width">
-            <mat-label>Anno</mat-label>
+            <!--<mat-label>Anno</mat-label>
             <input matInput [matDatepicker]="picker2" formControlName="anno">
             <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-            <mat-datepicker #picker2 color="primary"></mat-datepicker>
+            <mat-datepicker #picker2 color="primary"></mat-datepicker>-->
+            <input matInput maxlength="4" placeholder="Anno" formControlName="anno" type="number">
             <mat-error *ngIf="addressForm.controls['anno'].hasError('required')">
               Anno <strong>obbligatorio!</strong>
             </mat-error>
@@ -196,7 +197,7 @@
             <mat-label>Data di immatricolazione</mat-label>
               <input matInput [matDatepicker]="picker3" formControlName="immatricolazione">
               <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-              <mat-datepicker #picker3 color="primary"></mat-datepicker>
+              <mat-datepicker touchUi #picker3 color="primary"></mat-datepicker>
               <mat-error *ngIf="addressForm.controls['immatricolazione'].hasError('required')">
                 Data di immatricolazione <strong>obbligatoria!</strong>
               </mat-error>
@@ -214,14 +215,14 @@
         <div class="col">
           <div class="fill">
             <div class="margin">
-              <mat-label>Seleziona una foto</mat-label><br/>
-              <input type="file" (change)="onFileSelected($event)">
+              <mat-label>Inserisci foto</mat-label><br/>
+              <input #myInput type="file" (change)="selectFiles($event)" multiple>
+              <input class="favorite styled" type="button" value="Rimuovi" (click)="reset()">
             </div>
           </div>
+          <img class="image" *ngFor="let url of urls" [src]="url" alt="">
         </div>
       </div>
-
-
     </mat-card-content>
     <mat-card-actions>
       <button mat-raised-button color="primary" type="submit">Invia</button>

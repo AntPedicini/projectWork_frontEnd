@@ -37,6 +37,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { HttpClientModule } from '@angular/common/http';
+
 
 
 @NgModule({
@@ -53,7 +55,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     TablePresenceComponent,
     EventFormComponent,
     RegistrationFormComponent,
-    MenuComponent
+    MenuComponent,
   ],
   imports: [
     BrowserModule,
@@ -78,9 +80,11 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     MatCheckboxModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    HttpClientModule   
   ],
-  providers: [{provide: MAT_DATE_LOCALE, useValue: 'it-IT'}],
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'it-IT'}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
