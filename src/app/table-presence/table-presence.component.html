@@ -1,15 +1,42 @@
+<h2>ISCRIZIONI</h2>
+
 <div class="mat-elevation-z8">
-  <table mat-table class="full-width-table" matSort aria-label="Elements">
+  <table mat-table class="full-width-table" matSort aria-label="Iscrizioni">
     <!-- Id Column -->
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
-      <td mat-cell *matCellDef="let row">{{row.id}}</td>
+    <ng-container matColumnDef="cod_evento">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Codice Evento</th>
+      <td mat-cell *matCellDef="let row">{{row.cod_evento}}</td>
     </ng-container>
 
     <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
-      <td mat-cell *matCellDef="let row">{{row.name}}</td>
+    <ng-container matColumnDef="nome_evento">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Nome Evento</th>
+      <td mat-cell *matCellDef="let row">{{row.nome_evento}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="targa">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Targa Iscritta</th>
+      <td mat-cell *matCellDef="let row">{{row.targa}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="costo_unitario">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Costo Unitario</th>
+      <td mat-cell *matCellDef="let row">{{row.costo_unitario}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="posti_disponibili">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Posti Disponibili</th>
+      <td mat-cell *matCellDef="let row">{{row.posti_disponibili}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="partecipanti_iscritti">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Numero Iscritti</th>
+      <td mat-cell *matCellDef="let row">{{row.partecipanti_iscritti}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="partecipanti_effettivi">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Presenti</th>
+      <td mat-cell *matCellDef="let row">{{row.partecipanti_effettivi}}</td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

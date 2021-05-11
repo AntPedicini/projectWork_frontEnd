@@ -14,7 +14,6 @@ const EXAMPLE_DATA: TableAutoItem[] = [
 
 ];
 
-
 @Component({
   selector: 'app-table-auto',
   templateUrl: './table-auto.component.html',
@@ -33,15 +32,12 @@ export class TableAutoComponent {
   constructor() {
     //this.dataSource = new TableAutoDataSource();
     this.dataSource = new MatTableDataSource(EXAMPLE_DATA);
-
   }
 
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
-
-
   }
 
   tesseraFilter(event: Event) {

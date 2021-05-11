@@ -1,3 +1,30 @@
+<h2>EVENTI</h2>
+
+<mat-form-field>
+  <mat-label>Cerca in tutti i campi </mat-label>
+  <input matInput (keyup)="allFilter($event)" placeholder="Inserisci testo" #input>
+</mat-form-field>
+
+<mat-form-field class="find">
+  <mat-label>Cerca per Codice Evento</mat-label>
+  <input matInput (keyup)="cod_eventoFilter($event)" placeholder="Inserisci Codice" #input>
+</mat-form-field>
+
+<mat-form-field class="find">
+  <mat-label>Cerca per Nome Evento</mat-label>
+  <input matInput (keyup)="nome_eventoFilter($event)" placeholder="Inserisci Nome Evento" #input>
+</mat-form-field>
+
+<mat-form-field class="find">
+  <mat-label>Cerca per Location</mat-label>
+  <input matInput (keyup)="locationFilter($event)" placeholder="Inserisci Location" #input>
+</mat-form-field>
+
+<mat-form-field class="find">
+  <mat-label>Cerca per Data</mat-label>
+  <input matInput (keyup)="dataFilter($event)" placeholder="Inserisci Data YYYY-MM-DD" #input>
+</mat-form-field>
+
 <div class="mat-elevation-z8">
   <table mat-table class="full-width-table" matSort aria-label="cod_evento">
     <!-- Id Column -->
@@ -46,13 +73,15 @@
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No data matching the filter</td>
+    </tr>
+
   </table>
 
-  <mat-paginator #paginator
-      [length]="dataSource?.data?.length"
-      [pageIndex]="0"
-      [pageSize]="10"
-      [pageSizeOptions]="[5, 10, 20]">
+  <mat-paginator #paginator [length]="dataSource?.data?.length" [pageIndex]="0" [pageSize]="10"
+    [pageSizeOptions]="[5, 10, 20]">
   </mat-paginator>
 </div>
-
