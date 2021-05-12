@@ -35,7 +35,8 @@ export class MemberFormComponent {
     modello: [null, Validators.required],
     anno: [null, Validators.required],
     immatricolazione: [null, Validators.required],
-    asi: null
+    asi: null,
+    foto: null
   });
 
   allComplete: boolean = false;

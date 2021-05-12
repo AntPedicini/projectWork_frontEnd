@@ -48,7 +48,10 @@
         <!-- ISCRITTI READONLY, PRENDERE INFO DA DB-->
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput placeholder="Partecipanti iscritti //ReadOnly" formControlName="iscritti" type="number" readonly="readonly">
+            <input matInput type="number" name="quantity" min="1" max="5" placeholder="Partecipanti iscritti" formControlName="iscritti">
+            <mat-error *ngIf="addressForm.controls['iscritti'].hasError('required')">
+              Partecipanti iscritti <strong>obbligatori!</strong>
+            </mat-error>
           </mat-form-field>
         </div>
       </div>

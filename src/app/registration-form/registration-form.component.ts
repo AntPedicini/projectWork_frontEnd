@@ -13,7 +13,7 @@ export class RegistrationFormComponent {
     id_evento: [null, Validators.required],
     targa: [null, Validators.required],
     posti: null,
-    iscritti: null
+    iscritti: [null, Validators.required]
   });
 
   hasUnitNumber = false;
