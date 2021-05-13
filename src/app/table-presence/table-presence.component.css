@@ -1,3 +1,47 @@
 .full-width-table {
   width: 100%;
 }
+
+.mat-form-field {
+  font-size: 14px;
+  width: 95%;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.find {
+  width: 30%;
+  display: inline-block;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.checkout{
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+.reg{
+  display: inline-block;
+  width: 10%;
+  margin-left: 30px;
+  padding-right: 10px;
+}
+
+.card{
+  display: inline-block;
+  width: 15%;
+  height: 30px;
+  margin-left: 30px;
+  margin-right: 10px;
+
+}
+
+.btn{
+  display: inline-block;
+  width: 200px;
+  margin-left: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  /*float: right;*/
+}

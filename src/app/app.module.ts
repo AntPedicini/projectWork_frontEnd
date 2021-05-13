@@ -32,11 +32,11 @@ import { TablePresenceComponent } from './table-presence/table-presence.componen
 import { EventFormComponent } from './event-form/event-form.component';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
 import { MenuComponent } from './menu/menu.component';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { HttpClientModule } from '@angular/common/http';
 
 
@@ -81,7 +81,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSlideToggleModule,
-    HttpClientModule
+    HttpClientModule  
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'it-IT'}],

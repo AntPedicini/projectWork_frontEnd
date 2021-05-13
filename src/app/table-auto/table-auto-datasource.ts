@@ -3,36 +3,31 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
+import { getLocaleDateFormat } from '@angular/common';
 
 // TODO: Replace this with your own data model type
 export interface TableAutoItem {
-  name: string;
-  id: number;
+  targa: string;
+  ID_tessera: number;
+  marca: string;
+  modello: string;
+  anno: number;
+  immatricolazione : string;
+  ASI: string;
+  //foto: Blob;
 }
 
 // TODO: replace this with real data from your application
 const EXAMPLE_DATA: TableAutoItem[] = [
-  {id: 1, name: 'Hydrogen'},
-  {id: 2, name: 'Helium'},
-  {id: 3, name: 'Lithium'},
-  {id: 4, name: 'Beryllium'},
-  {id: 5, name: 'Boron'},
-  {id: 6, name: 'Carbon'},
-  {id: 7, name: 'Nitrogen'},
-  {id: 8, name: 'Oxygen'},
-  {id: 9, name: 'Fluorine'},
-  {id: 10, name: 'Neon'},
-  {id: 11, name: 'Sodium'},
-  {id: 12, name: 'Magnesium'},
-  {id: 13, name: 'Aluminum'},
-  {id: 14, name: 'Silicon'},
-  {id: 15, name: 'Phosphorus'},
-  {id: 16, name: 'Sulfur'},
-  {id: 17, name: 'Chlorine'},
-  {id: 18, name: 'Argon'},
-  {id: 19, name: 'Potassium'},
-  {id: 20, name: 'Calcium'},
+  {targa:'XXX111XXX', ID_tessera: 1, marca: 'Ferrari', modello: '250 GTO', anno: 1963, immatricolazione: '1970-02-20', ASI:'1111' },
+  {targa:'XXX112XXX', ID_tessera: 1, marca: 'Bugatti', modello: 'Type 57SC', anno: 1936, immatricolazione: '1940-06-04', ASI:'1112' },
+  {targa:'XXX222XXX', ID_tessera: 2, marca: 'Mercedes', modello: 'W196R', anno: 1954, immatricolazione: '1971-12-30', ASI:'2222' },
+  {targa:'XXX333XXX', ID_tessera: 3, marca: 'Ferrari', modello: '275 GTB/4 N.A.R.T', anno: 1967, immatricolazione: '1980-07-02', ASI: '' },
+  {targa:'XXX444XXX', ID_tessera: NaN, marca: 'Ferrari', modello: '275 GTB/C Speciale', anno: 1964, immatricolazione: '1975-04-13', ASI: '' }
+
 ];
+
+
 
 /**
  * Data source for the TableAuto view. This class should
@@ -72,6 +67,12 @@ export class TableAutoDataSource extends DataSource<TableAutoItem> {
    */
   disconnect(): void {}
 
+
+
+
+
+
+
   /**
    * Paginate the data (client-side). If you're using server-side pagination,
    * this would be replaced by requesting the appropriate data from the server.
@@ -97,8 +98,11 @@ export class TableAutoDataSource extends DataSource<TableAutoItem> {
     return data.sort((a, b) => {
       const isAsc = this.sort?.direction === 'asc';
       switch (this.sort?.active) {
-        case 'name': return compare(a.name, b.name, isAsc);
-        case 'id': return compare(+a.id, +b.id, isAsc);
+        case 'targa': return compare(a.targa, b.targa, isAsc);
+        case 'ID_tessera': return compare(+a.ID_tessera, +b.ID_tessera, isAsc);
+        case 'anno': return compare(+a.anno, +b.anno, isAsc);
+        case 'marca': return compare(+a.marca, +b.marca, isAsc);
+        case 'immatricolazione': return compare(+a.immatricolazione, +b.immatricolazione, isAsc);
         default: return 0;
       }
     });
@@ -108,4 +112,10 @@ export class TableAutoDataSource extends DataSource<TableAutoItem> {
 /** Simple sort comparator for example ID/Name columns (for client-side sorting). */
 function compare(a: string | number, b: string | number, isAsc: boolean): number {
   return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+}
+
+
+function getData(): TableAutoItem[]
+{
+  return EXAMPLE_DATA;
 }

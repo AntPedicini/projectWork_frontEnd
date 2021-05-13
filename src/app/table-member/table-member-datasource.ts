@@ -6,32 +6,24 @@ import { Observable, of as observableOf, merge } from 'rxjs';
 
 // TODO: Replace this with your own data model type
 export interface TableMemberItem {
-  name: string;
-  id: number;
+  tessera: number;
+  validita: number;
+  nome: string;
+  cognome: string;
+  nato_il: string;
+  codice_fiscale: string;
+  indirizzo: string;
+  email: string;
+  consiglio: boolean;
+  segretario: boolean;
 }
 
 // TODO: replace this with real data from your application
 const EXAMPLE_DATA: TableMemberItem[] = [
-  {id: 1, name: 'Hydrogen'},
-  {id: 2, name: 'Helium'},
-  {id: 3, name: 'Lithium'},
-  {id: 4, name: 'Beryllium'},
-  {id: 5, name: 'Boron'},
-  {id: 6, name: 'Carbon'},
-  {id: 7, name: 'Nitrogen'},
-  {id: 8, name: 'Oxygen'},
-  {id: 9, name: 'Fluorine'},
-  {id: 10, name: 'Neon'},
-  {id: 11, name: 'Sodium'},
-  {id: 12, name: 'Magnesium'},
-  {id: 13, name: 'Aluminum'},
-  {id: 14, name: 'Silicon'},
-  {id: 15, name: 'Phosphorus'},
-  {id: 16, name: 'Sulfur'},
-  {id: 17, name: 'Chlorine'},
-  {id: 18, name: 'Argon'},
-  {id: 19, name: 'Potassium'},
-  {id: 20, name: 'Calcium'},
+  {tessera: 1, validita: 2021, nome: 'John', cognome: 'Doe', nato_il: '1986-02-15', codice_fiscale: 'XXXXXXXXXXXXXXXX', indirizzo:'VI', email: 'john.doe@anticheglorie.com', consiglio: true, segretario: true},
+  {tessera: 2, validita: 2021, nome: 'Bill', cognome: 'Smith', nato_il: '1980-05-23', codice_fiscale: 'YYYYYYYYYYYYYYYY', indirizzo:'PD', email: 'bill.smith@anticheglorie.com', consiglio: true, segretario: false},
+  {tessera: 3, validita: 2021, nome: 'Lucy', cognome: 'Flowers', nato_il: '1990-11-03', codice_fiscale: 'ZZZZZZZZZZZZZZZ', indirizzo:'MI', email: 'lucy.flowers@anticheglorie.com', consiglio: false, segretario: false}
+
 ];
 
 /**
@@ -97,8 +89,10 @@ export class TableMemberDataSource extends DataSource<TableMemberItem> {
     return data.sort((a, b) => {
       const isAsc = this.sort?.direction === 'asc';
       switch (this.sort?.active) {
-        case 'name': return compare(a.name, b.name, isAsc);
-        case 'id': return compare(+a.id, +b.id, isAsc);
+        case 'tessera': return compare(a.tessera, b.tessera, isAsc);
+        case 'nome': return compare(+a.nome, +b.nome, isAsc);
+        case 'cognome': return compare(+a.cognome, +b.cognome, isAsc);
+        case 'codice_fiscale': return compare(+a.codice_fiscale, +b.codice_fiscale, isAsc);
         default: return 0;
       }
     });
