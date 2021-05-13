@@ -40,7 +40,6 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { HttpClientModule } from '@angular/common/http';
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,6 +55,7 @@ import { HttpClientModule } from '@angular/common/http';
     EventFormComponent,
     RegistrationFormComponent,
     MenuComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -81,7 +81,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSlideToggleModule,
-    HttpClientModule   
+    HttpClientModule
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'it-IT'}],

@@ -23,3 +23,14 @@
 .prova{
   margin-top: 200px;
 }
+
+table {
+  width: 100%;
+}
+
+.banner{
+  border: 1px dotted black;
+  width: 85em;
+  height: 410px;
+  border-radius: 5px;
+}

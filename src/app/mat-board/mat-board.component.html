@@ -1,35 +1,120 @@
 <div class="grid-container">
   <h1 class="mat-h1">HOME</h1>
-  <mat-grid-list cols="2" rowHeight="350px">
+  
+  <!-- CARTA N.1 -->
+  <mat-grid-list cols="2" rowHeight="500px">
     <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
       <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title>
             {{card.title}}
-            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <div>
+            <img class="banner" src="../assets/images/banner.jpg">
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <!-- CARTA N.2 -->
+  <mat-grid-list cols="2" rowHeight="400px">
+    <mat-grid-tile *ngFor="let carta of carte | async" [colspan]="carta.cols" [rowspan]="carta.rows">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            {{carta.title}}
+            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menuSoci" aria-label="Toggle menu">
               <mat-icon>more_vert</mat-icon>
             </button>
-            
-            <mat-menu #menu="matMenu" xPosition="before">
-              <button mat-menu-item>Expand</button>
-              <button mat-menu-item>Remove</button>
+            <mat-menu #menuSoci="matMenu" xPosition="before"> 
+                <a routerLink = 'nuovoSocio'><button mat-menu-item>Inserisci nuovo socio</button></a>
+                <a routerLink = 'showMember'><button mat-menu-item>Visualizza soci</button></a>
             </mat-menu>
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
           <div>
+            <mat-table [dataSource]="soci" class="mat-elevation-z8">
+              <!-- Position Column -->
+              <ng-container matColumnDef="position">
+                <mat-header-cell *matHeaderCellDef> N. </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+              </ng-container>
             
+              <!-- Name Column -->
+              <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+              </ng-container>
             
-            Card Content Here
-
+              <!-- Campo Column -->
+              <ng-container matColumnDef="campo">
+                <mat-header-cell *matHeaderCellDef> Campo </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.campo}} </mat-cell>
+              </ng-container>
             
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
           </div>
         </mat-card-content>
-        <mat-card-actions class="prova">
-          <button mat-button>LIKE</button>
-          <button mat-button>SHARE</button>
-        </mat-card-actions>
       </mat-card>
     </mat-grid-tile>
   </mat-grid-list>
+
+  <!-- CARTA N.3 -->
+  <mat-grid-list cols="2" rowHeight="400px">
+    <mat-grid-tile *ngFor="let carta of carte2 | async" [colspan]="carta.cols" [rowspan]="carta.rows">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            {{carta.title}}
+            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menuEventi" aria-label="Toggle menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menuEventi="matMenu" xPosition="before">
+              <a routerLink = 'newEvent'><button mat-menu-item>Nuovo Evento</button></a>
+              <a routerLink = 'showEvent'><button mat-menu-item>Visualizza Eventi</button></a>
+            </mat-menu>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <div>
+            <mat-table [dataSource]="eventi" class="mat-elevation-z8">
+              <!-- Position Column -->
+              <ng-container matColumnDef="position">
+                <mat-header-cell *matHeaderCellDef> N. </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+              </ng-container>
+            
+              <!-- Name Column -->
+              <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+              </ng-container>
+            
+              <!-- Campo Column -->
+              <ng-container matColumnDef="campo">
+                <mat-header-cell *matHeaderCellDef> Campo </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.campo}} </mat-cell>
+              </ng-container>
+            
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+
+  <!--       -->
+
+
+  
+
 </div>

@@ -2,32 +2,98 @@ import { Component } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 
+import { OnInit } from '@angular/core';
+
 @Component({
   selector: 'app-mat-board',
   templateUrl: './mat-board.component.html',
   styleUrls: ['./mat-board.component.css']
 })
-export class MatBoardComponent {
+
+export class MatBoardComponent implements OnInit{
   /** Based on the screen size, switch from standard to one column per row */
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
       if (matches) {
         return [
-          { title: 'Card 1', cols: 1, rows: 1 },
-          { title: 'Card 2', cols: 1, rows: 1 },
-          { title: 'Card 3', cols: 1, rows: 1 },
-          { title: 'Card 4', cols: 1, rows: 1 }
+          { title: 'Vecchie Glorie', cols: 2, rows: 1 },
+          /*{ title: 'Card 2', cols: 1, rows: 1 },
+          { title: 'Card 3', cols: 1, rows: 1 }*/
         ];
       }
 
       return [
-        { title: 'Card 1', cols: 2, rows: 1 },
-        { title: 'Card 2', cols: 1, rows: 1 },
-        { title: 'Card 3', cols: 1, rows: 1 },  //1,2
-        { title: 'Card 4', cols: 2, rows: 1 }   //1,1
+        { title: 'Vecchie Glorie', cols: 2, rows: 1 },
+        /*{ title: 'Card 2', cols: 1, rows: 1 },
+        { title: 'Card 3', cols: 1, rows: 1 }*/ 
+      ];
+    })
+  );
+
+  carte = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
+    map(({ matches }) => {
+      if (matches) {
+        return [
+          { title: 'Soci', cols: 2, rows: 1 },
+        ];
+      }
+
+      return [
+        { title: 'Soci', cols: 2, rows: 1 },
+      ];
+    })
+  );
+
+  carte2 = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
+    map(({ matches }) => {
+      if (matches) {
+        return [
+          { title: 'Eventi', cols: 2, rows: 1 }
+        ];
+      }
+
+      return [
+        { title: 'Eventi', cols: 2, rows: 1 } 
       ];
     })
   );
 
   constructor(private breakpointObserver: BreakpointObserver) {}
+
+  displayedColumns: string[] = ['position', 'name', 'campo'];
+  soci = VIS_SOCI;
+  eventi = VIS_EVENTI;
+
+  ngOnInit(): void {
+  }
+
 }
+
+export interface Costruttore_soci {
+  name: string;
+  position: number;
+  campo: string;
+}
+
+export interface Costruttore_eventi {
+  name: string;
+  position: number;
+  campo: string;
+}
+
+const VIS_SOCI: Costruttore_soci[] = [
+  {position: 1, name: 'Socio1', campo: '?'},
+  {position: 2, name: 'Socio2', campo: '?'},
+  {position: 3, name: 'Socio3', campo: '?'},
+  {position: 4, name: 'Socio4', campo: '?'},
+  {position: 5, name: 'Socio5', campo: '?'},
+];
+
+const VIS_EVENTI: Costruttore_eventi[] = [
+  {position: 1, name: 'Evento1', campo: '?'},
+  {position: 2, name: 'Evento2', campo: '?'},
+  {position: 3, name: 'Evento3', campo: '?'},
+  {position: 4, name: 'Evento4', campo: '?'},
+  {position: 5, name: 'Evento5', campo: '?'},
+];
+
