@@ -1,4 +1,4 @@
-<form [formGroup]="addressForm" novalidate (ngSubmit)="onSubmit()">
+<form [formGroup]="addressForm" novalidate>
   <mat-card class="shipping-card">
     <mat-card-header>
       <mat-card-title>Registrazione nuovo evento</mat-card-title>
@@ -111,7 +111,8 @@
       </div>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button color="primary" type="submit">Invia</button>
+      <button mat-raised-button color="primary" type="submit" (click)="onSubmit()">Registra Evento</button>
+      <button mat-raised-button color="primary" type="submit" value="modifica" (click)="onUpdate()">Modifca Evento</button>
     </mat-card-actions>
   </mat-card>
 </form>

@@ -80,10 +80,19 @@
   [pageSize]="10"
   [pageSizeOptions]="[5, 10, 20]">
   </mat-paginator>
-</div>
 
-<div>
-
-  <!-- Component innestato -->
-
+  <form [formGroup]="registrationForm" >
+    <mat-form-field class="reg">
+      <mat-label>Scegli Targa</mat-label>
+      <mat-select [(value)]="selected" formControlName="targa" matInput placeholder="Targa" #input>
+        <mat-option *ngFor="let targa of elenco_targhe" value="{{targa}}">{{targa}}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="registrationForm.controls['targa'].hasError('required')">
+        Targa <strong>obbligatoria!</strong>
+      </mat-error>
+    </mat-form-field>
+    <div class="btn">
+      <button mat-raised-button  color="primary" type="submit" value="delete" (click)="onDelete()">Cancella Auto</button>
+    </div>
+  </form>
 </div>

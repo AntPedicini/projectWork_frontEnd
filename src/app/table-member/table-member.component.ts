@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
@@ -22,12 +23,21 @@ export class TableMemberComponent {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<TableMemberItem>;
   dataSource: MatTableDataSource<TableMemberItem>;
+  elenco_tessere: any[] = [];
+  selected = null;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['tessera', 'validita', 'nome', 'cognome', 'nato_il','codice_fiscale', 'indirizzo', 'email', 'consiglio', 'segretario'];
 
-  constructor() {
+  constructor(private fb: FormBuilder) {
     this.dataSource = new MatTableDataSource(EXAMPLE_DATA);
+    var n:any=null;
+    EXAMPLE_DATA.forEach(element => {
+      if(element.tessera!=n){
+        this.elenco_tessere.push(element.tessera);
+        n=element.tessera;
+      }
+    });
   }
 
   ngAfterViewInit(): void {
@@ -97,5 +107,15 @@ export class TableMemberComponent {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  onDelete() {
+    // TODO: Use EventEmitter with form value
+    console.log("Funzione cancellazione");
+    console.log(this.registrationForm.value);
+    alert('Delete');
+  }
+
+  registrationForm = this.fb.group({
+    tessera: [null, Validators.required],
+  });
   
 }
