@@ -20,10 +20,6 @@
   text-align: center;
 }
 
-.prova{
-  margin-top: 200px;
-}
-
 table {
   width: 100%;
 }
@@ -33,4 +29,13 @@ table {
   width: 85em;
   height: 410px;
   border-radius: 5px;
+}
+
+.example-container {
+  height: 260px;
+  overflow: auto;
+}
+
+td{
+  text-align: left;
 }

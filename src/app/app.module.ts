@@ -81,7 +81,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSlideToggleModule,
-    HttpClientModule  
+    HttpClientModule
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'it-IT'}],

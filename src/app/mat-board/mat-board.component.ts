@@ -87,6 +87,11 @@ const VIS_SOCI: Costruttore_soci[] = [
   {position: 3, name: 'Socio3', campo: '?'},
   {position: 4, name: 'Socio4', campo: '?'},
   {position: 5, name: 'Socio5', campo: '?'},
+  {position: 6, name: 'Socio6', campo: '?'},
+  {position: 7, name: 'Socio7', campo: '?'},
+  {position: 8, name: 'Socio8', campo: '?'},
+  {position: 9, name: 'Socio9', campo: '?'},
+  {position: 10, name: 'Socio10', campo: '?'},
 ];
 
 const VIS_EVENTI: Costruttore_eventi[] = [
@@ -95,5 +100,9 @@ const VIS_EVENTI: Costruttore_eventi[] = [
   {position: 3, name: 'Evento3', campo: '?'},
   {position: 4, name: 'Evento4', campo: '?'},
   {position: 5, name: 'Evento5', campo: '?'},
+  {position: 6, name: 'Evento6', campo: '?'},
+  {position: 7, name: 'Evento7', campo: '?'},
+  {position: 8, name: 'Evento8', campo: '?'},
+  {position: 9, name: 'Evento9', campo: '?'},
+  {position: 10, name: 'Evento10', campo: '?'},
 ];
-
