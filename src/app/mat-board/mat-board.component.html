@@ -19,39 +19,40 @@
   </mat-grid-list>
 
   <!-- CARTA N.2 -->
-  <mat-grid-list cols="2" rowHeight="350px">
+  <!--<mat-grid-list cols="2" rowHeight="350px">
     <mat-grid-tile *ngFor="let carta of carte | async" [colspan]="carta.cols" [rowspan]="carta.rows">
       <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title>
             {{carta.title}}
-            <!-- Bottoni Extra Inserisci/Visualizza Socio -->
+             Bottoni Extra Inserisci/Visualizza Socio -->
             <!--<button mat-icon-button class="more-button" [matMenuTriggerFor]="menuSoci" aria-label="Toggle menu">
               <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menuSoci="matMenu" xPosition="before"> 
                 <button routerLink = 'nuovoSocio' mat-menu-item>Inserisci nuovo socio</button>
                 <button routerLink = 'showMember' mat-menu-item>Visualizza soci</button>
-            </mat-menu>-->
+            </mat-menu>
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
           <div class="example-container mat-elevation-z8">
+            <app-table-member></app-table-member>
             <table mat-table [dataSource]="soci">
           
-              <!-- Position Column -->
+               Position Column 
               <ng-container matColumnDef="position">
                 <th mat-header-cell *matHeaderCellDef> No. </th>
                 <td mat-cell *matCellDef="let element"> {{element.position}} </td>
               </ng-container>
           
-              <!-- Name Column -->
+               Name Column 
               <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef> Name </th>
                 <td mat-cell *matCellDef="let element"> {{element.name}} </td>
               </ng-container>
           
-              <!-- Campo Column -->
+               Campo Column 
               <ng-container matColumnDef="campo">
                 <th mat-header-cell *matHeaderCellDef> Campo </th>
                 <td mat-cell *matCellDef="let element"> {{element.campo}} </td>
@@ -64,42 +65,43 @@
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
-  </mat-grid-list>
+  </mat-grid-list>-->
 
   <!-- CARTA N.3 -->
-  <mat-grid-list cols="2" rowHeight="350px">
+  <mat-grid-list cols="2" rowHeight="600px">
     <mat-grid-tile *ngFor="let carta of carte2 | async" [colspan]="carta.cols" [rowspan]="carta.rows">
       <mat-card class="dashboard-card">
         <mat-card-header>
-          <mat-card-title>
+          <!--<mat-card-title>
             {{carta.title}}
-            <!-- Bottoni Extra Inserisci/Visualizza Evento-->
-            <!--<button mat-icon-button class="more-button" [matMenuTriggerFor]="menuEventi" aria-label="Toggle menu">
+             Bottoni Extra Inserisci/Visualizza Evento-->
+            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menuEventi" aria-label="Toggle menu">
               <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menuEventi="matMenu" xPosition="before">
-              <button routerLink = 'newEvent' mat-menu-item>Nuovo Evento</button>
-              <button routerLink = 'showEvent' mat-menu-item>Visualizza Eventi</button>
-            </mat-menu>-->
-          </mat-card-title>
+              <button routerLink = '../newEvent' mat-menu-item>Nuovo Evento</button>
+              <button routerLink = '../showEvent' mat-menu-item>Visualizza Eventi</button>
+            </mat-menu>
+          <!--</mat-card-title>-->
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
           <div class="example-container mat-elevation-z8">
-            <table mat-table [dataSource]="eventi">
+            <app-table-event></app-table-event>
+            <!--<table mat-table [dataSource]="eventi">
           
-              <!-- Position Column -->
+               Position Column 
               <ng-container matColumnDef="position">
                 <th mat-header-cell *matHeaderCellDef> No. </th>
                 <td mat-cell *matCellDef="let element"> {{element.position}} </td>
               </ng-container>
           
-              <!-- Name Column -->
+               Name Column 
               <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef> Name </th>
                 <td mat-cell *matCellDef="let element"> {{element.name}} </td>
               </ng-container>
           
-              <!-- Campo Column -->
+               Campo Column 
               <ng-container matColumnDef="campo">
                 <th mat-header-cell *matHeaderCellDef> Campo </th>
                 <td mat-cell *matCellDef="let element"> {{element.campo}} </td>
@@ -107,7 +109,7 @@
           
               <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
+            </table>-->
           </div>
         </mat-card-content>
       </mat-card>

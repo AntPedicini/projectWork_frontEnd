@@ -17,10 +17,14 @@ export class RegistrationFormComponent {
   });
 
   hasUnitNumber = false;
-
-  constructor(private fb: FormBuilder) {}
-
+  elenco_nomi: String[] = [];
   selected = null;
+
+  constructor(private fb: FormBuilder) {
+    
+  }
+
+  
 
   onSubmit(): void {
     alert('Iscrizione avvenuta con successo');

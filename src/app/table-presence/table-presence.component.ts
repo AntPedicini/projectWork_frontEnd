@@ -1,10 +1,12 @@
 import { DataSource } from '@angular/cdk/collections';
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Output, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { TablePresenceDataSource, TablePresenceItem } from './table-presence-datasource';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
+import { element, EventEmitter } from 'protractor';
 
 
 const EXAMPLE_DATA: TablePresenceItem[] = [
@@ -32,13 +34,21 @@ export class TablePresenceComponent {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<TablePresenceItem>;
   dataSource: MatTableDataSource<TablePresenceItem>;
+  elenco_nomi: String[] = [];
+  selected = null;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['cod_evento', 'nome_evento', 'targa', 'costo_unitario', 'posti_disponibili', 'partecipanti_iscritti', 'partecipanti_effettivi'];
 
-  constructor() {
+  constructor(private fb: FormBuilder) {
     this.dataSource = new MatTableDataSource(EXAMPLE_DATA);
-
+    var n:any=null;
+    EXAMPLE_DATA.forEach(element => {
+      if(element.nome_evento!=n){
+        this.elenco_nomi.push(element.nome_evento);
+        n=element.nome_evento;
+      }
+    });
   }
 
   ngAfterViewInit(): void {
@@ -98,12 +108,11 @@ export class TablePresenceComponent {
   //======================================================================
 
   //ReactiveForm
-
-  registrationForm = new FormGroup({
-    cod_evento: new FormControl(''),
-    targa: new FormControl(''),
-    partecipanti: new FormControl(''),
-    costo: new FormControl(''),
+  registrationForm = this.fb.group({
+    cod_evento: [null, Validators.required],
+    targa: [null, Validators.required],
+    partecipanti: [null, Validators.required],
+    costo: null
   });
 
   //======================================================================
@@ -122,8 +131,16 @@ export class TablePresenceComponent {
 
   onSubmit() {
     // TODO: Use EventEmitter with form value
+    console.log("Funzione registrazione");
     console.log(this.registrationForm.value);
     alert('Submit');
+  }
+
+  onDelete() {
+    // TODO: Use EventEmitter with form value
+    console.log("Funzione cancellazione");
+    console.log(this.registrationForm.value);
+    alert('Delete');
   }
 
 }

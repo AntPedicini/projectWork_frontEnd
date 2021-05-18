@@ -61,7 +61,7 @@ export class MatBoardComponent implements OnInit{
   constructor(private breakpointObserver: BreakpointObserver) {}
 
   displayedColumns: string[] = ['position', 'name', 'campo'];
-  soci = VIS_SOCI;
+  //soci = VIS_SOCI;
   eventi = VIS_EVENTI;
 
   ngOnInit(): void {
@@ -69,11 +69,11 @@ export class MatBoardComponent implements OnInit{
 
 }
 
-export interface Costruttore_soci {
+/*export interface Costruttore_soci {
   name: string;
   position: number;
   campo: string;
-}
+}*/
 
 export interface Costruttore_eventi {
   name: string;
@@ -81,7 +81,7 @@ export interface Costruttore_eventi {
   campo: string;
 }
 
-const VIS_SOCI: Costruttore_soci[] = [
+/*const VIS_SOCI: Costruttore_soci[] = [
   {position: 1, name: 'Socio1', campo: '?'},
   {position: 2, name: 'Socio2', campo: '?'},
   {position: 3, name: 'Socio3', campo: '?'},
@@ -92,7 +92,7 @@ const VIS_SOCI: Costruttore_soci[] = [
   {position: 8, name: 'Socio8', campo: '?'},
   {position: 9, name: 'Socio9', campo: '?'},
   {position: 10, name: 'Socio10', campo: '?'},
-];
+];*/
 
 const VIS_EVENTI: Costruttore_eventi[] = [
   {position: 1, name: 'Evento1', campo: '?'},

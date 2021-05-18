@@ -80,20 +80,31 @@
 
   <h2>REGISTRA PARTECIPANTI</h2>
 
-  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="registrationForm" > <!-- (ngSubmit)="onSubmit()" -->
     <mat-form-field class="reg">
-      <mat-label>CODICE EVENTO</mat-label>
-      <input formControlName="cod_evento" matInput placeholder="codice evento" #input>
+      <mat-label>Scegli un evento</mat-label>
+      <mat-select [(value)]="selected" formControlName="cod_evento" matInput placeholder="codice evento" #input>
+        <mat-option *ngFor="let name of elenco_nomi" value="{{name}}">{{name}}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="registrationForm.controls['cod_evento'].hasError('required')">
+        Codice evento <strong>obbligatorio!</strong>
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field class="reg">
       <mat-label>TARGA </mat-label>
-      <input formControlName="targa" matInput placeholder="targa" #input>
+      <input formControlName="targa" matInput placeholder="targa" #input maxlength="7">
+      <mat-error *ngIf="registrationForm.controls['targa'].hasError('required')">
+        Targa <strong>obbligatoria!</strong>
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field class="reg">
       <mat-label>PARTECIPANTI</mat-label>
-      <input formControlName="partecipanti" matInput placeholder="partecipanti" #input>
+      <input formControlName="partecipanti" matInput placeholder="partecipanti" #input type="number">
+      <mat-error *ngIf="registrationForm.controls['partecipanti'].hasError('required')">
+        Numero partecipanti <strong>obbligatorio!</strong>
+      </mat-error>
     </mat-form-field>
 
     <mat-card class="card">
@@ -104,10 +115,10 @@
     </mat-card>
 
     <div class="btn">
-      <button mat-raised-button  color="primary" type="submit" value="update">REGISTRA PAGAMENTO</button>
+      <button mat-raised-button  color="primary" type="submit" value="update" (click)='onSubmit()'>REGISTRA PAGAMENTO</button>
     </div>
     <div class="btn">
-      <button mat-raised-button  color="primary" type="submit" value="delete">CANCELLA ISCRIZIONE</button>
+      <button mat-raised-button  color="primary" type="submit" value="delete" (click)="onDelete()">CANCELLA ISCRIZIONE</button>
     </div>
   </form>
 </div>
