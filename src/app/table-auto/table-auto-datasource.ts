@@ -17,6 +17,8 @@ export interface TableAutoItem {
   //foto: Blob;
 }
 
+
+
 // TODO: replace this with real data from your application
 const EXAMPLE_DATA: TableAutoItem[] = [
   {targa:'XXX111XXX', tessera_socio: 1, marca: 'Ferrari', modello: '250 GTO', anno: 1963, immatricolazione: '1970-02-20', ASI:'1111' },
@@ -99,7 +101,7 @@ export class TableAutoDataSource extends DataSource<TableAutoItem> {
       const isAsc = this.sort?.direction === 'asc';
       switch (this.sort?.active) {
         case 'targa': return compare(a.targa, b.targa, isAsc);
-        case 'ID_tessera': return compare(+a.tessera_socio, +b.tessera_socio, isAsc);
+        case 'tessera_socio': return compare(+a.tessera_socio, +b.tessera_socio, isAsc);
         case 'anno': return compare(+a.anno, +b.anno, isAsc);
         case 'marca': return compare(+a.marca, +b.marca, isAsc);
         case 'immatricolazione': return compare(+a.immatricolazione, +b.immatricolazione, isAsc);
