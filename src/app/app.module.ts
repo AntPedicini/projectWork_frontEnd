@@ -40,6 +40,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { HttpClientModule } from '@angular/common/http';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,8 +55,8 @@ import { HttpClientModule } from '@angular/common/http';
     TablePresenceComponent,
     EventFormComponent,
     RegistrationFormComponent,
-    MenuComponent,
-    
+    MenuComponent
+   
   ],
   imports: [
     BrowserModule,
