@@ -4,8 +4,12 @@ import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { TableAutoDataSource, TableAutoItem } from './table-auto-datasource';
 import { MatTableDataSource } from '@angular/material/table';
+<<<<<<< HEAD
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 //HttpClient
+=======
+import { FormBuilder, Validators } from '@angular/forms';
+>>>>>>> origin/DevelopFront
 
 const EXAMPLE_DATA: TableAutoItem[] = [
   {targa:'XXX111XXX', tessera_socio: 1, marca: 'Ferrari', modello: '250 GTO', anno: 1963, immatricolazione: '1970-02-20', ASI:'1111' },
@@ -27,18 +31,31 @@ export class TableAutoComponent {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<TableAutoItem>;
   dataSource: MatTableDataSource<TableAutoItem>;
+  elenco_targhe: any[] = [];
+  selected = null;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['targa', 'tessera_socio', 'marca', 'modello', 'anno','immatricolazione', 'ASI'];
 
+<<<<<<< HEAD
   constructor(private http:HttpClient) {
 
     http.get('http://localhost:8080/auto/getall').subscribe(res =>{ 
       console.log("================================="+res);
       this.dataSource = new MatTableDataSource(EXAMPLE_DATA);
     });
+=======
+  constructor(private fb: FormBuilder) {
+>>>>>>> origin/DevelopFront
     //this.dataSource = new TableAutoDataSource();
     this.dataSource = new MatTableDataSource(EXAMPLE_DATA);
+    var n:any=null;
+    EXAMPLE_DATA.forEach(element => {
+      if(element.targa!=n){
+        this.elenco_targhe.push(element.targa);
+        n=element.targa;
+      }
+    });
   }
 
   ngAfterViewInit(): void {
@@ -104,6 +121,17 @@ export class TableAutoComponent {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
+  onDelete() {
+    // TODO: Use EventEmitter with form value
+    console.log("Funzione cancellazione");
+    console.log(this.registrationForm.value);
+    alert('Delete');
+  }
+
+  registrationForm = this.fb.group({
+    targa: [null, Validators.required],
+  });
 
 }
 

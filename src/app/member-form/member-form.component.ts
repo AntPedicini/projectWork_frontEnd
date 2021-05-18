@@ -70,10 +70,24 @@ export class MemberFormComponent {
       this.urls.length--;
     }
   }
-
+  
   //Submit
-  onSubmit(): void {
-    alert('Socio iscritto con successo');
+  onSubmitSocio(): void {
+    console.log("Registrazione socio");
+    alert('Registrazione avvenuta con successo');
+    console.log(this.addressForm.value);
+  }
+
+  onSubmitAuto(): void {
+    console.log("Registrazione auto");
+    alert('Registrazione auto avvenuta con successo');
+    console.log(this.addressForm.value);
+  }
+
+  onUpdate(): void {
+    console.log("Update socio/auto");
+    alert('Update avvenuto con successo');
+    console.log(this.addressForm.value);
   }
 }
 

@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
@@ -21,12 +22,21 @@ export class TableEventComponent implements AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<TableEventItem>;
   dataSource: MatTableDataSource<TableEventItem>;
+  elenco_eventi: any[] = [];
+  selected = null;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['cod_evento', 'nome_evento', 'data_inizio', 'data_fine', 'location', 'costo_unitario', 'posti_disponibili'];
 
-  constructor() {
+  constructor(private fb: FormBuilder) {
     this.dataSource = new MatTableDataSource(EXAMPLE_DATA);
+    var n:any=null;
+    EXAMPLE_DATA.forEach(element => {
+      if(element.cod_evento!=n){
+        this.elenco_eventi.push(element.cod_evento);
+        n=element.cod_evento;
+      }
+    });
   }
 
   ngAfterViewInit(): void {
@@ -92,5 +102,16 @@ export class TableEventComponent implements AfterViewInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
+  onDelete() {
+    // TODO: Use EventEmitter with form value
+    console.log("Funzione cancellazione");
+    console.log(this.registrationForm.value);
+    alert('Delete');
+  }
+
+  registrationForm = this.fb.group({
+    cod_evento: [null, Validators.required],
+  });
 
 }

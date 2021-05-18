@@ -8,8 +8,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { element, EventEmitter } from 'protractor';
 
-
-const EXAMPLE_DATA: TablePresenceItem[] = [
+export const EXAMPLE_DATA: TablePresenceItem[] = [
   { cod_evento: 1, nome_evento: 'GIORNATA NAZIONALE VEICOLI D EPOCA', targa: 'XXX111XXX', costo_unitario: 35.7, posti_disponibili: 1, partecipanti_iscritti: 4, partecipanti_effettivi: 3 },
   { cod_evento: 1, nome_evento: 'GIORNATA NAZIONALE VEICOLI D EPOCA', targa: 'XXX222XXX', costo_unitario: 35.7, posti_disponibili: 1, partecipanti_iscritti: 2, partecipanti_effettivi: 2 },
   { cod_evento: 1, nome_evento: 'GIORNATA NAZIONALE VEICOLI D EPOCA', targa: 'XXX333XXX', costo_unitario: 35.7, posti_disponibili: 1, partecipanti_iscritti: 4, partecipanti_effettivi: NaN },
@@ -28,6 +27,7 @@ const EXAMPLE_DATA: TablePresenceItem[] = [
   selector: 'app-table-presence',
   templateUrl: './table-presence.component.html',
   styleUrls: ['./table-presence.component.css']
+
 })
 export class TablePresenceComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -36,6 +36,7 @@ export class TablePresenceComponent {
   dataSource: MatTableDataSource<TablePresenceItem>;
   elenco_nomi: String[] = [];
   selected = null;
+
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['cod_evento', 'nome_evento', 'targa', 'costo_unitario', 'posti_disponibili', 'partecipanti_iscritti', 'partecipanti_effettivi'];

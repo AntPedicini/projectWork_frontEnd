@@ -1,4 +1,4 @@
-<form [formGroup]="addressForm" novalidate (ngSubmit)="onSubmit()"> <!-- (ngSubmit)="onSubmit()" -->
+<form [formGroup]="addressForm" novalidate> <!-- (ngSubmit)="onSubmit()" -->
   <mat-card class="shipping-card">
     <mat-card-header>
 
@@ -226,7 +226,9 @@
       <img class="image" *ngFor="let url of urls" [src]="url" alt="">
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button color="primary" type="submit">Invia</button>
+      <button mat-raised-button color="primary" type="submit" value="aggiungi_totale" (click)="onSubmitSocio()">Registra Socio</button>
+      <button mat-raised-button color="primary" type="submit" value="aggiungi_auto" (click)="onSubmitAuto()">Registra Auto</button>
+      <button mat-raised-button color="primary" type="submit" value="modifica" (click)="onUpdate()">Modifca</button>
     </mat-card-actions>
   </mat-card>
 </form>

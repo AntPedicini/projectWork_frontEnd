@@ -29,6 +29,14 @@ export class EventFormComponent {
   constructor(private fb: FormBuilder) {}
 
   onSubmit(): void {
+    console.log("Registrazione evento");
     alert('Evento registrato con successo');
+    console.log(this.addressForm.value);
+  }
+
+  onUpdate(): void {
+    console.log("Update evento");
+    alert('Update avvenuto con successo');
+    console.log(this.addressForm.value);
   }
 }
