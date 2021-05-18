@@ -110,6 +110,12 @@ export class TableEventComponent implements AfterViewInit {
     alert('Delete');
   }
 
+  onUpdate(): void {
+    console.log("Update evento");
+    alert('Update avvenuto con successo');
+    console.log(this.registrationForm.value);
+  }
+
   registrationForm = this.fb.group({
     cod_evento: [null, Validators.required],
   });

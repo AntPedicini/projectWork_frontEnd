@@ -114,8 +114,15 @@ export class TableMemberComponent {
     alert('Delete');
   }
 
+  onUpdate(): void {
+    console.log("Update socio/auto");
+    alert('Update avvenuto con successo');
+    console.log(this.registrationForm.value);
+  }
+
   registrationForm = this.fb.group({
     tessera: [null, Validators.required],
   });
   
 }
+

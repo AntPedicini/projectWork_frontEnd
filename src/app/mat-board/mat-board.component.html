@@ -4,14 +4,9 @@
   <mat-grid-list cols="2" rowHeight="500px">
     <mat-grid-tile *ngFor="let card of cards | async" [colspan]="card.cols" [rowspan]="card.rows">
       <mat-card class="dashboard-card">
-        <mat-card-header>
-          <mat-card-title>
-            {{card.title}}
-          </mat-card-title>
-        </mat-card-header>
         <mat-card-content class="dashboard-card-content">
           <div>
-            <img class="banner" src="../assets/images/banner.jpg">
+            <img class="banner" src="../assets/images/banner4.jpg"> <!-- banner / banner4 -->
           </div>
         </mat-card-content>
       </mat-card>
