@@ -4,12 +4,10 @@ import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { TableAutoDataSource, TableAutoItem } from './table-auto-datasource';
 import { MatTableDataSource } from '@angular/material/table';
-<<<<<<< HEAD
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-//HttpClient
-=======
 import { FormBuilder, Validators } from '@angular/forms';
->>>>>>> origin/DevelopFront
+import { auto } from '../_models/auto.model';
+
 
 const EXAMPLE_DATA: TableAutoItem[] = [
   {targa:'XXX111XXX', tessera_socio: 1, marca: 'Ferrari', modello: '250 GTO', anno: 1963, immatricolazione: '1970-02-20', ASI:'1111' },
@@ -33,22 +31,26 @@ export class TableAutoComponent {
   dataSource: MatTableDataSource<TableAutoItem>;
   elenco_targhe: any[] = [];
   selected = null;
+  listaAuto: auto[] = new Array(); 
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['targa', 'tessera_socio', 'marca', 'modello', 'anno','immatricolazione', 'ASI'];
 
-<<<<<<< HEAD
-  constructor(private http:HttpClient) {
 
-    http.get('http://localhost:8080/auto/getall').subscribe(res =>{ 
-      console.log("================================="+res);
-      this.dataSource = new MatTableDataSource(EXAMPLE_DATA);
+  constructor(private fb: FormBuilder,private http:HttpClient) {
+
+    this.getAuto();
+    console.log()
+    this.listaAuto.forEach(element => {
+      //EXAMPLE_DATA.push(element);
     });
-=======
-  constructor(private fb: FormBuilder) {
->>>>>>> origin/DevelopFront
-    //this.dataSource = new TableAutoDataSource();
+    this.dataSource = new MatTableDataSource();
+  
     this.dataSource = new MatTableDataSource(EXAMPLE_DATA);
+
+  }
+  ngOnInit(): void {
+
     var n:any=null;
     EXAMPLE_DATA.forEach(element => {
       if(element.targa!=n){
@@ -62,6 +64,19 @@ export class TableAutoComponent {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
+  }
+
+   //=====================================
+  //AUTO/GETALL
+  //=====================================
+  getAuto(): any{
+
+    this.http.get<auto[]>('http://localhost:8080/auto/getAll').subscribe(res =>{ 
+      //console.log(res);
+      this.listaAuto = res;
+      console.log(this.listaAuto);
+     // this.dataSource = new MatTableDataSource(EXAMPLE_DATA);
+    });
   }
 
   tesseraFilter(event: Event) {
