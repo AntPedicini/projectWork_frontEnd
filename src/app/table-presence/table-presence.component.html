@@ -113,12 +113,15 @@
           #input>
       </mat-form-field>
     </mat-card>
-
+    <br/>
     <div class="btn">
-      <button mat-raised-button  color="primary" type="submit" value="update" (click)='onSubmit()'>REGISTRA PAGAMENTO</button>
+      <button mat-raised-button  color="primary" type="submit" value="update" (click)='onSubmit()'>Registra pagamento</button>
     </div>
     <div class="btn">
-      <button mat-raised-button  color="primary" type="submit" value="delete" (click)="onDelete()">CANCELLA ISCRIZIONE</button>
+      <button mat-raised-button  color="primary" type="submit" value="delete" (click)="onDelete()">Cancella iscrizione</button>
+    </div>
+    <div class="btn">
+      <button mat-raised-button color="primary" type="submit" (click)="onUpdate()">Modifica iscrizione</button>
     </div>
   </form>
 </div>

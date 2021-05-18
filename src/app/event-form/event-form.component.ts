@@ -33,10 +33,4 @@ export class EventFormComponent {
     alert('Evento registrato con successo');
     console.log(this.addressForm.value);
   }
-
-  onUpdate(): void {
-    console.log("Update evento");
-    alert('Update avvenuto con successo');
-    console.log(this.addressForm.value);
-  }
 }

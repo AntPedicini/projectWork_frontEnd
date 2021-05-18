@@ -83,17 +83,11 @@ export class MemberFormComponent {
     alert('Registrazione auto avvenuta con successo');
     console.log(this.addressForm.value);
   }
-
-  onUpdate(): void {
-    console.log("Update socio/auto");
-    alert('Update avvenuto con successo');
-    console.log(this.addressForm.value);
-  }
+  
 }
 
 export class DatepickerOverviewExample {}
 function push(result: any): never[] {
   throw new Error('Function not implemented.');
 }
-
 

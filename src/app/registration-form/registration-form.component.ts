@@ -40,10 +40,4 @@ export class RegistrationFormComponent {
     alert('Evento registrato con successo');
     console.log(this.addressForm.value);
   }
-
-  onUpdate(): void {
-    console.log("Update iscrizione");
-    alert('Update avvenuto con successo');
-    console.log(this.addressForm.value);
-  }
 }

@@ -144,6 +144,12 @@ export class TablePresenceComponent {
     alert('Delete');
   }
 
+  onUpdate(): void {
+    console.log("Update iscrizione");
+    alert('Update avvenuto con successo');
+    console.log(this.registrationForm.value);
+  }
+
 }
 
 //======================================================================
