@@ -4,6 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
 
+
 // TODO: Replace this with your own data model type
 export interface TableMemberItem {
   tessera: number;
@@ -16,15 +17,30 @@ export interface TableMemberItem {
   email: string;
   consiglio: boolean;
   segretario: boolean;
+
+  
+}
+
+export interface Socio {
+  id_socio: number;
+  validita: number;
+  nome: string;
+  cognome: string;
+  nato_il: string;
+  codiceFiscale: string;
+  indirizzo: string;
+  email: string;
+  consiglio: boolean;
+  segretario: boolean;
 }
 
 // TODO: replace this with real data from your application
-const EXAMPLE_DATA: TableMemberItem[] = [
-  {tessera: 1, validita: 2021, nome: 'John', cognome: 'Doe', nato_il: '1986-02-15', codice_fiscale: 'XXXXXXXXXXXXXXXX', indirizzo:'VI', email: 'john.doe@anticheglorie.com', consiglio: true, segretario: true},
+ export const EXAMPLE_DATA: TableMemberItem[] = [
+ /*  {tessera: 1, validita: 2021, nome: 'John', cognome: 'Doe', nato_il: '1986-02-15', codice_fiscale: 'XXXXXXXXXXXXXXXX', indirizzo:'VI', email: 'john.doe@anticheglorie.com', consiglio: true, segretario: true},
   {tessera: 2, validita: 2021, nome: 'Bill', cognome: 'Smith', nato_il: '1980-05-23', codice_fiscale: 'YYYYYYYYYYYYYYYY', indirizzo:'PD', email: 'bill.smith@anticheglorie.com', consiglio: true, segretario: false},
-  {tessera: 3, validita: 2021, nome: 'Lucy', cognome: 'Flowers', nato_il: '1990-11-03', codice_fiscale: 'ZZZZZZZZZZZZZZZ', indirizzo:'MI', email: 'lucy.flowers@anticheglorie.com', consiglio: false, segretario: false}
+  {tessera: 3, validita: 2021, nome: 'Lucy', cognome: 'Flowers', nato_il: '1990-11-03', codice_fiscale: 'ZZZZZZZZZZZZZZZ', indirizzo:'MI', email: 'lucy.flowers@anticheglorie.com', consiglio: false, segretario: false} */
 
-];
+]; 
 
 /**
  * Data source for the TableMember view. This class should

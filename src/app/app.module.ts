@@ -85,6 +85,7 @@ import { ServiceSocioService } from './service-socio.service';
     HttpClientModule
   ],
   providers: [
+    ServiceSocioService,
     {provide: MAT_DATE_LOCALE, useValue: 'it-IT'}],
   bootstrap: [AppComponent]
 })
