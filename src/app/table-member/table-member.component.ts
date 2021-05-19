@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
@@ -32,23 +33,16 @@ export class TableMemberComponent implements OnInit {
   soci: TableMemberItem[] = [];
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['tessera', 'validita', 'nome', 'cognome', 'nato_il','codice_fiscale', 'indirizzo', 'email', 'consiglio', 'segretario'];
+  displayedColumns = ['tessera', 'validita', 'nome', 'cognome', 'nato_il', 'codice_fiscale', 'indirizzo', 'email', 'consiglio', 'segretario'];
 
-  constructor(private fb: FormBuilder, private service: ServiceSocioService,private changeDetectorRefs: ChangeDetectorRef) {
+  constructor(private fb: FormBuilder, private service: ServiceSocioService, private changeDetectorRefs: ChangeDetectorRef) {
 
     this.getAll();
     this.dataSource = new MatTableDataSource(EXAMPLE_DATA);
-   
+  
   }
   ngOnInit(): void {
 
-    var n:any=null;
-    EXAMPLE_DATA.forEach(element => {
-      if(element.tessera!=n){
-        this.elenco_tessere.push(element.tessera);
-        n=element.tessera;
-      }
-    });
   }
 
   ngAfterViewInit(): void {
@@ -57,43 +51,60 @@ export class TableMemberComponent implements OnInit {
     this.table.dataSource = this.dataSource;
   }
 
-  getAll(){
-        EXAMPLE_DATA.splice(0,EXAMPLE_DATA.length); //workaround per svuotare l'array ad ogni update pagina
-        this.service.socioGetAll().subscribe((res:any )=>{
-        res.forEach((element: TableMemberItem) => {
+  getAll() {
+    EXAMPLE_DATA.splice(0, EXAMPLE_DATA.length); //workaround per svuotare l'array ad ogni update pagina
+    this.service.socioGetAll().subscribe((res: any) => {
+      res.forEach((element: TableMemberItem) => {
         EXAMPLE_DATA.push(element);
         this.soci = res;
-      });  
+      });
       console.log(this.soci);
       this.refreshTable();
-   });
-   
+      this.refreshSelect();
+    },
+
+      (error: HttpErrorResponse) => {
+        console.log('[['+error.name + ' || ' + error.message+']]');
+      }
+    );
+
   }
 
   //metodo per refreshare la tabella
   private refreshTable() {
     // if there's nothing in filter
     if (this.dataSource.filter === '') {
-        this.dataSource.filter = ' ';
-        this.dataSource.filter = '';
+      this.dataSource.filter = ' ';
+      this.dataSource.filter = '';
     } else {
-        // if there's something, we make a simple change and then put back old value
-        this.dataSource.filter = '';
-        this.dataSource.filter = this.dataSource.filter.valueOf();
+      // if there's something, we make a simple change and then put back old value
+      this.dataSource.filter = '';
+      this.dataSource.filter = this.dataSource.filter.valueOf();
     }
+  }
+  //metodo per refreshare la select per selezionare la tessera
+  private refreshSelect(){
+    var n: any = null;
+    EXAMPLE_DATA.forEach(element => {
+      if (element.tessera != n) {
+        this.elenco_tessere.push(element.tessera);
+        n = element.tessera;
+      }
+    });
+
   }
 
   allFilter(event: Event) {
 
     this.dataSource.filterPredicate = (data: TableMemberItem, filter: any) => {
-    return  data.tessera.toString().trim().toLowerCase()   .includes(filter.trim().toLowerCase()) ||
-            data.validita.toString().trim().toLowerCase()   .includes(filter.trim().toLowerCase()) ||
-            data.cognome.trim().toLowerCase()   .includes(filter.trim().toLowerCase()) ||
-            data.nome.trim().toLowerCase()   .includes(filter.trim().toLowerCase()) ||
-            data.nato_il.trim().toLowerCase()   .includes(filter.trim().toLowerCase()) ||
-            data.codice_fiscale.trim().toLowerCase()   .includes(filter.trim().toLowerCase()) ||
-            data.email.trim().toLowerCase()   .includes(filter.trim().toLowerCase()) ||
-            data.indirizzo.trim().toLowerCase()   .includes(filter.trim().toLowerCase());
+      return data.tessera.toString().trim().toLowerCase().includes(filter.trim().toLowerCase()) ||
+        data.validita.toString().trim().toLowerCase().includes(filter.trim().toLowerCase()) ||
+        data.cognome.trim().toLowerCase().includes(filter.trim().toLowerCase()) ||
+        data.nome.trim().toLowerCase().includes(filter.trim().toLowerCase()) ||
+        data.nato_il.trim().toLowerCase().includes(filter.trim().toLowerCase()) ||
+        data.codice_fiscale.trim().toLowerCase().includes(filter.trim().toLowerCase()) ||
+        data.email.trim().toLowerCase().includes(filter.trim().toLowerCase()) ||
+        data.indirizzo.trim().toLowerCase().includes(filter.trim().toLowerCase());
     };
 
     const filterValue = (event.target as HTMLInputElement).value;
@@ -104,8 +115,8 @@ export class TableMemberComponent implements OnInit {
 
     //imposta i campi di ricerca sul quale agisce il filtro
     this.dataSource.filterPredicate = (data: TableMemberItem, filter: any) => {
-      return data.tessera.toString()   .includes(filter);
-     };
+      return data.tessera.toString().includes(filter);
+    };
 
     //filtra le righe in base al criterio del filterPredicate
     const filterValue = (event.target as HTMLInputElement).value;
@@ -116,8 +127,8 @@ export class TableMemberComponent implements OnInit {
   nomeCognomeFilter(event: Event) {
 
     this.dataSource.filterPredicate = (data: TableMemberItem, filter: any) => {
-    return  data.nome.trim().toLowerCase()   .includes(filter.trim().toLowerCase()) ||
-            data.cognome.trim().toLowerCase()   .includes(filter.trim().toLowerCase());;
+      return data.nome.trim().toLowerCase().includes(filter.trim().toLowerCase()) ||
+        data.cognome.trim().toLowerCase().includes(filter.trim().toLowerCase());;
     };
 
     const filterValue = (event.target as HTMLInputElement).value;
@@ -127,7 +138,7 @@ export class TableMemberComponent implements OnInit {
   cfFilter(event: Event) {
 
     this.dataSource.filterPredicate = (data: TableMemberItem, filter: any) => {
-    return data.codice_fiscale.trim().toLowerCase()   .includes(filter.trim().toLowerCase());
+      return data.codice_fiscale.trim().toLowerCase().includes(filter.trim().toLowerCase());
     };
 
     const filterValue = (event.target as HTMLInputElement).value;
@@ -137,7 +148,7 @@ export class TableMemberComponent implements OnInit {
   emailFilter(event: Event) {
 
     this.dataSource.filterPredicate = (data: TableMemberItem, filter: any) => {
-    return data.email.trim().toLowerCase()   .includes(filter.trim().toLowerCase());
+      return data.email.trim().toLowerCase().includes(filter.trim().toLowerCase());
     };
 
     const filterValue = (event.target as HTMLInputElement).value;
@@ -160,6 +171,6 @@ export class TableMemberComponent implements OnInit {
   registrationForm = this.fb.group({
     tessera: [null, Validators.required],
   });
-  
+
 }
 

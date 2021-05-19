@@ -26,9 +26,10 @@ table {
 
 .banner{
   border: 1px dotted black;
-  width: 85em;
-  height: 440px;
+  width: 90%;
+ 
   border-radius: 5px;
+  object-fit: contain;
 }
 
 .example-container {
