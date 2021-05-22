@@ -39,6 +39,7 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 
 
@@ -84,10 +85,17 @@ import { LoginComponent } from './login/login.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSlideToggleModule,
-    HttpClientModule
+    HttpClientModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'it-IT'}],
+  
+  exports: [
+    MatFormFieldModule,
+    MatInputModule
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
