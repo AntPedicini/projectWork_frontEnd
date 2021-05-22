@@ -38,6 +38,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { HttpClientModule } from '@angular/common/http';
+import { LoginComponent } from './login/login.component';
 
 
 
@@ -55,7 +56,8 @@ import { HttpClientModule } from '@angular/common/http';
     TablePresenceComponent,
     EventFormComponent,
     RegistrationFormComponent,
-    MenuComponent
+    MenuComponent,
+    LoginComponent
    
   ],
   imports: [
