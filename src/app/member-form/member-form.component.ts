@@ -1,6 +1,10 @@
 import { Component, ElementRef } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ViewChild } from '@angular/core';
+import { ServiceSocioService } from '../service-socio.service';
+import { TableMemberComponent } from '../table-member/table-member.component';
+import { TableMemberItem } from '../table-member/table-member-datasource';
+
 
 @Component({
   selector: 'app-member-form',
@@ -15,7 +19,7 @@ export class MemberFormComponent {
     scadenza: [null, Validators.required],
     nome: [null, Validators.required],
     cognome: [null, Validators.required],
-    CF: [null, Validators.required],
+    codice_fiscale: [null, Validators.required],
     data_nascita: [null, Validators.required],
     email: [null, Validators.required],
     indirizzo: [null, Validators.required],
@@ -43,7 +47,7 @@ export class MemberFormComponent {
 
   hasUnitNumber = false;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder,private serviceSocio:ServiceSocioService) {}
 
   //Import foto
   //Import 1++ foto
@@ -76,12 +80,20 @@ export class MemberFormComponent {
     console.log("Registrazione socio");
     alert('Registrazione avvenuta con successo');
     console.log(this.addressForm.value);
+    this.insertSocio(this.addressForm.value);
   }
 
   onSubmitAuto(): void {
     console.log("Registrazione auto");
     alert('Registrazione auto avvenuta con successo');
     console.log(this.addressForm.value);
+  }
+
+  insertSocio(socio:TableMemberItem): void {
+
+    this.serviceSocio.insertSocio(socio).subscribe(res=>{
+  });
+  
   }
   
 }
@@ -90,4 +102,8 @@ export class DatepickerOverviewExample {}
 function push(result: any): never[] {
   throw new Error('Function not implemented.');
 }
+
+
+
+
 

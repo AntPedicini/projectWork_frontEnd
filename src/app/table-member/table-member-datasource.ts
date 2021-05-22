@@ -17,8 +17,6 @@ export interface TableMemberItem {
   email: string;
   consiglio: boolean;
   segretario: boolean;
-
-  
 }
 
 export interface Socio {
@@ -32,6 +30,71 @@ export interface Socio {
   email: string;
   consiglio: boolean;
   segretario: boolean;
+}
+
+export class TableMemberItem {
+  tessera!: number;
+  validita!: number;
+  nome!: string;
+  cognome!: string;
+  nato_il!: string;
+  codice_fiscale!: string;
+  indirizzo!: string;
+  email!: string;
+  consiglio!: boolean;
+  segretario!: boolean;
+
+  constructor(){}
+}
+
+
+export class Socio {
+  id_socio!: number;
+  validita!: number;
+  nome!: string;
+  cognome!: string;
+  nato_il!: string;
+  codiceFiscale!: string;
+  residenza!: string;
+  email!: string;
+  consiglio!: boolean;
+  segretario!: boolean;
+  id_auto!:string;
+
+  constructor(obj:TableMemberItem){
+    this.id_socio= obj.tessera;
+    this.validita=obj.validita;
+    this.nome=obj.nome;
+    this.cognome=obj.cognome;
+    this.nato_il=obj.nato_il;
+    this.codiceFiscale=obj.codice_fiscale;
+    this.residenza=obj.indirizzo;
+    this.email=obj.email;
+    this.consiglio=obj.consiglio;
+    this.segretario=obj.segretario;
+    this.id_auto='';
+    
+  }
+
+  toTableItem(res:any):TableMemberItem {
+    let tableItem:TableMemberItem = {
+      tessera: res.id_socio,
+      validita: res.validita,
+      nome: res.nome,
+      cognome: res.cognome,
+      nato_il: res.nato_il,
+      codice_fiscale: res.codiceFiscale,
+      indirizzo: res.residenza,
+      email: res.email,
+      consiglio: res.consiglio,
+      segretario: res.segretario,
+    };
+
+
+    return tableItem;
+  }
+
+
 }
 
 // TODO: replace this with real data from your application

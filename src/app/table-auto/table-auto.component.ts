@@ -67,7 +67,7 @@ export class TableAutoComponent {
     this.table.dataSource = this.dataSource;
   }
 
-   //=====================================
+  //=====================================
   //AUTO/GETALL
   //=====================================
   getAuto(): any{

@@ -35,9 +35,9 @@ export class TableMemberComponent implements OnInit {
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['tessera', 'validita', 'nome', 'cognome', 'nato_il', 'codice_fiscale', 'indirizzo', 'email', 'consiglio', 'segretario'];
 
-  constructor(private fb: FormBuilder, private service: ServiceSocioService, private changeDetectorRefs: ChangeDetectorRef) {
+  constructor(private fb: FormBuilder, private serviceSocio: ServiceSocioService) {
 
-    this.getAll();
+    this.getAllSocio();
     this.dataSource = new MatTableDataSource(EXAMPLE_DATA);
   
   }
@@ -51,9 +51,10 @@ export class TableMemberComponent implements OnInit {
     this.table.dataSource = this.dataSource;
   }
 
-  getAll() {
+  //metodo che richiama il servizio per il recupero di tutti i soci da visualizzare in tabella
+  getAllSocio() {
     EXAMPLE_DATA.splice(0, EXAMPLE_DATA.length); //workaround per svuotare l'array ad ogni update pagina
-    this.service.socioGetAll().subscribe((res: any) => {
+    this.serviceSocio.socioGetAll().subscribe((res: any) => {
       res.forEach((element: TableMemberItem) => {
         EXAMPLE_DATA.push(element);
         this.soci = res;
@@ -163,9 +164,17 @@ export class TableMemberComponent implements OnInit {
   }
 
   onUpdate(): void {
-    console.log("Update socio/auto");
+    //console.log("Update socio/auto");
     alert('Update avvenuto con successo');
-    console.log(this.registrationForm.value);
+    //console.log(this.registrationForm.value);
+  }
+
+
+  insertSocio(socio:TableMemberItem): void {
+
+      this.serviceSocio.insertSocio(socio).subscribe(res=>{
+      this.getAllSocio();
+  });
   }
 
   registrationForm = this.fb.group({
