@@ -39,6 +39,7 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { HttpClientModule } from '@angular/common/http';
 import { ServiceSocioService } from './service-socio.service';
+import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -85,6 +86,7 @@ import { ServiceSocioService } from './service-socio.service';
     HttpClientModule
   ],
   providers: [
+    DatePipe,
     ServiceSocioService,
     {provide: MAT_DATE_LOCALE, useValue: 'it-IT'}],
   bootstrap: [AppComponent]

@@ -7,7 +7,7 @@ import { MatTable } from '@angular/material/table';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { ServiceSocioService } from '../service-socio.service';
-import { EXAMPLE_DATA, Socio, TableMemberDataSource, TableMemberItem } from './table-member-datasource';
+import { EXAMPLE_DATA, TableMemberDataSource, TableMemberItem } from './table-member-datasource';
 
 
 /*export let EXAMPLE_DATA: TableMemberItem[] = [
@@ -167,14 +167,6 @@ export class TableMemberComponent implements OnInit {
     //console.log("Update socio/auto");
     alert('Update avvenuto con successo');
     //console.log(this.registrationForm.value);
-  }
-
-
-  insertSocio(socio:TableMemberItem): void {
-
-      this.serviceSocio.insertSocio(socio).subscribe(res=>{
-      this.getAllSocio();
-  });
   }
 
   registrationForm = this.fb.group({

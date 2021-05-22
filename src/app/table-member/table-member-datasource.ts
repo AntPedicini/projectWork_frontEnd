@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
 
 
-// TODO: Replace this with your own data model type
+/* // TODO: Replace this with your own data model type
 export interface TableMemberItem {
   tessera: number;
   validita: number;
@@ -30,7 +30,7 @@ export interface Socio {
   email: string;
   consiglio: boolean;
   segretario: boolean;
-}
+} */
 
 export class TableMemberItem {
   tessera!: number;
@@ -43,19 +43,20 @@ export class TableMemberItem {
   email!: string;
   consiglio!: boolean;
   segretario!: boolean;
+  targa!: string;
 
   constructor(){}
 }
 
 
-export class Socio {
+/* export class Socio {
   id_socio!: number;
   validita!: number;
   nome!: string;
   cognome!: string;
   nato_il!: string;
   codiceFiscale!: string;
-  residenza!: string;
+  indirizzo!: string;
   email!: string;
   consiglio!: boolean;
   segretario!: boolean;
@@ -68,7 +69,7 @@ export class Socio {
     this.cognome=obj.cognome;
     this.nato_il=obj.nato_il;
     this.codiceFiscale=obj.codice_fiscale;
-    this.residenza=obj.indirizzo;
+    this.indirizzo=obj.indirizzo;
     this.email=obj.email;
     this.consiglio=obj.consiglio;
     this.segretario=obj.segretario;
@@ -76,7 +77,7 @@ export class Socio {
     
   }
 
-  toTableItem(res:any):TableMemberItem {
+   toTableItem(res:any):TableMemberItem {
     let tableItem:TableMemberItem = {
       tessera: res.id_socio,
       validita: res.validita,
@@ -84,18 +85,19 @@ export class Socio {
       cognome: res.cognome,
       nato_il: res.nato_il,
       codice_fiscale: res.codiceFiscale,
-      indirizzo: res.residenza,
+      indirizzo: res.indirizzo,
       email: res.email,
       consiglio: res.consiglio,
       segretario: res.segretario,
+      targa: res.targa
     };
 
 
     return tableItem;
-  }
+  } 
 
 
-}
+} */
 
 // TODO: replace this with real data from your application
  export const EXAMPLE_DATA: TableMemberItem[] = [

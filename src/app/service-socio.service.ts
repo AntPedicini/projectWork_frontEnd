@@ -6,7 +6,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { EmailValidator } from '@angular/forms';
-import { Socio, TableMemberItem } from './table-member/table-member-datasource';
+import {  TableMemberItem } from './table-member/table-member-datasource';
 
 
 @Injectable({
@@ -22,7 +22,9 @@ export class ServiceSocioService {
   }
 
   socioGetAll(): Observable<any> {
-     return this.http.get<any>(this.url + '/getAll').pipe(map((res: any) => {
+     return this.http.get<any>(this.url + '/getAll').pipe(map((res: any) => res
+     
+/*      {
 
       const data = res.map((obj: Socio ) => ({
 
@@ -39,14 +41,14 @@ export class ServiceSocioService {
         segretario: obj.segretario 
       }));
       return data;
-    }));
+    } */
+    ));
   }
 
-   insertSocio(socio:TableMemberItem): Observable<any> {
+   insertSocio( newSocio:TableMemberItem): Observable<any> {
 
-    let newSocio = new Socio(socio);
     console.log(newSocio);
-    return this.http.post<any>('http://localhost:8080/socio/newSocio', newSocio).pipe(map((res: any) => res));
+    return this.http.post<any>(this.url+'/newSocio', newSocio).pipe(map((res: any) => res));
   
   } 
 }

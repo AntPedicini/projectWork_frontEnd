@@ -2,8 +2,8 @@ import { Component, ElementRef } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ViewChild } from '@angular/core';
 import { ServiceSocioService } from '../service-socio.service';
-import { TableMemberComponent } from '../table-member/table-member.component';
-import { TableMemberItem } from '../table-member/table-member-datasource';
+import { DatePipe } from '@angular/common';
+
 
 
 @Component({
@@ -15,12 +15,12 @@ import { TableMemberItem } from '../table-member/table-member-datasource';
 export class MemberFormComponent {
   //Socio
   addressForm = this.fb.group({
-    id_tessera: [null, Validators.required],
-    scadenza: [null, Validators.required],
+    tessera: [null, Validators.required],
+    validita: [null, Validators.required],
     nome: [null, Validators.required],
     cognome: [null, Validators.required],
     codice_fiscale: [null, Validators.required],
-    data_nascita: [null, Validators.required],
+    nato_il: [null, Validators.required],
     email: [null, Validators.required],
     indirizzo: [null, Validators.required],
     citta: [null, Validators.required],
@@ -30,8 +30,8 @@ export class MemberFormComponent {
     postalCode: [null, Validators.compose([
       Validators.required, Validators.minLength(5), Validators.maxLength(5)])
     ],
-    consiglio: null,
-    segretario: null,
+    consiglio: false,
+    segretario: false,
 
     //Auto
     targa: [null, Validators.required],
@@ -39,15 +39,14 @@ export class MemberFormComponent {
     modello: [null, Validators.required],
     anno: [null, Validators.required],
     immatricolazione: [null, Validators.required],
-    asi: null,
+    ASI: null,
     foto: null
   });
 
   allComplete: boolean = false;
-
   hasUnitNumber = false;
-
-  constructor(private fb: FormBuilder,private serviceSocio:ServiceSocioService) {}
+  
+  constructor(private fb: FormBuilder,private serviceSocio:ServiceSocioService,public datepipe: DatePipe) {}
 
   //Import foto
   //Import 1++ foto
@@ -78,7 +77,7 @@ export class MemberFormComponent {
   //Submit
   onSubmitSocio(): void {
     console.log("Registrazione socio");
-    alert('Registrazione avvenuta con successo');
+    //alert('Registrazione avvenuta con successo');
     console.log(this.addressForm.value);
     this.insertSocio(this.addressForm.value);
   }
@@ -89,10 +88,40 @@ export class MemberFormComponent {
     console.log(this.addressForm.value);
   }
 
-  insertSocio(socio:TableMemberItem): void {
+  insertSocio(socio:any): void {
+
+    //formatta le date in base alle necessità del backend
+      socio.nato_il = this.datepipe.transform(socio.nato_il,'yyyy-MM-dd');
+      if(socio.validita == null){
+        let thisYear:Date = new Date();
+        socio.validita = this.datepipe.transform(thisYear,'yyyy');
+      }
+      socio.validita = this.datepipe.transform(socio.validita,'yyyy');
+      socio.immatricolazione = this.datepipe.transform(socio.immatricolazione,'yyyy-MM-dd');
+
+      //memorizza l'indirizzo in un unica variabile
+      socio.indirizzo = socio.indirizzo +' '+ socio.citta +' '+ socio.postalCode +' '+ socio.provincia;
+
+      /*     const newSocio :TableMemberItem ={
+      tessera: socio.tessera,
+      validita: 2021,//socio.validita,
+      nome: 'aaaaa',//socio.nome,
+      cognome: 'bbbbb',//socio.cognome,
+      nato_il: '2021-10-10',//socio.nato_il'',
+      codice_fiscale: 'xxxxxxxxx',//'socio.codice_fiscale, 
+      email: '',//socio.email,
+      consiglio: socio.consiglio,
+      segretario: socio.segretario,
+      targa: 'xx555xx',//socio.targa
+    }; */
 
     this.serviceSocio.insertSocio(socio).subscribe(res=>{
-  });
+        alert('Socio inserito con successo');
+      },
+      (error) => {                              //Error callback
+        console.error('error caught in component')
+        alert('Qualcosa è andato storto... :(\n Prova a ricontrollare tutti i campi ');
+       } );
   
   }
   
