@@ -26,7 +26,8 @@ table {
 
 .banner{
   border: 1px dotted black;
-  width: 90%;
+  width: 100%; 
+  
  
   border-radius: 5px;
   object-fit: contain;
