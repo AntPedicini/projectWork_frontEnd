@@ -13,16 +13,17 @@
 }
 
 .title {
-    margin-left: 100px;
     color: whitesmoke;
     font-family: Pattaya;
     font-size: 50px;
     text-decoration: underline;
     font-style: oblique;
-    text-shadow: 2px 2px 5px black;
+    text-shadow: 2px, 2px, 5px, black;
     font-weight: bolder;
 }
+
 .mat-toolbar{
+  box-shadow: 2px, 2px, black;
   height: 100px;
   background-color: red;
 }

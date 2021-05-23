@@ -63,7 +63,7 @@
   </mat-grid-list>-->
 
   <!-- CARTA N.2 -->
-  <mat-grid-list cols="2" rowHeight="600px">
+  <mat-grid-list cols="2" >
     <mat-grid-tile *ngFor="let carta of carte2 | async" [colspan]="carta.cols" [rowspan]="carta.rows">
       <mat-card class="dashboard-card">
         <mat-card-header>
