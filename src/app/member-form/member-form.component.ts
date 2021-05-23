@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ViewChild } from '@angular/core';
 import { ServiceSocioService } from '../service-socio.service';
 import { DatePipe } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 
@@ -88,9 +89,15 @@ export class MemberFormComponent {
     console.log(this.addressForm.value);
   }
 
+//===================
+//INSERIMENTO SOCIO
+//===================
+
   insertSocio(socio:any): void {
 
-    //formatta le date in base alle necessità del backend
+  //=============================Controlli sull'inserimento=======================================
+
+      //formatta le date in base alle necessità del backend
       socio.nato_il = this.datepipe.transform(socio.nato_il,'yyyy-MM-dd');
       if(socio.validita == null){
         let thisYear:Date = new Date();
@@ -100,25 +107,20 @@ export class MemberFormComponent {
       socio.immatricolazione = this.datepipe.transform(socio.immatricolazione,'yyyy-MM-dd');
 
       //memorizza l'indirizzo in un unica variabile
-      socio.indirizzo = socio.indirizzo +' '+ socio.citta +' '+ socio.postalCode +' '+ socio.provincia;
+      socio.indirizzo = socio.indirizzo +' '+ socio.citta.toUpperCase() +' '+ socio.postalCode +' '+ socio.provincia.toUpperCase();
+      
+      //converto il Codice Fiscale e la targa in maiuscolo
+      if(socio.codice_fiscale != null)
+        socio.codice_fiscale = socio.codice_fiscale.toUpperCase();
+      if(socio.targa != null)
+        socio.targa= socio.targa.toUpperCase();
 
-      /*     const newSocio :TableMemberItem ={
-      tessera: socio.tessera,
-      validita: 2021,//socio.validita,
-      nome: 'aaaaa',//socio.nome,
-      cognome: 'bbbbb',//socio.cognome,
-      nato_il: '2021-10-10',//socio.nato_il'',
-      codice_fiscale: 'xxxxxxxxx',//'socio.codice_fiscale, 
-      email: '',//socio.email,
-      consiglio: socio.consiglio,
-      segretario: socio.segretario,
-      targa: 'xx555xx',//socio.targa
-    }; */
+  //=============================CHIAMATA AL SERVIZIO=======================================
 
     this.serviceSocio.insertSocio(socio).subscribe(res=>{
         alert('Socio inserito con successo');
       },
-      (error) => {                              //Error callback
+      (error:HttpErrorResponse) => {                       //Error callback
         console.error('error caught in component')
         alert('Qualcosa è andato storto... :(\n Prova a ricontrollare tutti i campi ');
        } );

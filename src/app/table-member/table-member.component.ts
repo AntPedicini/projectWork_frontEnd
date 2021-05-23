@@ -66,6 +66,7 @@ export class TableMemberComponent implements OnInit {
 
       (error: HttpErrorResponse) => {
         console.log('[['+error.name + ' || ' + error.message+']]');
+        alert('ERRORE CARICAMENTO DATI');
       }
     );
 
