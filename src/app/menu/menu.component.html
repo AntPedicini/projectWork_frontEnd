@@ -1,22 +1,30 @@
-<button routerLink = 'home' class="menu" mat-button>HOME</button>
+<button routerLink = 'home' class="menu" mat-button>
+  <span class="material-icons">home1</span>
+    HOME</button>
 
-<button class="menu" mat-button [matMenuTriggerFor]="menuSoci">SOCI/AUTO</button>
+<button class="menu" mat-button [matMenuTriggerFor]="menuSoci"><span class="material-icons md-48">face1</span>   SOCI/AUTO</button>
 <mat-menu #menuSoci="matMenu">
-  <button routerLink = 'newMember' mat-menu-item>Registra Socio/Auto</button>
-  <button routerLink = 'showMember' mat-menu-item>Visualizza Soci</button>
-  <button routerLink = 'showCar' mat-menu-item>Visualizza Auto</button>
+  <button routerLink = 'newMember' mat-menu-item><span class="material-icons">personadd</span>Registra Socio/Auto</button>
+  <button routerLink = 'showMember' mat-menu-item><span class="material-icons">groups1</span>Visualizza Soci</button>
+  <button routerLink = 'showCar' mat-menu-item><span class="material-icons">directions_car1</span>Visualizza Auto</button>
 </mat-menu>
 
-<button class="menu" mat-button [matMenuTriggerFor]="menuEventi">EVENTI</button>
+<button class="menu" mat-button [matMenuTriggerFor]="menuEventi"><span class="material-icons">event1</span>   EVENTI</button>
 <mat-menu #menuEventi="matMenu">
-  <button routerLink = 'newEvent' mat-menu-item>Nuovo Evento</button>
-  <button routerLink = 'showEvent' mat-menu-item>Visualizza Eventi</button>
+  <button routerLink = 'newEvent' mat-menu-item><span class="material-icons">edit_calendar1</span>Nuovo Evento   </button>
+  <button routerLink = 'showEvent' mat-menu-item><span class="material-icons">event_note1</span>Visualizza Eventi</button>
 </mat-menu>
 
-<button class="menu" class="menu" mat-button [matMenuTriggerFor]="menuIscrizioni">ISCRIZIONI</button>
+<button class="menu" class="menu" mat-button [matMenuTriggerFor]="menuIscrizioni"><span class="material-icons">create1</span>   ISCRIZIONI</button>
 <mat-menu #menuIscrizioni="matMenu">
-  <button routerLink = 'newRegistration' mat-menu-item>Nuova Iscrizione</button>
-  <button routerLink = 'showPresence' mat-menu-item>Visualizza Iscrizione</button>
+  <button routerLink = 'newRegistration' mat-menu-item><span class="material-icons">editadd</span>Nuova Iscrizione</button>
+  <button routerLink = 'showPresence' mat-menu-item><span class="material-icons">checklist_rtl1</span>Visualizza Iscrizione</button>
 </mat-menu>
 
-<button class="menu" mat-button>LOGOUT</button>
+<button class="menu" mat-button><span class="material-icons">logout1</span>LOGOUT</button>
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+
+
+      
