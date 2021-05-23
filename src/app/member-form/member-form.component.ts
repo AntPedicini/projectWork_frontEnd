@@ -2,7 +2,7 @@ import { Component, ElementRef } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ViewChild } from '@angular/core';
 import { ServiceSocioService } from '../service-socio.service';
-import { DatePipe } from '@angular/common';
+import { DatePipe, formatCurrency } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ServiceAutoService } from '../service-auto.service';
 
@@ -82,6 +82,7 @@ export class MemberFormComponent {
     //alert('Registrazione avvenuta con successo');
     console.log(this.addressForm.value);
     this.insertSocio(this.addressForm.value);
+    this.addressForm.reset();
   }
 
   onSubmitAuto(): void {
@@ -109,7 +110,8 @@ export class MemberFormComponent {
       socio.immatricolazione = this.datepipe.transform(socio.immatricolazione,'yyyy-MM-dd');
 
       //memorizza l'indirizzo in un unica variabile
-      socio.indirizzo = socio.indirizzo +' '+ socio.citta.toUpperCase() +' '+ socio.postalCode +' '+ socio.provincia.toUpperCase();
+      if(socio.citta!=null && socio.provincia!=null)
+        socio.indirizzo = socio.indirizzo +' '+ socio.citta.toUpperCase() +' '+ socio.postalCode +' '+ socio.provincia.toUpperCase();
       
       //converto il Codice Fiscale e la targa in maiuscolo
       if(socio.codice_fiscale != null)

@@ -6,45 +6,45 @@
     <mat-card-content>
       <div class="row">
         <!-- CODICE EVENTO -->
-        <div class="col">
+<!--         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput placeholder="Codice evento" formControlName="id_evento">
-            <mat-error *ngIf="addressForm.controls['id_evento'].hasError('required')">
+            <input name = "cod_evento" matInput placeholder="Codice evento" formControlName="cod_evento">
+            <mat-error *ngIf="addressForm.controls['cod_evento'].hasError('required')">
               Codice evento <strong>obbligatorio!</strong>
             </mat-error>
           </mat-form-field>
-        </div>
+        </div> -->
         <!-- NOME EVENTO -->
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput placeholder="Nome evento" formControlName="nome">
-            <mat-error *ngIf="addressForm.controls['nome'].hasError('required')">
+            <input name = "nome_evento" matInput placeholder="Nome evento" formControlName="nome_evento">
+            <mat-error *ngIf="addressForm.controls['nome_evento'].hasError('required')">
               Nome evento <strong>obbligatorio!</strong>
             </mat-error>
           </mat-form-field>
         </div>
-      </div>
-      <div class="row">
-        <!-- DATA EVENTO RANGE -->
-        <div class="col">
+         <!-- DATA EVENTO RANGE -->
+         <div class="col">
           <mat-form-field color="primary" class="full-width">
-            <mat-label>Inserisci un range</mat-label>
+            <mat-label>Inserisci un range di date</mat-label>
               <mat-date-range-input [rangePicker]="picker">
-                <input matStartDate placeholder="Data inizio" formControlName="data">
-                <input matEndDate placeholder="Data fine">
+                <input name = "data_inizio" matStartDate placeholder="Data inizio" formControlName="data_inizio">
+                <input name = "data_fine" matEndDate placeholder="Data fine" formControlName="data_fine">
               </mat-date-range-input>
-              <mat-error *ngIf="addressForm.controls['data'].hasError('required')">
+              <mat-error *ngIf="addressForm.controls['data_inizio'].hasError('required')">
                 Data <strong>obbligatoria!</strong>
               </mat-error>
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-date-range-picker #picker color="primary"></mat-date-range-picker>
           </mat-form-field>
         </div>
+      </div>
+      <div class="row">
         <!-- COSTO UNITARIO -->
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput placeholder="Costo unitario" formControlName="costo" type="number">
-            <mat-error *ngIf="addressForm.controls['costo'].hasError('required')">
+            <input name = "costo_unitario" matInput placeholder="Costo unitario" formControlName="costo_unitario" type="number">
+            <mat-error *ngIf="addressForm.controls['costo_unitario'].hasError('required')">
               Costo <strong>obbligatorio!</strong>
             </mat-error>
           </mat-form-field>
@@ -52,8 +52,8 @@
         <!-- POSTI TOTALI DISPONIBILI -->
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput placeholder="Posti disponibili" formControlName="posti" type="number">
-            <mat-error *ngIf="addressForm.controls['posti'].hasError('required')">
+            <input name = "posti_disponibili" matInput placeholder="Posti disponibili" formControlName="posti_disponibili" type="number">
+            <mat-error *ngIf="addressForm.controls['posti_disponibili'].hasError('required')">
               Posti <strong>obbligatori!</strong>
             </mat-error>
           </mat-form-field>
@@ -63,7 +63,7 @@
         <!-- VIA -->
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput placeholder="Via e civico" formControlName="indirizzo">
+            <input name = "indirizzo" matInput placeholder="Via e civico" formControlName="indirizzo">
             <mat-error *ngIf="addressForm.controls['indirizzo'].hasError('required')">
               Via <strong>obbligatoria!</strong>
             </mat-error>
@@ -72,7 +72,7 @@
         <!-- CITTA' -->
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput placeholder="Città" formControlName="citta">
+            <input name = "citta" matInput placeholder="Città" formControlName="citta">
             <mat-error *ngIf="addressForm.controls['citta'].hasError('required')">
               Città <strong>obbligatoria!</strong>
             </mat-error>
@@ -81,7 +81,7 @@
         <!-- PROVINCIA -->
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput maxlength="2" placeholder="Provincia" formControlName="provincia">
+            <input name = "provincia" matInput maxlength="2" placeholder="Provincia" formControlName="provincia">
             <mat-error *ngIf="addressForm.controls['provincia'].hasError('required')">
               Provincia <strong>obbligatoria!</strong>
             </mat-error>
@@ -90,7 +90,7 @@
         <!-- CAP -->
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput #postalCode maxlength="5" placeholder="CAP" type="number" formControlName="postalCode">
+            <input name = "CAP" matInput #postalCode maxlength="5" placeholder="CAP" type="number" formControlName="postalCode">
             <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
             <mat-error *ngIf="addressForm.controls['provincia'].hasError('required')">
               CAP <strong>obbligatorio!</strong>
@@ -102,7 +102,7 @@
         <!-- DESCRIZIONE -->
         <div class="col">
           <mat-form-field class="full-width">
-            <textarea matInput placeholder="Descrizione" formControlName="descrizione" rows="10"></textarea>
+            <textarea name = "descrizione" matInput placeholder="Descrizione" formControlName="descrizione" rows="10"></textarea>
             <mat-error *ngIf="addressForm.controls['descrizione'].hasError('required')">
               Descrizione <strong>obbligatoria!</strong>
             </mat-error>

@@ -28,9 +28,9 @@
 <div class="mat-elevation-z8">
   <table mat-table class="full-width-table" matSort aria-label="Elements">
     <!-- Id Column -->
-    <ng-container matColumnDef="tessera">
+    <ng-container matColumnDef="tessera" >
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Numero Tessera</th>
-      <td mat-cell *matCellDef="let row">{{row.tessera}}</td>
+      <td mat-cell *matCellDef="let row; let socio;" (click) = "setActive(socio)">{{row.tessera}}</td>
     </ng-container>
 
     <ng-container matColumnDef="validita">

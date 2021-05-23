@@ -41,6 +41,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ServiceSocioService } from './service-socio.service';
 import { DatePipe } from '@angular/common';
 import { ServiceAutoService } from './service-auto.service';
+import { ServiceEventoService } from './service-evento.service';
 
 
 @NgModule({
@@ -90,6 +91,7 @@ import { ServiceAutoService } from './service-auto.service';
     DatePipe,
     ServiceSocioService,
     ServiceAutoService,
+    ServiceEventoService,
     {provide: MAT_DATE_LOCALE, useValue: 'it-IT'}],
   bootstrap: [AppComponent]
 })

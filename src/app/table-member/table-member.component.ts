@@ -23,6 +23,7 @@ export class TableMemberComponent implements OnInit {
   elenco_tessere: any[] = [];
   selected = null;
   soci: TableMemberItem[] = [];
+  index:number=0;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['tessera', 'validita', 'nome', 'cognome', 'nato_il', 'codice_fiscale', 'indirizzo', 'email', 'consiglio', 'segretario'];
@@ -33,6 +34,12 @@ export class TableMemberComponent implements OnInit {
     this.dataSource = new MatTableDataSource(EXAMPLE_DATA);
 
   }
+
+  //funzione legata alle righe della tabella che prende tutte le info di un socio(comprese quelle non visualizzate provenienti dal backend)
+  setActive(socio:any){
+    console.log(socio);
+  }
+
   ngOnInit(): void {
 
   }
@@ -114,7 +121,6 @@ export class TableMemberComponent implements OnInit {
         n = element.tessera;
       }
     });
-
   }
 
   //=======================FILTRI CAMPI RICERCA TABELLA========================
