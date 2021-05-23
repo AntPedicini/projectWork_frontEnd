@@ -2,6 +2,15 @@
     width: 100%;
     text-align: left;
     height: 5em;
+    font-family: Pattaya;
+    text-shadow: 2px, 2px, 5px, black;
+  }
+
+  .mat-menu{
+    margin-left: 5em;
+  }
+  .mat-menu-item {
+  width: 25em;
   }
 
 
