@@ -1,11 +1,7 @@
 import { Injectable, ɵCompiler_compileModuleSync__POST_R3__ } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { HttpHeaders } from '@angular/common/http';
-
-
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { EmailValidator } from '@angular/forms';
 import {  TableMemberItem } from './table-member/table-member-datasource';
 
 
@@ -21,7 +17,7 @@ export class ServiceSocioService {
   constructor(private http: HttpClient) {
   }
 
-  socioGetAll(): Observable<any> {
+  getAllSocio(): Observable<any> {
      return this.http.get<any>(this.url + '/getAll').pipe(map((res: any) => res
      
 /*      {
@@ -51,4 +47,8 @@ export class ServiceSocioService {
     return this.http.post<any>(this.url+'/newSocio', newSocio).pipe(map((res: any) => res));
   
   } 
+
+  deleteSocio(id_socio:number):Observable<any>{
+    return this.http.delete(this.url +'/'+ id_socio).pipe(map((res: any)=> res));
+  }
 }

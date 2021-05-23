@@ -4,6 +4,7 @@ import { ViewChild } from '@angular/core';
 import { ServiceSocioService } from '../service-socio.service';
 import { DatePipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ServiceAutoService } from '../service-auto.service';
 
 
 
@@ -16,16 +17,16 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class MemberFormComponent {
   //Socio
   addressForm = this.fb.group({
-    tessera: [null, Validators.required],
+    tessera_socio: [null, Validators.required],
     validita: [null, Validators.required],
     nome: [null, Validators.required],
     cognome: [null, Validators.required],
     codice_fiscale: [null, Validators.required],
     nato_il: [null, Validators.required],
     email: [null, Validators.required],
-    indirizzo: [null, Validators.required],
-    citta: [null, Validators.required],
-    provincia: [null, Validators.compose([
+    indirizzo: ['', Validators.required],
+    citta: ['', Validators.required],
+    provincia: ['', Validators.compose([
       Validators.required, Validators.minLength(2), Validators.maxLength(2)])
     ],
     postalCode: [null, Validators.compose([
@@ -47,7 +48,7 @@ export class MemberFormComponent {
   allComplete: boolean = false;
   hasUnitNumber = false;
   
-  constructor(private fb: FormBuilder,private serviceSocio:ServiceSocioService,public datepipe: DatePipe) {}
+  constructor(private fb: FormBuilder,private serviceSocio:ServiceSocioService, private serviceAuto:ServiceAutoService, public datepipe: DatePipe) {}
 
   //Import foto
   //Import 1++ foto
@@ -85,13 +86,14 @@ export class MemberFormComponent {
 
   onSubmitAuto(): void {
     console.log("Registrazione auto");
-    alert('Registrazione auto avvenuta con successo');
+    //alert('Registrazione auto avvenuta con successo');
     console.log(this.addressForm.value);
+    this.insertAuto(this.addressForm.value);
   }
 
-//===================
-//INSERIMENTO SOCIO
-//===================
+//=======================
+//INSERIMENTO SOCIO/AUTO
+//=======================
 
   insertSocio(socio:any): void {
 
@@ -126,6 +128,33 @@ export class MemberFormComponent {
        } );
   
   }
+
+//=======================
+//INSERIMENTO SOLO AUTO
+//=======================
+
+insertAuto(auto:any): void {
+
+  //=============================Controlli sull'inserimento=======================================
+
+      if(auto.targa != null)
+        auto.targa = auto.targa.toUpperCase();
+      if(auto.tessera_socio != null){
+        var valueNumber = Number(auto.tessera_socio);
+        auto.tessera_socio = valueNumber; 
+      }
+  //=============================CHIAMATA AL SERVIZIO=======================================
+
+    this.serviceAuto.insertAuto( auto ).subscribe(res=>{
+        alert('Veicolo inserito con successo');
+      },
+      (error:HttpErrorResponse) => {                       //Error callback
+        console.error('error caught in component')
+        alert('Qualcosa è andato storto... :(\n Prova a ricontrollare tutti i campi ');
+       } );
+  
+  }
+  
   
 }
 

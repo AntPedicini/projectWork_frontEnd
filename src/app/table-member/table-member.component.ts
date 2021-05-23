@@ -5,17 +5,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { MatTableDataSource } from '@angular/material/table';
-import { Observable } from 'rxjs';
 import { ServiceSocioService } from '../service-socio.service';
 import { EXAMPLE_DATA, TableMemberDataSource, TableMemberItem } from './table-member-datasource';
 
-
-/*export let EXAMPLE_DATA: TableMemberItem[] = [
-   {tessera: 1, validita: 2021, nome: 'John', cognome: 'Doe', nato_il: '1986-02-15', codice_fiscale: 'XXXXXXXXXXXXXXXX', indirizzo:'VI', email: 'john.doe@vecchieglorie.com', consiglio: true, segretario: true},
-  {tessera: 2, validita: 2021, nome: 'Bill', cognome: 'Smith', nato_il: '1980-05-23', codice_fiscale: 'YYYYYYYYYYYYYYYY', indirizzo:'PD', email: 'bill.smith@vecchieglorie.com', consiglio: true, segretario: false},
-  {tessera: 3, validita: 2021, nome: 'Lucy', cognome: 'Flowers', nato_il: '1990-11-03', codice_fiscale: 'ZZZZZZZZZZZZZZZ', indirizzo:'MI', email: 'lucy.flowers@vecchieglorie.com', consiglio: false, segretario: false} 
-
-];*/
 
 @Component({
   selector: 'app-table-member',
@@ -39,7 +31,7 @@ export class TableMemberComponent implements OnInit {
 
     this.getAllSocio();
     this.dataSource = new MatTableDataSource(EXAMPLE_DATA);
-  
+
   }
   ngOnInit(): void {
 
@@ -51,10 +43,15 @@ export class TableMemberComponent implements OnInit {
     this.table.dataSource = this.dataSource;
   }
 
-  //metodo che richiama il servizio per il recupero di tutti i soci da visualizzare in tabella
+  //=================================
+  //RECUPERO DATI SOCI DAL DATABASE
+  //=================================
+
+  //=======================METODO CHE RICHIAMA IL SERVIZIO========================
   getAllSocio() {
     EXAMPLE_DATA.splice(0, EXAMPLE_DATA.length); //workaround per svuotare l'array ad ogni update pagina
-    this.serviceSocio.socioGetAll().subscribe((res: any) => {
+    this.serviceSocio.getAllSocio().subscribe((res: any) => {
+      
       res.forEach((element: TableMemberItem) => {
         EXAMPLE_DATA.push(element);
         this.soci = res;
@@ -65,11 +62,34 @@ export class TableMemberComponent implements OnInit {
     },
 
       (error: HttpErrorResponse) => {
-        console.log('[['+error.name + ' || ' + error.message+']]');
-        alert('ERRORE CARICAMENTO DATI');
+        console.log('[[' + error.name + ' || ' + error.message + ']]');
+        alert('Nessun Socio presente in database');
+        this.refreshTable();
       }
     );
 
+  }
+
+  //====================
+  //CANCELLAZIONE SOCIO
+  //====================
+
+  deleteSocio(id_socio: number) {
+    if (id_socio == null)
+      alert('Devi specificare il numero TESSERA del socio');
+    else {
+      var numberValue = Number(id_socio);
+      console.log(numberValue);
+      this.serviceSocio.deleteSocio(numberValue).subscribe((res: any) => {
+        alert('Socio con TESSERA \''+ numberValue +'\' eliminato con successo dal database \n NB: Le eventuali auto associate non sono state cancellate :D');
+        this.getAllSocio();
+
+      },
+        (error: HttpErrorResponse) => {                       //Error callback
+          console.error('error caught in component')
+          alert('Qualcosa è andato storto... :(\n Controlla il numero TESSERA inserito ');
+        });
+    }
   }
 
   //metodo per refreshare la tabella
@@ -85,7 +105,8 @@ export class TableMemberComponent implements OnInit {
     }
   }
   //metodo per refreshare la select per selezionare la tessera
-  private refreshSelect(){
+  private refreshSelect() {
+    this.elenco_tessere=[];
     var n: any = null;
     EXAMPLE_DATA.forEach(element => {
       if (element.tessera != n) {
@@ -95,6 +116,8 @@ export class TableMemberComponent implements OnInit {
     });
 
   }
+
+  //=======================FILTRI CAMPI RICERCA TABELLA========================
 
   allFilter(event: Event) {
 
@@ -158,10 +181,9 @@ export class TableMemberComponent implements OnInit {
   }
 
   onDelete() {
-    // TODO: Use EventEmitter with form value
     console.log("Funzione cancellazione");
-    console.log(this.registrationForm.value);
-    alert('Delete');
+    console.log(typeof this.registrationForm.value);
+    this.deleteSocio(this.registrationForm.value.tessera);
   }
 
   onUpdate(): void {

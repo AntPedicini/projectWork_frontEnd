@@ -40,6 +40,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { HttpClientModule } from '@angular/common/http';
 import { ServiceSocioService } from './service-socio.service';
 import { DatePipe } from '@angular/common';
+import { ServiceAutoService } from './service-auto.service';
 
 
 @NgModule({
@@ -88,6 +89,7 @@ import { DatePipe } from '@angular/common';
   providers: [
     DatePipe,
     ServiceSocioService,
+    ServiceAutoService,
     {provide: MAT_DATE_LOCALE, useValue: 'it-IT'}],
   bootstrap: [AppComponent]
 })
