@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AppComponent } from '../app.component';
+
 
 @Component({
   selector: 'app-menu',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
-  constructor() { }
+  constructor(private app: AppComponent) { }
 
   ngOnInit(): void {
+
   }
 
+  logout(){
+    console.log("ho premuto esci");
+    this.app.logout();
+  }
 }

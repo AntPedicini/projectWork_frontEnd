@@ -42,6 +42,9 @@ import { ServiceSocioService } from './service-socio.service';
 import { DatePipe } from '@angular/common';
 import { ServiceAutoService } from './service-auto.service';
 import { ServiceEventoService } from './service-evento.service';
+import { LoginComponent } from './login/login.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+
 
 
 @NgModule({
@@ -59,7 +62,8 @@ import { ServiceEventoService } from './service-evento.service';
     EventFormComponent,
     RegistrationFormComponent,
     MenuComponent,
-    
+    LoginComponent
+   
   ],
   imports: [
     BrowserModule,
@@ -85,7 +89,9 @@ import { ServiceEventoService } from './service-evento.service';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSlideToggleModule,
-    HttpClientModule
+    HttpClientModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [
     DatePipe,
@@ -93,6 +99,11 @@ import { ServiceEventoService } from './service-evento.service';
     ServiceAutoService,
     ServiceEventoService,
     {provide: MAT_DATE_LOCALE, useValue: 'it-IT'}],
+  
+  exports: [
+    MatFormFieldModule,
+    MatInputModule
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
