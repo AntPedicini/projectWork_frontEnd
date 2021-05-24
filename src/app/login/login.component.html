@@ -2,7 +2,7 @@
     <mat-card>
         <mat-card-title>Login</mat-card-title>
         <mat-card-content>
-            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <form [formGroup]="loginForm">
                 <p>
                     <mat-form-field appearance="outline">
                         <mat-label>Username</mat-label>
@@ -27,7 +27,7 @@
                         <mat-error *ngIf="f.password.errors">Password non valida</mat-error>
                     </mat-form-field>
                 </p>
-                <button [disabled]="loading" mat-raised-button color="primary">
+                <button [disabled]="loading" mat-raised-button color="primary" (click)="onSubmit()">
                     Login
                 </button>
                 <mat-error *ngIf="error">{{error}}</mat-error>
