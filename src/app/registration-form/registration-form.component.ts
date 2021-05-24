@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { TablePresenceItem } from '../table-presence/table-presence-datasource';
-import { EXAMPLE_DATA } from '../table-presence/table-presence.component';
+import { DATA } from '../table-presence/table-presence-datasource';
  
 @Component({
   selector: 'app-registration-form',
@@ -25,9 +25,9 @@ export class RegistrationFormComponent {
   });
 
   constructor(private fb: FormBuilder) {
-    this.dataSource = new MatTableDataSource(EXAMPLE_DATA);
+    this.dataSource = new MatTableDataSource(DATA);
     var n:any=null;
-    EXAMPLE_DATA.forEach(element => {
+    DATA.forEach(element => {
       if(element.cod_evento!=n){
         this.elenco_eventi.push(element.nome_evento);
         n=element.cod_evento;

@@ -62,7 +62,7 @@ export class TableEventComponent implements AfterViewInit {
   }
 
   //====================
-  //CANCELLAZIONE SOCIO
+  //CANCELLAZIONE EVENTO
   //====================
 
   deleteEvento(cod_evento: number) {

@@ -2,22 +2,22 @@
 
 <mat-form-field>
   <mat-label>Cerca in tutti i campi </mat-label>
-  <input matInput (keyup)="allFilter($event)" placeholder="Inserisci testo" #input>
+  <input name = "findAll" matInput (keyup)="allFilter($event)" placeholder="Inserisci testo" #input>
 </mat-form-field>
 
 <mat-form-field class="find">
   <mat-label>Cerca per Codice Evento</mat-label>
-  <input matInput (keyup)="cod_eventoFilter($event)" placeholder="Inserisci Codice Evento" #input>
+  <input name = "findByCod_evento" matInput (keyup)="cod_eventoFilter($event)" placeholder="Inserisci Codice Evento" #input>
 </mat-form-field>
 
 <mat-form-field class="find">
   <mat-label>Cerca per Nome Evento</mat-label>
-  <input matInput (keyup)="nome_eventoFilter($event)" placeholder="Inserisci Nome Evento" #input>
+  <input name = "findByNome_evento" matInput (keyup)="nome_eventoFilter($event)" placeholder="Inserisci Nome Evento" #input>
 </mat-form-field>
 
 <mat-form-field class="find">
   <mat-label>Cerca per Targa</mat-label>
-  <input matInput (keyup)="targaFilter($event)" placeholder="Inserisci Targa" #input>
+  <input name = "finByTarga" matInput (keyup)="targaFilter($event)" placeholder="Inserisci Targa" #input>
 </mat-form-field>
 
 <div class="mat-elevation-z8">
@@ -83,17 +83,17 @@
   <form [formGroup]="registrationForm" > <!-- (ngSubmit)="onSubmit()" -->
     <mat-form-field class="reg">
       <mat-label>Scegli un evento</mat-label>
-      <mat-select [(value)]="selected" formControlName="cod_evento" matInput placeholder="codice evento" #input>
+      <mat-select [(value)]="selected" formControlName="nome_evento" matInput placeholder="Nome Evento" #input>
         <mat-option *ngFor="let name of elenco_nomi" value="{{name}}">{{name}}</mat-option>
       </mat-select>
-      <mat-error *ngIf="registrationForm.controls['cod_evento'].hasError('required')">
+      <mat-error *ngIf="registrationForm.controls['nome_evento'].hasError('required')">
         Codice evento <strong>obbligatorio!</strong>
       </mat-error>
     </mat-form-field>
 
     <mat-form-field class="reg">
       <mat-label>TARGA </mat-label>
-      <input formControlName="targa" matInput placeholder="targa" #input maxlength="7">
+      <input name = "targa" formControlName="targa" matInput placeholder="targa" #input maxlength="7">
       <mat-error *ngIf="registrationForm.controls['targa'].hasError('required')">
         Targa <strong>obbligatoria!</strong>
       </mat-error>
@@ -101,7 +101,7 @@
 
     <mat-form-field class="reg">
       <mat-label>PARTECIPANTI</mat-label>
-      <input formControlName="partecipanti" matInput placeholder="partecipanti" #input type="number">
+      <input name = "partecipanti" formControlName="partecipanti" matInput placeholder="partecipanti" #input type="number">
       <mat-error *ngIf="registrationForm.controls['partecipanti'].hasError('required')">
         Numero partecipanti <strong>obbligatorio!</strong>
       </mat-error>
@@ -109,7 +109,7 @@
 
     <mat-card class="card">
       <mat-form-field>
-        <input style="text-align: right;" matInput [disabled]=true value="{{setCosto()}}" placeholder="Costo Totale"
+        <input class = "display" style="text-align: right;" matInput [disabled]=true value="{{setCosto()}} €" placeholder="Costo Totale"
           #input>
       </mat-form-field>
     </mat-card>
