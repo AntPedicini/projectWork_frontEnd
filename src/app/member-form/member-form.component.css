@@ -86,3 +86,10 @@ input[type="button"] {
 #input_css{
   margin-left: 15%;
 }
+
+.title {
+  font-family: Pattaya;
+  font-size: 2em;
+  font-style: oblique;
+  text-shadow: 2px, 2px, 5px, black;
+}

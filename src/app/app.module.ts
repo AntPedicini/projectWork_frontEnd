@@ -38,6 +38,10 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { HttpClientModule } from '@angular/common/http';
+import { ServiceSocioService } from './service-socio.service';
+import { DatePipe } from '@angular/common';
+import { ServiceAutoService } from './service-auto.service';
+import { ServiceEventoService } from './service-evento.service';
 
 
 @NgModule({
@@ -84,6 +88,10 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule
   ],
   providers: [
+    DatePipe,
+    ServiceSocioService,
+    ServiceAutoService,
+    ServiceEventoService,
     {provide: MAT_DATE_LOCALE, useValue: 'it-IT'}],
   bootstrap: [AppComponent]
 })

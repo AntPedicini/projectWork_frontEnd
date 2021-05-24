@@ -1,5 +1,8 @@
+import { DatePipe } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { ServiceEventoService } from '../service-evento.service';
 
 @Component({
   selector: 'app-event-form',
@@ -8,11 +11,12 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class EventFormComponent {
   addressForm = this.fb.group({
-    id_evento: [null, Validators.required],
-    nome: [null, Validators.required],
-    data: [null, Validators.required],
-    costo: [null, Validators.required],
-    posti: [null, Validators.required],
+    cod_evento: [null, Validators.required],
+    nome_evento: [null, Validators.required],
+    data_inizio: [null, Validators.required],
+    data_fine: [null, Validators.required],
+    costo_unitario: [null, Validators.required],
+    posti_disponibili: [null, Validators.required],
     indirizzo: [null, Validators.required],
     citta: [null, Validators.required],
     provincia: [null, Validators.compose([
@@ -26,11 +30,44 @@ export class EventFormComponent {
 
   hasUnitNumber = false;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private serviceEvento: ServiceEventoService, public datepipe: DatePipe) { }
 
   onSubmit(): void {
     console.log("Registrazione evento");
-    alert('Evento registrato con successo');
     console.log(this.addressForm.value);
+    this.insertEvento(this.addressForm.value);
   }
+
+  //=======================
+  //INSERIMENTO EVENTO
+  //=======================
+
+  insertEvento(evento: any): void {
+
+    //=============================Controlli sull'inserimento=======================================
+    if (evento.data_inizio != null && evento.data_fine != null) {
+      evento.data_inizio = this.datepipe.transform(evento.data_inizio, 'yyyy-MM-dd');
+      evento.data_fine = this.datepipe.transform(evento.data_fine, 'yyyy-MM-dd');
+    }
+
+    if(evento.indirizzo!=null&&evento.citta!=null&&evento.provincia!=null&&evento.postalCode!=null)
+      evento.location = evento.indirizzo+' '+evento.citta.toUpperCase()+' '+evento.postalCode+' '+evento.provincia.toUpperCase();
+
+    //=============================CHIAMATA AL SERVIZIO=======================================
+
+    this.serviceEvento.insertEvento(evento).subscribe(res => {
+      alert('Evento inserito con successo');
+    },
+      (error: HttpErrorResponse) => {                       //Error callback
+        console.error('error caught in component')
+        alert('Qualcosa è andato storto... :(\n Prova a ricontrollare tutti i campi ');
+      });
+
+  }
+
+  registrationForm = this.fb.group({
+    tessera: [null, Validators.required],
+  });
+
 }
+

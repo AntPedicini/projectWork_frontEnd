@@ -17,6 +17,7 @@
 }
 
 .dashboard-card-content {
+  block-size: fit-content;
   text-align: center;
 }
 
@@ -25,14 +26,15 @@ table {
 }
 
 .banner{
-  border: 1px dotted black;
-  width: 85em;
-  height: 440px;
+  border: 2px solid black;
+  width: 100%; 
   border-radius: 5px;
+  object-fit: contain;
 }
 
 .example-container {
-  height: 500px;
+  block-size: fit-content;
+  /*height: 500px;*/
   overflow: auto;
 }
 

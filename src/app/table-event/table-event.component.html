@@ -1,28 +1,28 @@
-<h2>EVENTI</h2>
+<h2 class= "title">Eventi</h2>
 
 <mat-form-field>
   <mat-label>Cerca in tutti i campi </mat-label>
-  <input matInput (keyup)="allFilter($event)" placeholder="Inserisci testo" #input>
+  <input name = "findAll" matInput (keyup)="allFilter($event)" placeholder="Inserisci testo" #input>
 </mat-form-field>
 
 <mat-form-field class="find">
   <mat-label>Cerca per Codice Evento</mat-label>
-  <input matInput (keyup)="cod_eventoFilter($event)" placeholder="Inserisci Codice" #input>
+  <input name = "finfByCod_evento" matInput (keyup)="cod_eventoFilter($event)" placeholder="Inserisci Codice" #input>
 </mat-form-field>
 
 <mat-form-field class="find">
   <mat-label>Cerca per Nome Evento</mat-label>
-  <input matInput (keyup)="nome_eventoFilter($event)" placeholder="Inserisci Nome Evento" #input>
+  <input name = "findByName" matInput (keyup)="nome_eventoFilter($event)" placeholder="Inserisci Nome Evento" #input>
 </mat-form-field>
 
 <mat-form-field class="find">
   <mat-label>Cerca per Location</mat-label>
-  <input matInput (keyup)="locationFilter($event)" placeholder="Inserisci Location" #input>
+  <input name = "findByLocation" matInput (keyup)="locationFilter($event)" placeholder="Inserisci Location" #input>
 </mat-form-field>
 
 <mat-form-field class="find">
   <mat-label>Cerca per Data</mat-label>
-  <input matInput (keyup)="dataFilter($event)" placeholder="Inserisci Data YYYY-MM-DD" #input>
+  <input name = "findByDate" matInput (keyup)="dataFilter($event)" placeholder="Inserisci Data YYYY-MM-DD" #input>
 </mat-form-field>
 
 <div class="mat-elevation-z8">

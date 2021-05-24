@@ -1,16 +1,11 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
-import { TableEventDataSource, TableEventItem } from './table-event-datasource';
-
-const EXAMPLE_DATA: TableEventItem[] = [
-  { cod_evento: 1, nome_evento: 'GIORNATA NAZIONALE VEICOLI D EPOCA', data_inizio: '2021-09-26', data_fine: '2021-09-27', location: 'Reggio Calabria',descrizione: 'I saloni "Milano AutoClassica" e "Modena Motor Gallery" nello stesso weekend.', costo_unitario: 35.7 , posti_disponibili: 100},
-  { cod_evento: 2, nome_evento: 'ASI SOLIDALE: RALLY THERAPY', data_inizio: '2021-09-26', data_fine: '2021-09-26', location: 'Bolzano',descrizione: 'Rally Passato e Presente,dalle vetture d epoca alle vetture moderne.', costo_unitario: 32.9 , posti_disponibili: 200},
-  { cod_evento: 3, nome_evento: 'XXIII RONDE DELLE ZOLFARE', data_inizio: '2021-05-07', data_fine: '2021-05-09', location: 'Caltanissetta',descrizione: 'Manifestazione turistica con rilevamenti di passaggio di autostoriche.', costo_unitario: 54.5 , posti_disponibili: 300}
-
-];
+import { ServiceEventoService } from '../service-evento.service';
+import { EXAMPLE_DATA, TableEventDataSource, TableEventItem } from './table-event-datasource';
 
 @Component({
   selector: 'app-table-event',
@@ -24,19 +19,14 @@ export class TableEventComponent implements AfterViewInit {
   dataSource: MatTableDataSource<TableEventItem>;
   elenco_eventi: any[] = [];
   selected = null;
+  eventi: TableEventItem[] = [];
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['cod_evento', 'nome_evento', 'data_inizio', 'data_fine', 'location', 'costo_unitario', 'posti_disponibili'];
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private serviceEvento: ServiceEventoService) {
+    this.getAllEventi();
     this.dataSource = new MatTableDataSource(EXAMPLE_DATA);
-    var n:any=null;
-    EXAMPLE_DATA.forEach(element => {
-      if(element.cod_evento!=n){
-        this.elenco_eventi.push(element.cod_evento);
-        n=element.cod_evento;
-      }
-    });
   }
 
   ngAfterViewInit(): void {
@@ -45,16 +35,91 @@ export class TableEventComponent implements AfterViewInit {
     this.table.dataSource = this.dataSource;
   }
 
+  //=================================
+  //RECUPERO DATI SOCI DAL DATABASE
+  //=================================
+
+  //=======================METODO CHE RICHIAMA IL SERVIZIO========================
+  getAllEventi() {
+    EXAMPLE_DATA.splice(0, EXAMPLE_DATA.length); //workaround per svuotare l'array ad ogni update pagina
+    this.serviceEvento.getAllEventi().subscribe((res: any) => {
+
+      res.forEach((element: TableEventItem) => {
+        EXAMPLE_DATA.push(element);
+        this.eventi = res;
+      });
+      console.log(this.eventi);
+      this.refreshTable();
+      this.refreshSelect();
+    },
+
+      (error: HttpErrorResponse) => {
+        console.log('[[' + error.name + ' || ' + error.message + ']]');
+        alert('Nessun Evento presente in database');
+        this.refreshTable();
+      }
+    );
+  }
+
+  //====================
+  //CANCELLAZIONE SOCIO
+  //====================
+
+  deleteEvento(cod_evento: number) {
+    if (cod_evento == null)
+      alert('Devi specificare il Codice Evento da eliminare');
+    else {
+      //var numberValue = Number(cod_evento);
+      console.log(cod_evento);
+      this.serviceEvento.deleteEvento(cod_evento).subscribe((res: any) => {
+        alert('Evento con ID \''+ cod_evento +'\' eliminato con successo dal database \n NB: Le eventuali iscrizioni associate sono state cancellate :D');
+        this.getAllEventi();
+
+      },
+        (error: HttpErrorResponse) => {                       //Error callback
+          console.error('error caught in component')
+          alert('Qualcosa è andato storto... :(\n Controlla il Codice Evento inserito ');
+        });
+    }
+  }
+
+  //metodo per refreshare la tabella
+  private refreshTable() {
+    // if there's nothing in filter
+    if (this.dataSource.filter === '') {
+      this.dataSource.filter = ' ';
+      this.dataSource.filter = '';
+    } else {
+      // if there's something, we make a simple change and then put back old value
+      this.dataSource.filter = '';
+      this.dataSource.filter = this.dataSource.filter.valueOf();
+    }
+  }
+
+  //Metodo per refreshare la select con l' elenco degli eventi
+  private refreshSelect() {
+    this.elenco_eventi = [];
+    var n: any = null;
+    EXAMPLE_DATA.forEach(element => {
+      if (element.cod_evento != n) {
+        this.elenco_eventi.push(element.cod_evento);
+        n = element.cod_evento;
+      }
+    });
+  }
+
+  //=======================FILTRI CAMPI RICERCA TABELLA========================
+
   allFilter(event: Event) {
 
     this.dataSource.filterPredicate = (data: TableEventItem, filter: any) => {
-    return  data.cod_evento.toString().trim().toLowerCase()   .includes(filter.trim().toLowerCase()) ||
-            data.costo_unitario.toString().trim().toLowerCase()   .includes(filter.trim().toLowerCase()) ||
-            data.data_inizio.trim().toLowerCase()   .includes(filter.trim().toLowerCase()) ||
-            data.data_fine.trim().toLowerCase()   .includes(filter.trim().toLowerCase()) ||
-            data.location.trim().toLowerCase()   .includes(filter.trim().toLowerCase()) ||
-            data.nome_evento.trim().toLowerCase()   .includes(filter.trim().toLowerCase()) ||
-            data.posti_disponibili.toString().trim().toLowerCase()   .includes(filter.trim().toLowerCase());
+      return data.cod_evento.toString().trim().toLowerCase().includes(filter.trim().toLowerCase()) ||
+        data.costo_unitario.toString().trim().toLowerCase().includes(filter.trim().toLowerCase()) ||
+        data.data_inizio.trim().toLowerCase().includes(filter.trim().toLowerCase()) ||
+        data.data_fine.trim().toLowerCase().includes(filter.trim().toLowerCase()) ||
+        data.location.trim().toLowerCase().includes(filter.trim().toLowerCase()) ||
+        data.nome_evento.trim().toLowerCase().includes(filter.trim().toLowerCase()) ||
+        data.posti_disponibili.toString().trim().toLowerCase().includes(filter.trim().toLowerCase());
     };
 
     const filterValue = (event.target as HTMLInputElement).value;
@@ -65,8 +130,8 @@ export class TableEventComponent implements AfterViewInit {
 
     //imposta i campi di ricerca sul quale agisce il filtro
     this.dataSource.filterPredicate = (data: TableEventItem, filter: any) => {
-      return data.cod_evento.toString()   .includes(filter);
-     };
+      return data.cod_evento.toString().includes(filter);
+    };
 
     //filtra le righe in base al criterio del filterPredicate
     const filterValue = (event.target as HTMLInputElement).value;
@@ -76,7 +141,7 @@ export class TableEventComponent implements AfterViewInit {
   nome_eventoFilter(event: Event) {
 
     this.dataSource.filterPredicate = (data: TableEventItem, filter: any) => {
-    return data.nome_evento.trim().toLowerCase()   .includes(filter.trim().toLowerCase());
+      return data.nome_evento.trim().toLowerCase().includes(filter.trim().toLowerCase());
     };
 
     const filterValue = (event.target as HTMLInputElement).value;
@@ -86,7 +151,7 @@ export class TableEventComponent implements AfterViewInit {
   locationFilter(event: Event) {
 
     this.dataSource.filterPredicate = (data: TableEventItem, filter: any) => {
-    return data.location.toString().trim().toLowerCase()   .includes(filter.trim().toLowerCase());
+      return data.location.toString().trim().toLowerCase().includes(filter.trim().toLowerCase());
     };
 
     const filterValue = (event.target as HTMLInputElement).value;
@@ -96,7 +161,7 @@ export class TableEventComponent implements AfterViewInit {
   dataFilter(event: Event) {
 
     this.dataSource.filterPredicate = (data: TableEventItem, filter: any) => {
-    return data.data_inizio.trim().toLowerCase()   .includes(filter.trim().toLowerCase());
+      return data.data_inizio.trim().toLowerCase().includes(filter.trim().toLowerCase());
     };
 
     const filterValue = (event.target as HTMLInputElement).value;
@@ -107,7 +172,7 @@ export class TableEventComponent implements AfterViewInit {
     // TODO: Use EventEmitter with form value
     console.log("Funzione cancellazione");
     console.log(this.registrationForm.value);
-    alert('Delete');
+    this.deleteEvento(this.registrationForm.value.cod_evento);
   }
 
   onUpdate(): void {

@@ -3,37 +3,29 @@
     <mat-card-header>
 
       <!-- REGISTRAZIONE SOCIO -->
-      <mat-card-title>Registrazione nuovo socio</mat-card-title>
+      <mat-card-title class = "title">Nuovo socio</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <div class="row">
-        <!-- ID TESSERA -->
-        <div class="col">
-          <mat-form-field class="full-width">
-            <input matInput placeholder="ID Tessera" formControlName="id_tessera">
-            <mat-error *ngIf="addressForm.controls['id_tessera'].hasError('required')">
-              ID Tessera <strong>obbligatorio!</strong>
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <!-- SCADENZA TESSERA -->
-        <div class="col">
+
+        <!-- SCADENZA TESSERA --> <!-- ELIMINATA DAL FORM IN QUANTO AUTOMATICA -->
+<!--         <div class="col">
           <mat-form-field color="primary" class="full-width">
             <mat-label>Scadenza tessera</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="scadenza">
+            <input matInput [matDatepicker]="picker" formControlName="validita">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker color="primary"></mat-datepicker>
-            <mat-error *ngIf="addressForm.controls['scadenza'].hasError('required')">
+            <mat-error *ngIf="addressForm.controls['validita'].hasError('required')">
               Scadenza <strong>obbligatoria!</strong>
             </mat-error>
           </mat-form-field>
-        </div>
+        </div> -->
       </div>
       <div class="row">
         <!-- NOME -->
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput placeholder="Nome" formControlName="nome">
+            <input name = "nome" matInput placeholder="Nome" formControlName="nome">
             <mat-error *ngIf="addressForm.controls['nome'].hasError('required')">
               Nome <strong>obbligatorio!</strong>
             </mat-error>
@@ -42,7 +34,7 @@
         <!-- COGNOME -->
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput placeholder="Cognome" formControlName="cognome">
+            <input name = "cognome" matInput placeholder="Cognome" formControlName="cognome">
             <mat-error *ngIf="addressForm.controls['cognome'].hasError('required')">
               Cognome <strong>obbligatorio!</strong>
             </mat-error>
@@ -51,8 +43,8 @@
         <!-- CF -->
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput maxlength="16" placeholder="Codice Fiscale" formControlName="CF">
-            <mat-error *ngIf="addressForm.controls['CF'].hasError('required')">
+            <input name = "codice_fiscale" matInput maxlength="16" placeholder="Codice Fiscale" formControlName="codice_fiscale">
+            <mat-error *ngIf="addressForm.controls['codice_fiscale'].hasError('required')">
               Codice fiscale <strong>obbligatorio!</strong>
             </mat-error>
           </mat-form-field>
@@ -62,7 +54,7 @@
         <!-- EMAIL -->
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput placeholder="Email" formControlName="email">
+            <input name = "email" matInput placeholder="Email" formControlName="email">
             <mat-error *ngIf="addressForm.controls['email'].hasError('required')">
               Email <strong>obbligatoria!</strong>
             </mat-error>
@@ -72,10 +64,10 @@
         <div class="col">
           <mat-form-field color="primary" class="fill">
               <mat-label>Data di nascita</mat-label>
-              <input matInput [matDatepicker]="picke" formControlName="data_nascita">
+              <input name = "nato_il" matInput [matDatepicker]="picke" formControlName="nato_il">
               <mat-datepicker-toggle matSuffix [for]="picke"></mat-datepicker-toggle>
               <mat-datepicker #picke color="primary"></mat-datepicker>
-              <mat-error *ngIf="addressForm.controls['data_nascita'].hasError('required')">
+              <mat-error *ngIf="addressForm.controls['nato_il'].hasError('required')">
                 Data di nascita <strong>obbligatoria!</strong>
               </mat-error>
           </mat-form-field>
@@ -85,7 +77,7 @@
         <!-- VIA -->
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput placeholder="Via e civico" formControlName="indirizzo">
+            <input name = "indirizzo" matInput placeholder="Via e civico" formControlName="indirizzo">
             <mat-error *ngIf="addressForm.controls['indirizzo'].hasError('required')">
               Via <strong>obbligatoria!</strong>
             </mat-error>
@@ -94,7 +86,7 @@
         <!-- CITTA' -->
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput placeholder="Città" formControlName="citta">
+            <input name = "citta" matInput placeholder="Città" formControlName="citta">
             <mat-error *ngIf="addressForm.controls['citta'].hasError('required')">
               Città <strong>obbligatoria!</strong>
             </mat-error>
@@ -103,7 +95,7 @@
         <!-- PROVINCIA -->
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput maxlength="2" placeholder="Provincia" formControlName="provincia">
+            <input name = "provincia" matInput maxlength="2" placeholder="Provincia" formControlName="provincia">
             <mat-error *ngIf="addressForm.controls['provincia'].hasError('required')">
               Provincia <strong>obbligatoria!</strong>
             </mat-error>
@@ -112,7 +104,7 @@
         <!-- CAP -->
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput #postalCode maxlength="5" placeholder="CAP" type="number" formControlName="postalCode">
+            <input name = "postalCode" matInput #postalCode maxlength="5" placeholder="CAP" type="number" formControlName="postalCode">
             <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
             <mat-error *ngIf="addressForm.controls['provincia'].hasError('required')">
               CAP <strong>obbligatorio!</strong>
@@ -125,7 +117,7 @@
         <div class="col">
           <section class="example-section">
             <!--<mat-checkbox class="example-margin" formControlName="consiglio">Membro del consiglio</mat-checkbox>-->
-            <mat-slide-toggle formControlName="consiglio" color="primary">Membro del consiglio</mat-slide-toggle>
+            <mat-slide-toggle name = "consiglio" value="false" formControlName="consiglio" color="primary">Membro del consiglio</mat-slide-toggle>
           </section>
         </div>
       </div>
@@ -133,8 +125,8 @@
         <!-- SEGRETARIO DEL CLUB -->
         <div class="col">
           <section class="example-section">
-            <!--<mat-checkbox class="example-margin" formControlName="segretario">Segretario</mat-checkbox>-->
-            <mat-slide-toggle formControlName="segretario" color="primary">Segretario</mat-slide-toggle>
+            <!-- <mat-checkbox class="example-margin" formControlName="segretario">Segretario</mat-checkbox> -->
+            <mat-slide-toggle name = "segretario" value="false" formControlName="segretario" color="primary">Segretario</mat-slide-toggle>
           </section>
         </div>
       </div>
@@ -143,13 +135,22 @@
 
       <!-- REGISTRAZIONE AUTO -->
       <mat-card-header>
-        <mat-card-title>Registrazione nuova auto</mat-card-title>
+        <mat-card-title class = "title">Nuova auto</mat-card-title>
       </mat-card-header>
       <div class="row">
+                <!-- ID TESSERA -->
+                <div class="col">
+                  <mat-form-field class="full-width">
+                    <input name = "tessera_socio" matInput placeholder="Tessera Socio" formControlName="tessera_socio">
+                    <mat-error *ngIf="addressForm.controls['tessera_socio'].hasError('required')">
+                      ID Tessera <strong>obbligatorio!</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
         <!-- TARGA -->
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput maxlength="7" placeholder="Targa" formControlName="targa">
+            <input name = "targa" matInput maxlength="7" placeholder="Targa" formControlName="targa">
             <mat-error *ngIf="addressForm.controls['targa'].hasError('required')">
               Targa <strong>obbligatoria!</strong>
             </mat-error>
@@ -158,7 +159,7 @@
         <!-- MODELLO -->
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput placeholder="Modello" formControlName="modello">
+            <input name = "modello" matInput placeholder="Modello" formControlName="modello">
             <mat-error *ngIf="addressForm.controls['modello'].hasError('required')">
               Modello <strong>obbligatorio!</strong>
             </mat-error>
@@ -167,7 +168,7 @@
         <!-- MARCA -->
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput placeholder="Marca" formControlName="marca">
+            <input name = "marca" matInput placeholder="Marca" formControlName="marca">
             <mat-error *ngIf="addressForm.controls['marca'].hasError('required')">
               Marca <strong>obbligatoria!</strong>
             </mat-error>
@@ -182,7 +183,7 @@
             <input matInput [matDatepicker]="picker2" formControlName="anno">
             <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
             <mat-datepicker #picker2 color="primary"></mat-datepicker>-->
-            <input matInput maxlength="4" placeholder="Anno" formControlName="anno" type="number">
+            <input name = "anno" matInput maxlength="4" placeholder="Anno" formControlName="anno" type="number">
             <mat-error *ngIf="addressForm.controls['anno'].hasError('required')">
               Anno <strong>obbligatorio!</strong>
             </mat-error>
@@ -192,7 +193,7 @@
         <div class="col">
           <mat-form-field color="primary" class="full-width">
             <mat-label>Data di immatricolazione</mat-label>
-              <input matInput [matDatepicker]="picker3" formControlName="immatricolazione">
+              <input name = "immatricolazione" matInput [matDatepicker]="picker3" formControlName="immatricolazione">
               <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
               <mat-datepicker #picker3 color="primary"></mat-datepicker>
               <mat-error *ngIf="addressForm.controls['immatricolazione'].hasError('required')">
@@ -203,7 +204,7 @@
         <!-- CERTIFICAZIONE ASI -->
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput placeholder="Certicazione ASI" formControlName="asi">
+            <input name = "ASI" matInput placeholder="Certicazione ASI" formControlName="ASI">
           </mat-form-field>
         </div>
       </div>
@@ -213,11 +214,11 @@
           <mat-form-field class="field">
             <input matInput class="margin_input" placeholder="Foto" formControlName="foto" readonly="readonly">
             <label class="custom-file-upload">
-              <input #myInput type="file" (change)="selectFiles($event)" multiple >
+              <input name = "foto" #myInput type="file" (change)="selectFiles($event)" multiple >
                 Seleziona Foto
             </label>
             <label class="custom-file-upload" id="input_css">
-              <input type="button" value="Rimuovi" (click)="reset()">
+              <input name = "reset_foto" type="button" value="Rimuovi" (click)="reset()">
                 Reset
             </label>
           </mat-form-field>
@@ -226,8 +227,8 @@
       <img class="image" *ngFor="let url of urls" [src]="url" alt="">
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button color="primary" type="submit" value="aggiungi_totale" (click)="onSubmitSocio()">Registra Socio</button>
-      <button mat-raised-button color="primary" type="submit" value="aggiungi_auto" (click)="onSubmitAuto()">Registra Auto</button>
+      <button name = "insertSocio" mat-raised-button color="primary" type="submit" value="aggiungi_totale" (click)="onSubmitSocio()">Registra Socio</button>
+      <button name = "insertAuto" mat-raised-button color="primary" type="submit" value="aggiungi_auto" (click)="onSubmitAuto()">Registra Auto</button>
     </mat-card-actions>
   </mat-card>
 </form>

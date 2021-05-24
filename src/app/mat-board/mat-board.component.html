@@ -6,7 +6,7 @@
       <mat-card class="dashboard-card">
         <mat-card-content class="dashboard-card-content">
           <div>
-            <img class="banner" src="../assets/images/banner4.jpg"> <!-- banner / banner4 -->
+            <img class="banner" src="../assets/images/homeFixed.png"> <!-- banner / banner4 -->
           </div>
         </mat-card-content>
       </mat-card>
@@ -63,7 +63,7 @@
   </mat-grid-list>-->
 
   <!-- CARTA N.2 -->
-  <mat-grid-list cols="2" rowHeight="600px">
+  <mat-grid-list cols="2" >
     <mat-grid-tile *ngFor="let carta of carte2 | async" [colspan]="carta.cols" [rowspan]="carta.rows">
       <mat-card class="dashboard-card">
         <mat-card-header>

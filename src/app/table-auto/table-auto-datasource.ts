@@ -8,7 +8,7 @@ import { getLocaleDateFormat } from '@angular/common';
 // TODO: Replace this with your own data model type
 export interface TableAutoItem {
   targa: string;
-  ID_tessera: number;
+  tessera_socio: number;
   marca: string;
   modello: string;
   anno: number;
@@ -17,13 +17,28 @@ export interface TableAutoItem {
   //foto: Blob;
 }
 
+export class TableAutoItem{
+  targa!: string;
+  tessera_socio!: number;
+  marca!: string;
+  modello!: string;
+  anno!: number;
+  immatricolazione!: string;
+  ASI!: string;
+  //foto: Blob;
+
+  constructor(){}
+}
+
+
+
 // TODO: replace this with real data from your application
-const EXAMPLE_DATA: TableAutoItem[] = [
-  {targa:'XXX111XXX', ID_tessera: 1, marca: 'Ferrari', modello: '250 GTO', anno: 1963, immatricolazione: '1970-02-20', ASI:'1111' },
-  {targa:'XXX112XXX', ID_tessera: 1, marca: 'Bugatti', modello: 'Type 57SC', anno: 1936, immatricolazione: '1940-06-04', ASI:'1112' },
-  {targa:'XXX222XXX', ID_tessera: 2, marca: 'Mercedes', modello: 'W196R', anno: 1954, immatricolazione: '1971-12-30', ASI:'2222' },
-  {targa:'XXX333XXX', ID_tessera: 3, marca: 'Ferrari', modello: '275 GTB/4 N.A.R.T', anno: 1967, immatricolazione: '1980-07-02', ASI: '' },
-  {targa:'XXX444XXX', ID_tessera: NaN, marca: 'Ferrari', modello: '275 GTB/C Speciale', anno: 1964, immatricolazione: '1975-04-13', ASI: '' }
+export const EXAMPLE_DATA: TableAutoItem[] = [
+/*   {targa:'XXX111XXX', tessera_socio: 1, marca: 'Ferrari', modello: '250 GTO', anno: 1963, immatricolazione: '1970-02-20', ASI:'1111' },
+  {targa:'XXX112XXX', tessera_socio: 1, marca: 'Bugatti', modello: 'Type 57SC', anno: 1936, immatricolazione: '1940-06-04', ASI:'1112' },
+  {targa:'XXX222XXX', tessera_socio: 2, marca: 'Mercedes', modello: 'W196R', anno: 1954, immatricolazione: '1971-12-30', ASI:'2222' },
+  {targa:'XXX333XXX', tessera_socio: 3, marca: 'Ferrari', modello: '275 GTB/4 N.A.R.T', anno: 1967, immatricolazione: '1980-07-02', ASI: '' },
+  {targa:'XXX444XXX', tessera_socio: NaN, marca: 'Ferrari', modello: '275 GTB/C Speciale', anno: 1964, immatricolazione: '1975-04-13', ASI: '' } */
 
 ];
 
@@ -99,7 +114,7 @@ export class TableAutoDataSource extends DataSource<TableAutoItem> {
       const isAsc = this.sort?.direction === 'asc';
       switch (this.sort?.active) {
         case 'targa': return compare(a.targa, b.targa, isAsc);
-        case 'ID_tessera': return compare(+a.ID_tessera, +b.ID_tessera, isAsc);
+        case 'tessera_socio': return compare(+a.tessera_socio, +b.tessera_socio, isAsc);
         case 'anno': return compare(+a.anno, +b.anno, isAsc);
         case 'marca': return compare(+a.marca, +b.marca, isAsc);
         case 'immatricolazione': return compare(+a.immatricolazione, +b.immatricolazione, isAsc);
