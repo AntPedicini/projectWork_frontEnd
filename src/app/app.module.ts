@@ -42,6 +42,13 @@ import { ServiceSocioService } from './service-socio.service';
 import { DatePipe } from '@angular/common';
 import { ServiceAutoService } from './service-auto.service';
 import { ServiceEventoService } from './service-evento.service';
+import {MatDialogModule} from '@angular/material/dialog';
+import {DeleteDialogComponent} from './dialogs/delete/delete.dialog.component';
+import { FormsModule } from '@angular/forms';
+import { MemberEditComponent } from './dialogs/edit/member-edit/member-edit.component';
+import { PresenceEditComponent } from './dialogs/edit/presence-edit/presence-edit.component';
+import { AutoEditComponent } from './dialogs/edit/auto-edit/auto-edit.component';
+import { EventEditComponent } from './dialogs/edit/event-edit/event-edit.component';
 
 
 @NgModule({
@@ -59,6 +66,12 @@ import { ServiceEventoService } from './service-evento.service';
     EventFormComponent,
     RegistrationFormComponent,
     MenuComponent,
+    DeleteDialogComponent,
+    MemberEditComponent,
+    PresenceEditComponent,
+    AutoEditComponent,
+    EventEditComponent
+    
     
   ],
   imports: [
@@ -85,7 +98,10 @@ import { ServiceEventoService } from './service-evento.service';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSlideToggleModule,
-    HttpClientModule
+    HttpClientModule,
+    MatDialogModule,
+    FormsModule,
+    
   ],
   providers: [
     DatePipe,

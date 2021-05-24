@@ -1,0 +1,61 @@
+<div class="container">
+    <h3 mat-dialog-title>Codice evento: {{data.cod_evento}}</h3>
+  
+    <form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">
+  
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput #input class="form-control" placeholder="Codice evento" [(ngModel)]="data.cod_evento" name="cod_evento" required >
+        </mat-form-field>
+      </div>
+  
+  
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput #input class="form-control" placeholder="Nome evento" [(ngModel)]="data.nome_evento" name="nome_evento" required >
+        </mat-form-field>
+      </div>
+  
+    
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput #input class="form-control" placeholder="Data inizio" [(ngModel)]="data.data_inizio" name="data_inizio" required >
+        </mat-form-field>
+      </div>
+  
+      <div class="form">
+          <mat-form-field color="accent">
+            <input matInput #input class="form-control" placeholder="Data fine" [(ngModel)]="data.data_fine" name="data_fine" required>
+          </mat-form-field>
+      </div>
+  
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput #input class="form-control" placeholder="Location" [(ngModel)]="data.location" name="location" required>
+        </mat-form-field>
+      </div>
+  
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput #input class="form-control" placeholder="Costo unitario" [(ngModel)]="data.costo_unitario" name="costo_unitario" required>
+        </mat-form-field>
+      </div>
+
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput #input class="form-control" placeholder="Posti disponibili" [(ngModel)]="data.posti_disponibili" name="posti_disponibili" required>
+        </mat-form-field>
+      </div>
+
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput #input class="form-control" placeholder="Descrizione" [(ngModel)]="data.descrizione" name="descrizione" required>
+        </mat-form-field>
+      </div>
+  
+      <div mat-dialog-actions>
+        <button mat-button type="submit" [mat-dialog-close]="1" (click)="stopEdit()">Salva</button>
+        <button mat-button (click)="onNoClick()" tabindex="-1">Cancella</button>
+      </div>
+    </form>
+  </div>

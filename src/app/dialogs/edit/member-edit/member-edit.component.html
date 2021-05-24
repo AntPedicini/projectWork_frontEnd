@@ -1,0 +1,61 @@
+<div class="container">
+    <h3 mat-dialog-title>Tessera: {{data.tessera}}</h3>
+  
+    <form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">
+  
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput #input class="form-control" placeholder="Tessera" [(ngModel)]="data.tessera" name="tessera" required >
+        </mat-form-field>
+      </div>
+  
+    
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput #input class="form-control" placeholder="Validità" [(ngModel)]="data.validita" name="validita" required >
+        </mat-form-field>
+      </div>
+  
+    
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput #input class="form-control" placeholder="Nome" [(ngModel)]="data.nome" name="nome" required >
+        </mat-form-field>
+      </div>
+  
+      <div class="form">
+          <mat-form-field color="accent">
+            <input matInput #input class="form-control" placeholder="Cognome" [(ngModel)]="data.cognome" name="cognome" required>
+          </mat-form-field>
+      </div>
+  
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput #input class="form-control" placeholder="Nato il" [(ngModel)]="data.nato_il" name="nato_il" required>
+        </mat-form-field>
+      </div>
+  
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput #input class="form-control" placeholder="Codice fiscale" [(ngModel)]="data.codice_fiscale" name="codice_fiscale" required>
+        </mat-form-field>
+      </div>
+
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput #input class="form-control" placeholder="Indirizzo" [(ngModel)]="data.indirizzo" name="indirizzo" required>
+        </mat-form-field>
+      </div>
+
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput #input class="form-control" placeholder="Email" [(ngModel)]="data.email" name="email" required>
+        </mat-form-field>
+      </div>
+  
+      <div mat-dialog-actions>
+        <button mat-button type="submit" [mat-dialog-close]="1" (click)="stopEdit()">Salva</button>
+        <button mat-button (click)="onNoClick()" tabindex="-1">Cancella</button>
+      </div>
+    </form>
+  </div>

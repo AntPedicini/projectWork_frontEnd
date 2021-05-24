@@ -6,7 +6,9 @@ import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { TablePresenceDataSource, TablePresenceItem } from './table-presence-datasource';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
-import { element, EventEmitter } from 'protractor';
+import {PresenceEditComponent} from '../dialogs/edit/presence-edit/presence-edit.component';
+import {DeleteDialogComponent} from '../dialogs/delete/delete.dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 export const EXAMPLE_DATA: TablePresenceItem[] = [
   { cod_evento: 1, nome_evento: 'GIORNATA NAZIONALE VEICOLI D EPOCA', targa: 'XXX111XXX', costo_unitario: 35.7, posti_disponibili: 1, partecipanti_iscritti: 4, partecipanti_effettivi: 3 },
@@ -36,12 +38,14 @@ export class TablePresenceComponent {
   dataSource: MatTableDataSource<TablePresenceItem>;
   elenco_nomi: String[] = [];
   selected = null;
+  presenze: TablePresenceItem[] = [];
+  index:number=0;
 
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['cod_evento', 'nome_evento', 'targa', 'costo_unitario', 'posti_disponibili', 'partecipanti_iscritti', 'partecipanti_effettivi'];
+  displayedColumns = ['cod_evento', 'nome_evento', 'targa', 'costo_unitario', 'posti_disponibili', 'partecipanti_iscritti', 'partecipanti_effettivi', 'edit'];
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private dialog: MatDialog) {
     this.dataSource = new MatTableDataSource(EXAMPLE_DATA);
     var n:any=null;
     EXAMPLE_DATA.forEach(element => {
@@ -137,18 +141,31 @@ export class TablePresenceComponent {
     alert('Submit');
   }
 
-  onDelete() {
-    // TODO: Use EventEmitter with form value
-    console.log("Funzione cancellazione");
-    console.log(this.registrationForm.value);
-    alert('Delete');
-  }
+  startEdit(i:number, cod_evento: number, nome_evento: string, targa: string, costo_unitario: number, posti_disponibili: number, partecipanti_iscritti: number, partecipanti_effettivi: number) {
+    var presenze:TablePresenceItem={cod_evento: 0, nome_evento: '', targa: '', costo_unitario: 0, posti_disponibili: 0, partecipanti_iscritti: 0, partecipanti_effettivi: 0};
+    presenze.cod_evento=cod_evento;
+    presenze.nome_evento=nome_evento;
+    presenze.targa= targa;
+    presenze.costo_unitario= costo_unitario;
+    presenze.posti_disponibili= posti_disponibili;
+    presenze.partecipanti_iscritti= partecipanti_iscritti;
+    presenze.partecipanti_effettivi= partecipanti_effettivi;
+    this.index = i;
+    console.log(this.index);
+    console.log(presenze);
+    const dialogRef = this.dialog.open(PresenceEditComponent, {
+      data: {cod_evento: cod_evento, nome_evento: nome_evento, targa: targa, costo_unitario: costo_unitario, posti_disponibili: posti_disponibili, partecipanti_iscritti: partecipanti_iscritti, partecipanti_effettivi: partecipanti_effettivi}
+    }
+  )}
 
-  onUpdate(): void {
-    console.log("Update iscrizione");
-    alert('Update avvenuto con successo');
-    console.log(this.registrationForm.value);
-  }
+   deleteItem(i: number, cod_evento: number) {
+      this.index = i;
+      console.log(this.index);
+      console.log(cod_evento);
+      const dialogRef = this.dialog.open(DeleteDialogComponent, {
+       data: {cod_evento:cod_evento}
+      }
+    )};
 
 }
 
@@ -169,6 +186,7 @@ function postiDisponibili() {
       element.posti_disponibili = 132;
     }
   });
+
 }
 //======================================================================
 
