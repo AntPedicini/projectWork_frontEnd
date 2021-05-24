@@ -1,53 +1,52 @@
 <form [formGroup]="addressForm" novalidate>
   <mat-card class="shipping-card">
     <mat-card-header>
-      <mat-card-title class = "title">Nuova iscrizione</mat-card-title>
+      <mat-card-title class="title">Nuova iscrizione</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <div class="row">
         <!-- SELECT EVENTO-->
         <div class="col">
-          <mat-form-field class="width">
+          <mat-form-field class="select">
             <mat-label>Scegli un evento</mat-label>
-            <mat-select [(value)]="selected" formControlName="id_evento" matInput placeholder="codice evento" #input>
-              <mat-option *ngFor="let evento of elenco_eventi" value="{{evento}}">{{evento}}</mat-option>
+            <mat-select name="nome_evento" [value]="selected" formControlName="nome_evento" matInput
+              placeholder="Nome Evento" #evento>
+              <mat-option *ngFor="let evento of elenco_eventi" [value]="evento">{{evento}}</mat-option>
             </mat-select>
-            <mat-error *ngIf="addressForm.controls['id_evento'].hasError('required')">
-              Codice evento <strong>obbligatorio!</strong>
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <!-- CODICE EVENTO DA RIMUOVERE IN CASO SI USASSE LA SELECT
-        <div class="col">
-          <mat-form-field class="full-width">
-            <input matInput placeholder="Codice evento" formControlName="id_evento">
-            <mat-error *ngIf="addressForm.controls['id_evento'].hasError('required')">
-              Codice <strong>obbligatorio!</strong>
-            </mat-error>
-          </mat-form-field>
-        </div>-->
-      </div>
-      <div class="row">
-        <!-- TARGA AUTO PER RICERCA DB-->
-        <div class="col">
-          <mat-form-field class="full-width">
-            <input matInput maxlength="7" placeholder="Targa" formControlName="targa">
-            <mat-error *ngIf="addressForm.controls['targa'].hasError('required')">
-              Targa <strong>obbligatoria!</strong>
+            <mat-error *ngIf="addressForm.controls['nome_evento'].hasError('required')">
+              Nome evento <strong>obbligatorio!</strong>
             </mat-error>
           </mat-form-field>
         </div>
         <!-- POSTI DISPONIBILI READONLY, PRENDERE INFO DA DB-->
         <div class="col">
-          <mat-form-field class="full-width">
-            <input matInput placeholder="Posti disponibili //ReadOnly" formControlName="posti" type="number" readonly="readonly">
+          <mat-card class="card">
+            <mat-form-field class="full-width">
+              <input class="display" style="text-align: left;" matInput [disabled]=true value="{{setPostiRimanenti()}}"
+                placeholder="PostiRimanenti" #input>
+            </mat-form-field>
+          </mat-card>
+        </div>
+      </div>
+      <div class="row2">
+        <!-- TARGA AUTO PER RICERCA DB-->
+        <div class="col">
+          <mat-form-field class="select">
+            <mat-label>Scegli Targa</mat-label>
+            <mat-select matInput name="targa" [value]="selected" formControlName="targa" placeholder="Targa" #targa>
+              <mat-option *ngFor="let targa of elenco_targhe" [value]="targa">{{targa}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="addressForm.controls['targa'].hasError('required')">
+              Targa <strong>obbligatorio!</strong>
+            </mat-error>
           </mat-form-field>
         </div>
         <!-- ISCRITTI READONLY, PRENDERE INFO DA DB-->
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput type="number" name="quantity" min="1" max="5" placeholder="Partecipanti iscritti" formControlName="iscritti">
-            <mat-error *ngIf="addressForm.controls['iscritti'].hasError('required')">
+            <input matInput type="number" name="iscritti" min="1" max="5" placeholder="Partecipanti iscritti"
+              formControlName="partecipanti_iscritti">
+            <mat-error *ngIf="addressForm.controls['partecipanti_iscritti'].hasError('required')">
               Partecipanti iscritti <strong>obbligatori!</strong>
             </mat-error>
           </mat-form-field>

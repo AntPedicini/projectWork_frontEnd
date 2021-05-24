@@ -17,13 +17,18 @@ export class ServicePresenceService {
     return this.http.get<any>(this.url + '/getAll').pipe(map((res: any) => res));
   }
 
-  insertIscrizioni(newEvent: TablePresenceItem): Observable<any> {
+  insertIscrizione(newEvent: TablePresenceItem): Observable<any> {
 
     console.log(newEvent);
-    return this.http.post<any>(this.url + '/newRaduno', newEvent).pipe(map((res: any) => res));
+    return this.http.post<any>(this.url + '/newIscrizione', newEvent).pipe(map((res: any) => res));
   }
 
   deleteIscrizione(cod_evento: number, targa: string): Observable<any> {
     return this.http.delete(this.url + '/' + cod_evento + '/' + targa).pipe(map((res: any) => res));
+  }
+
+  checkout(iscrizione: TablePresenceItem): Observable<any>{
+    return this.http.put( 'http://localhost:8080/checkout', iscrizione ).pipe(map((res:any) => res));
+
   }
 }

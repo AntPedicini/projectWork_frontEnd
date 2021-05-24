@@ -23,6 +23,11 @@ mat-card-content {
 }
 
 .button {
+    width:100%;
     display: flex;
     justify-content: flex-end;
+}
+
+.container{
+   box-shadow: 2px,2px,5px, black;
 }

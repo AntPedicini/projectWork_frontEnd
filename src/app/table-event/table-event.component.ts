@@ -185,4 +185,9 @@ export class TableEventComponent implements AfterViewInit {
     cod_evento: [null, Validators.required],
   });
 
+  setActive(evento:any){
+    console.log(evento.descrizione);
+
+  }
+
 }

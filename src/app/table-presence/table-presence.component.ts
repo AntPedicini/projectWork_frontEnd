@@ -10,6 +10,8 @@ import { element, EventEmitter } from 'protractor';
 import { ServicePresenceService } from '../service-presence.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ServiceEventoService } from '../service-evento.service';
+import { ServiceAutoService } from '../service-auto.service';
+import { TableEventItem } from '../table-event/table-event-datasource';
 
 
 
@@ -25,14 +27,19 @@ export class TablePresenceComponent {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<TablePresenceItem>;
   dataSource: MatTableDataSource<TablePresenceItem>;
+  elenco_eventi: TableEventItem[] = [];
   elenco_nomi: String[] = [];
+  elenco_targhe: any = [];
   selected = null;
   presenze: TablePresenceItem[] = [];
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['cod_evento', 'nome_evento', 'targa', 'costo_unitario', 'posti_disponibili', 'partecipanti_iscritti', 'partecipanti_effettivi'];
 
-  constructor(private fb: FormBuilder, private servicePresence: ServicePresenceService, private serviceEvento: ServiceEventoService) {
+  constructor(private fb: FormBuilder,
+    private servicePresence: ServicePresenceService,
+    private serviceEvento: ServiceEventoService,
+    private serviceAuto: ServiceAutoService) {
 
     this.getAllIscrizioni();
     this.dataSource = new MatTableDataSource(PRESENCE_DATA);
@@ -51,7 +58,7 @@ export class TablePresenceComponent {
   getAllIscrizioni() {
     PRESENCE_DATA.splice(0, PRESENCE_DATA.length); //workaround per svuotare l'array ad ogni update pagina
     this.servicePresence.getAllIscrizioni().subscribe((res: any) => {
-      
+
       res.forEach((element: TablePresenceItem) => {
         PRESENCE_DATA.push(element);
         this.presenze = res;
@@ -60,6 +67,7 @@ export class TablePresenceComponent {
 
       //recupero i dati relativi all'evento e refresh tabella e select eventi
       this.getInfoEventi();
+      this.getInfoAuto();
       this.refreshTable();
       this.refreshSelect();
     },
@@ -82,16 +90,17 @@ export class TablePresenceComponent {
 
       res.forEach((element: any) => {
 
+        this.elenco_eventi.push(element);
         PRESENCE_DATA.forEach(el => {
-          if(el.cod_evento == element.cod_evento){
+          if (el.cod_evento == element.cod_evento) {
             //recupero il nome dell'evento da visualizzare
-            el.nome_evento=element.nome_evento;
+            el.nome_evento = element.nome_evento;
             //recupero il costo unitario
             el.costo_unitario = element.costo_unitario;
             //recupero il calcolo dei posti rimanenti
             el.posti_disponibili = element.posti_rimanenti;
-/*             if(el.partecipanti_effettivi == null)
-              el.partecipanti_effettivi=0; */
+            /*             if(el.partecipanti_effettivi == null)
+                          el.partecipanti_effettivi=0; */
           }
         });
       });
@@ -107,29 +116,76 @@ export class TablePresenceComponent {
     );
   }
 
+  //=====================================
+  //RECUPERO DATI AUTO DAL DATABASE
+  //=====================================
+
+  getInfoAuto(): any {
+    this.serviceAuto.getAllAuto().subscribe((res: any) => {
+
+      this.elenco_targhe = [];
+      var n: any = null;
+      res.forEach((element: any) => {
+        if (element.targa != n) {
+          this.elenco_targhe.push(element.targa);
+          n = element.targa;
+        }
+      });
+    },
+      (error: HttpErrorResponse) => {
+        console.log('[[' + error.name + ' || ' + error.message + ']]');
+        alert('Nessuna auto presente in database');
+      });
+  }
+
   //=========================
   //CANCELLAZIONE ISCRIZIONE
   //=========================
 
-  deleteIscrizione(nome_evento : string, targa:string) {
+  deleteIscrizione(nome_evento: string, targa: string) {
     if (nome_evento == null || targa == null)
       alert('Devi specificare il NOME dell\'evento e la TARGA del veicolo iscritto');
     else {
-      var cod_evento : number = 0;
+      var cod_evento: number = 0;
       PRESENCE_DATA.forEach(element => {
-        if(element.nome_evento == nome_evento)
-          cod_evento=element.cod_evento;
+        if (element.nome_evento == nome_evento)
+          cod_evento = element.cod_evento;
       });
-       this.servicePresence.deleteIscrizione(cod_evento,targa).subscribe((res: any) => {
-        alert('L\'Iscrizione del veicolo con TARGA '+ targa +' dall\'evento '+ nome_evento +' è stata cancellata con successo :D');
+      this.servicePresence.deleteIscrizione(cod_evento, targa).subscribe((res: any) => {
+        alert('L\'Iscrizione del veicolo con TARGA ' + targa + ' dall\'evento ' + nome_evento + ' è stata cancellata con successo :D');
         this.getAllIscrizioni();
 
       },
         (error: HttpErrorResponse) => {                       //Error callback
-          console.error('error caught in component')
-          alert('Qualcosa è andato storto... :(\n Controlla l\'evento e la targa inserita ');
-        }); 
+         console.log(error)
+          if(error.status == 404)
+           alert('Qualcosa è andato storto... :(\n Nessuna iscrizione trovata per il veicolo con targa '+targa+' all\'evento '+ nome_evento);
+          if(error.status == 400 || error.status == 500)
+            alert('Qualcosa è andato storto... :(\n Controlla tutti i campi e riprova')
+          });
     }
+  }
+
+  //=========================
+  //METODO CHECKOUT
+  //=========================
+
+  checkout(iscrizione: any) {
+
+    iscrizione.partecipanti_effettivi=iscrizione.partecipanti;
+    console.log(iscrizione);
+    this.servicePresence.checkout(iscrizione).subscribe((res: any) => {
+      alert('Pagamento effettuato con successo :D')
+      this.getAllIscrizioni();
+      this.registrationForm.reset();
+    },
+      (error: HttpErrorResponse) => {                       //Error callback
+        if(error.status==400)
+          alert('Qualcosa è andato storto... :(\n Controlla i dati inseriti ');
+        if(error.status==404)
+          alert('Qualcosa è andato storto... \n Iscrizione non presente in Database')
+      });
+
   }
 
   //metodo per refreshare la tabella
@@ -229,15 +285,20 @@ export class TablePresenceComponent {
   onSubmit() {
     // TODO: Use EventEmitter with form value
     console.log("Funzione registrazione");
-    console.log(this.registrationForm.value);
-    alert('Submit');
+    this.registrationForm.value.partecipanti_effettivi=this.registrationForm.value.partecipanti;
+    this.elenco_eventi.forEach(element => {
+      if(element.nome_evento == this.registrationForm.value.nome_evento)
+        this.registrationForm.value.cod_evento = element.cod_evento;
+    });
+    this.checkout(this.registrationForm.value);
+    
   }
 
   onDelete() {
     // TODO: Use EventEmitter with form value
     console.log("Funzione cancellazione");
     console.log(this.registrationForm.value);
-    this.deleteIscrizione(this.registrationForm.value.nome_evento,this.registrationForm.value.targa);
+    this.deleteIscrizione(this.registrationForm.value.nome_evento, this.registrationForm.value.targa);
     this.registrationForm.reset();
   }
 

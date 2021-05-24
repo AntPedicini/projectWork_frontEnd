@@ -189,6 +189,10 @@ export class TableAutoComponent {
     targa: [null, Validators.required],
   });
 
+  setActive(auto:any){
+    console.log(auto.foto);
+  }
+
 }
 
 
