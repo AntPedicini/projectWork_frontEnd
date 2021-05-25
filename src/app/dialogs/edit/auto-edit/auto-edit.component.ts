@@ -27,8 +27,12 @@ export class AutoEditComponent {
 
   formControl = new FormControl('', [
     Validators.required
-    // Validators.email,
   ]);
+
+  getErrorMessage() {
+    return this.formControl.hasError('required') ? 'Campo richiesto' :
+        '';
+  }
 
   submit() {
     // emppty stuff
@@ -41,4 +45,5 @@ export class AutoEditComponent {
   stopEdit(): void {
     console.log(this.autoForm.value);
   }
+
 }
