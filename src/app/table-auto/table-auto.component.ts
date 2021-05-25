@@ -192,14 +192,22 @@ export class TableAutoComponent {
              modello: auto.modello, 
              anno: auto.anno, 
              immatricolazione: auto.immatricolazione, 
-             ASI: auto.ASI}
+             ASI: auto.ASI,
+             tessera:auto.tessera_socio}
     }
   )}
 
    deleteItem(auto:any) {
       console.log(auto);
       const dialogRef = this.dialog.open(AutoDeleteComponent, {
-       data: {targa:auto.targa}
+       data: {targa:auto.targa, 
+              tessera_socio: auto.tessera_socio, 
+              marca: auto.marca, 
+              modello: auto.modello, 
+              anno: auto.anno, 
+              immatricolazione: auto.immatricolazione, 
+              ASI: auto.ASI,
+              tessera:auto.tessera_socio}
       }
     )};
 

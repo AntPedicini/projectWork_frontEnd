@@ -1,14 +1,25 @@
 <div class="container">
-    <h3 mat-dialog-title>Sei sicuro?</h3>
+    <h3 mat-dialog-title><strong>Sei sicuro di voler eliminare il socio?</strong></h3>
     <div mat-dialog-content>
-      Tessera: {{data.tessera}}
+      <strong>Tessera:</strong> {{data.tessera}}
       <p></p>
-      Nome: {{data.nome}}
+      <strong>Nome:</strong> {{data.nome}}
       <p></p>
-      Cognome: {{data.Cognome}}
+      <strong>Cognome:</strong> {{data.cognome}}
+      <p></p>
+      <strong>Nato il:</strong> {{data.nato_il}}
+      <p></p>
+      <strong>Codice Fiscale:</strong> {{data.codice_fiscale}}
+      <p></p>
+      <strong>Indirizzo:</strong> {{data.indirizzo}}
+      <p></p>
+      <strong>Email:</strong> {{data.email}}
+      <p></p>
+      <strong>Consiglio:</strong> {{data.consiglio}}
+      <p></p>
+      <strong>Segretario:</strong> {{data.segretario}}
       <p></p>
     </div>
-  
     <div mat-dialog-actions>
       <button class="btn_blue" mat-button mat-dialog-close="1" (click)="confirmDelete()">Elimina</button>
       <button class="btn_blue" mat-button (click)="onNoClick()" tabindex="-1">Cancella</button>

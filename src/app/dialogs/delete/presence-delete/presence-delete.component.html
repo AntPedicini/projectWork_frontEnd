@@ -1,15 +1,21 @@
 <div class="container">
-    <h3 mat-dialog-title>Sei sicuro?</h3>
+    <h3 mat-dialog-title><strong>Sei sicuro di volere eliminare l'iscrizione?</strong></h3>
     <div mat-dialog-content>
-      Codice Evento: {{data.cod_evento}}
+      <strong>Codice Evento:</strong> {{data.cod_evento}}
       <p></p>
-      Nome evento: {{data.nome_evento}}
+      <strong>Nome evento:</strong> {{data.nome_evento}}
       <p></p>
-      Targa: {{data.targa}}
+      <strong>Targa iscritta:</strong> {{data.targa}}
       <p></p>
-      Tessera: {{data.tessera}}
+      <strong>Costo unitario:</strong> {{data.costo_unitario}}
+      <p></p>
+      <strong>Posti disponibili:</strong> {{data.posti_disponibili}}
+      <p></p>
+      <strong>Numero iscritti:</strong> {{data.partecipanti_iscritti}}
+      <p></p>
+      <strong>Presenti:</strong> {{data.partecipanti_effettivi}}
+      <p></p>
     </div>
-  
     <div mat-dialog-actions>
       <button class="btn_blue" mat-button mat-dialog-close="1" (click)="confirmDelete()">Elimina</button>
       <button class="btn_blue" mat-button (click)="onNoClick()" tabindex="-1">Cancella</button>

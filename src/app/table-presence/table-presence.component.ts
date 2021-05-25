@@ -322,7 +322,13 @@ export class TablePresenceComponent {
    deleteItem(iscrizione:TablePresenceItem) {
 
       const dialogRef = this.dialog.open(PresenceDeleteComponent, {
-       data: {cod_evento: iscrizione.cod_evento}
+       data: {cod_evento: iscrizione.cod_evento, 
+        nome_evento: iscrizione.nome_evento, 
+        targa: iscrizione.targa, 
+        costo_unitario: iscrizione.costo_unitario, 
+        posti_disponibili: iscrizione.posti_disponibili, 
+        partecipanti_iscritti: iscrizione.partecipanti_iscritti, 
+        partecipanti_effettivi: iscrizione.partecipanti_effettivi}
       }
     )};
 

@@ -188,7 +188,7 @@ export class TableEventComponent implements AfterViewInit {
              nome_evento: evento.nome_evento, 
              data_inizio: evento.data_inizio, 
              data_fine: evento.data_fine, 
-             location: location, 
+             location: evento.location, 
              costo_unitario: evento.costo_unitario, 
              posti_disponibili: evento.posti_disponibili, 
              descrizione: evento.descrizione}
@@ -197,8 +197,15 @@ export class TableEventComponent implements AfterViewInit {
 
    deleteItem(evento:TableEventItem) {
       const dialogRef = this.dialog.open(EventDeleteComponent, {
-       data: {cod_evento:evento.cod_evento}
+       data: {cod_evento:evento.cod_evento,
+              nome_evento: evento.nome_evento, 
+              data_inizio: evento.data_inizio, 
+              data_fine: evento.data_fine, 
+              location: evento.location, 
+              costo_unitario: evento.costo_unitario, 
+              posti_disponibili: evento.posti_disponibili, 
+              descrizione: evento.descrizione}
       }
     )};
-
+ 
 }

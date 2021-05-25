@@ -215,8 +215,17 @@ export class TableMemberComponent implements OnInit {
 
    deleteItem(socio:TableMemberItem) {
       const dialogRef = this.dialog.open(MemberDeleteComponent, {
-       data: {tessera:socio.tessera}
+       data: {tessera:socio.tessera,
+              nome:socio.nome,
+              cognome:socio.cognome,
+              nato_il:socio.nato_il,
+              codice_fiscale: socio.codice_fiscale, 
+              indirizzo: socio.indirizzo, 
+              email: socio.email, 
+              segretario: socio.segretario, 
+              consiglio: socio.consiglio}
       }
     )}
+
 }
 
