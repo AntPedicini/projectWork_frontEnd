@@ -5,10 +5,6 @@ import { ServiceSocioService } from '../service-socio.service';
 import { DatePipe, formatCurrency } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ServiceAutoService } from '../service-auto.service';
-import { MatTableDataSource } from '@angular/material/table';
-import { EXAMPLE_DATA } from '../table-member/table-member-datasource';
-
-
 
 @Component({
   selector: 'app-member-form',
@@ -50,18 +46,13 @@ export class MemberFormComponent {
   allComplete: boolean = false;
   hasUnitNumber = false;
   elenco_tessere: any[] = [];
+  elenco_targhe: any = [];
   selected = null;
   dataSource: any;
   
   constructor(private fb: FormBuilder,private serviceSocio:ServiceSocioService, private serviceAuto:ServiceAutoService, public datepipe: DatePipe) {
-    this.dataSource = new MatTableDataSource(EXAMPLE_DATA);
-    var n:any=null;
-    EXAMPLE_DATA.forEach(element => {
-      if(element.tessera!=n){
-        this.elenco_tessere.push(element.tessera);
-        n=element.tessera;
-      }
-    });
+    this.getInfoAuto();
+    this.getInfoSocio();
   }
 
   //Import foto
@@ -169,7 +160,52 @@ insertAuto(auto:any): void {
         alert('Qualcosa è andato storto... :(\n Prova a ricontrollare tutti i campi ');
        } );
   
-  }  
+  } 
+  
+  //=====================================
+  //RECUPERO DATI AUTO DAL DATABASE
+  //=====================================
+
+  getInfoAuto(): any {
+    this.serviceAuto.getAllAuto().subscribe((res: any) => {
+
+      this.elenco_targhe = [];
+      var n: any = null;
+      res.forEach((element: any) => {
+        if (element.targa != n) {
+          this.elenco_targhe.push(element.targa);
+          n = element.targa;
+        }
+      });
+    },
+      (error: HttpErrorResponse) => {
+        console.log('[[' + error.name + ' || ' + error.message + ']]');
+        alert('Nessuna auto presente in database');
+      });
+  }
+
+  //=====================================
+  //RECUPERO DATI SOCIO DAL DATABASE
+  //=====================================
+
+  getInfoSocio(): any {
+    this.serviceSocio.getAllSocio().subscribe((res: any) => {
+
+      this.elenco_tessere = [];
+      var n: any = null;
+      res.forEach((element: any) => {
+        if (element.tessera != n) {
+          this.elenco_tessere.push(element.tessera);
+          n = element.tessera;
+        }
+      });
+    },
+      (error: HttpErrorResponse) => {
+        console.log('[[' + error.name + ' || ' + error.message + ']]');
+        alert('Nessun socio presente in database');
+      });
+  }
+  
 }
 
 export class DatepickerOverviewExample {}
