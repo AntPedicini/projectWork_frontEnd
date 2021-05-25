@@ -8,7 +8,7 @@ import { HttpClient, HttpClientModule, HttpErrorResponse } from '@angular/common
 import { FormBuilder, Validators } from '@angular/forms';
 import { ServiceAutoService } from '../service-auto.service';
 import { AutoEditComponent } from '../dialogs/edit/auto-edit/auto-edit.component';
-import {DeleteDialogComponent} from '../dialogs/delete/delete.dialog.component';
+import { AutoDeleteComponent } from '../dialogs/delete/auto-delete/auto-delete.component';
 import { MatDialog } from '@angular/material/dialog';
 //import { auto } from '../_models/auto.model';
 
@@ -204,8 +204,8 @@ export class TableAutoComponent {
       this.index = i;
       console.log(this.index);
       console.log(targa);
-      const dialogRef = this.dialog.open(DeleteDialogComponent, {
-       data: {cod_evento:targa}
+      const dialogRef = this.dialog.open(AutoDeleteComponent, {
+       data: {targa:targa}
       }
     )};
 

@@ -8,7 +8,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ServiceSocioService } from '../service-socio.service';
 import { EXAMPLE_DATA, TableMemberDataSource, TableMemberItem } from './table-member-datasource';
 import {MemberEditComponent} from '../dialogs/edit/member-edit/member-edit.component';
-import {DeleteDialogComponent} from '../dialogs/delete/delete.dialog.component';
+import {MemberDeleteComponent} from '../dialogs/delete/member-delete/member-delete.component';
 import { MatDialog } from '@angular/material/dialog';
 
 
@@ -218,7 +218,7 @@ export class TableMemberComponent implements OnInit {
       this.index = i;
       console.log(this.index);
       console.log(tessera);
-      const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      const dialogRef = this.dialog.open(MemberDeleteComponent, {
        data: {tessera:tessera}
       }
     )}
