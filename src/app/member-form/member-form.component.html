@@ -117,11 +117,11 @@
          <div class="col"> 
           <mat-form-field class="width">
             <mat-label>Scegli una targa</mat-label>
-            <mat-select [value]="selected" formControlName="targa_esistente" matInput placeholder="targa" #input>
+            <mat-select [value]="selected" formControlName="targa" matInput placeholder="targa" #input>
               <mat-option value="targa">--</mat-option>
               <mat-option *ngFor="let targa of elenco_targhe" [value]="targa">{{targa}}</mat-option>
             </mat-select>
-            <mat-error *ngIf="addressForm.controls['targa_esistente'].hasError('required')">
+            <mat-error *ngIf="addressForm.controls['targa'].hasError('required')">
               Targa <strong>obbligatorio!</strong>
             </mat-error>
           </mat-form-field>

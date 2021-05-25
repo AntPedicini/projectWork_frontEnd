@@ -30,7 +30,6 @@ export class MemberFormComponent {
     postalCode: [null, Validators.compose([
       Validators.required, Validators.minLength(5), Validators.maxLength(5)])
     ],
-    targa_esistente: [null],
     consiglio: false,
     segretario: false,
 
@@ -85,20 +84,16 @@ export class MemberFormComponent {
   //Submit
   onSubmitSocio(): void {
     console.log("Registrazione socio");
-    //alert('Registrazione avvenuta con successo');
-    console.log(this.addressForm.value);
+    //console.log(this.addressForm.value);
     this.insertSocio(this.addressForm.value);
-    this.addressForm.reset();
+    //this.addressForm.reset();
   }
 
   onSubmitAuto(): void {
     console.log("Registrazione auto");
     //alert('Registrazione auto avvenuta con successo');
-    console.log(this.addressForm.value);
-
-    if(this.addressForm.valid){
+    //console.log(this.addressForm.value);
     this.insertAuto(this.addressForm.value);
-    }
   }
 
 //=======================
