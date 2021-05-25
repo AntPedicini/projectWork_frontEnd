@@ -102,8 +102,8 @@ export class TableEventComponent implements AfterViewInit {
     var n: any = null;
     EXAMPLE_DATA.forEach(element => {
       if (element.cod_evento != n) {
-        this.elenco_eventi.push(element.cod_evento);
-        n = element.cod_evento;
+        this.elenco_eventi.push(element.nome_evento);
+        n = element.nome_evento;
       }
     });
   }

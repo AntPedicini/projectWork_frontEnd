@@ -94,7 +94,7 @@
     <mat-form-field class="reg">
       <mat-label>Scegli una targa </mat-label>
 
-      <mat-select [value]="selected" formControlName="targa" matInput placeholder="Targa" #input>
+      <mat-select [(value)]="selected" formControlName="targa" matInput placeholder="Targa" #input>
         <mat-option *ngFor="let targa of elenco_targhe" [value]="targa">{{targa}}</mat-option>
       </mat-select>
 

@@ -91,10 +91,10 @@
   <form [formGroup]="registrationForm" >
     <mat-form-field class="reg">
       <mat-label>Scegli Codice evento</mat-label>
-      <mat-select [(value)]="selected" formControlName="cod_evento" matInput placeholder="Codice evento" #input>
-        <mat-option *ngFor="let evento of elenco_eventi" value="{{evento}}">{{evento}}</mat-option>
+      <mat-select [value]="selected" formControlName="nome_evento" matInput placeholder="Nome evento" #input>
+        <mat-option *ngFor="let evento of elenco_eventi" [value]="evento">{{evento}}</mat-option>
       </mat-select>
-      <mat-error *ngIf="registrationForm.controls['cod_evento'].hasError('required')">
+      <mat-error *ngIf="registrationForm.controls['nome_evento'].hasError('required')">
         Codice evento <strong>obbligatorio!</strong>
       </mat-error>
     </mat-form-field>

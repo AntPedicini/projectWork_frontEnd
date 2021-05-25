@@ -42,6 +42,7 @@ export class TablePresenceComponent {
     private serviceAuto: ServiceAutoService) {
 
     this.getAllIscrizioni();
+    this.refreshSelect();
     this.dataSource = new MatTableDataSource(PRESENCE_DATA);
   }
 
@@ -76,6 +77,7 @@ export class TablePresenceComponent {
         console.log('[[' + error.name + ' || ' + error.message + ']]');
         alert('Nessun Socio presente in database');
         this.refreshTable();
+        this.refreshSelect();
       }
     );
   }
@@ -86,6 +88,7 @@ export class TablePresenceComponent {
 
   //Metodo per recuperare tutti i dati relativi a un evento e popolare così la tabella iscrizioni
   getInfoEventi() {
+    this.elenco_eventi = [];
     this.serviceEvento.getAllEventi().subscribe((res: any) => {
 
       res.forEach((element: any) => {
@@ -157,12 +160,12 @@ export class TablePresenceComponent {
 
       },
         (error: HttpErrorResponse) => {                       //Error callback
-         console.log(error)
-          if(error.status == 404)
-           alert('Qualcosa è andato storto... :(\n Nessuna iscrizione trovata per il veicolo con targa '+targa+' all\'evento '+ nome_evento);
-          if(error.status == 400 || error.status == 500)
+          console.log(error)
+          if (error.status == 404)
+            alert('Qualcosa è andato storto... :(\n Nessuna iscrizione trovata per il veicolo con targa ' + targa + ' all\'evento ' + nome_evento);
+          if (error.status == 400 || error.status == 500)
             alert('Qualcosa è andato storto... :(\n Controlla tutti i campi e riprova')
-          });
+        });
     }
   }
 
@@ -172,7 +175,7 @@ export class TablePresenceComponent {
 
   checkout(iscrizione: any) {
 
-    iscrizione.partecipanti_effettivi=iscrizione.partecipanti;
+    iscrizione.partecipanti_effettivi = iscrizione.partecipanti;
     console.log(iscrizione);
     this.servicePresence.checkout(iscrizione).subscribe((res: any) => {
       alert('Pagamento effettuato con successo :D')
@@ -180,9 +183,9 @@ export class TablePresenceComponent {
       this.registrationForm.reset();
     },
       (error: HttpErrorResponse) => {                       //Error callback
-        if(error.status==400)
+        if (error.status == 400)
           alert('Qualcosa è andato storto... :(\n Controlla i dati inseriti ');
-        if(error.status==404)
+        if (error.status == 404)
           alert('Qualcosa è andato storto... \n Iscrizione non presente in Database')
       });
 
@@ -202,14 +205,16 @@ export class TablePresenceComponent {
   }
   //metodo per refreshare la select per selezionare la tessera
   private refreshSelect() {
-    this.elenco_nomi = [];
-    var n: any = null;
-    PRESENCE_DATA.forEach(element => {
-      if (element.nome_evento != n) {
-        this.elenco_nomi.push(element.nome_evento);
-        n = element.nome_evento;
-      }
-    });
+    this.elenco_nomi=[];
+     PRESENCE_DATA.forEach(presenza => {
+      console.log(1111);
+
+
+      //TODO========================================================================
+
+
+        this.elenco_nomi.push(presenza.nome_evento);
+     });
   }
   //======================================================================
   //Metodi per impostare i filtri nella ricerca
@@ -285,13 +290,13 @@ export class TablePresenceComponent {
   onSubmit() {
     // TODO: Use EventEmitter with form value
     console.log("Funzione registrazione");
-    this.registrationForm.value.partecipanti_effettivi=this.registrationForm.value.partecipanti;
+    this.registrationForm.value.partecipanti_effettivi = this.registrationForm.value.partecipanti;
     this.elenco_eventi.forEach(element => {
-      if(element.nome_evento == this.registrationForm.value.nome_evento)
+      if (element.nome_evento == this.registrationForm.value.nome_evento)
         this.registrationForm.value.cod_evento = element.cod_evento;
     });
     this.checkout(this.registrationForm.value);
-    
+
   }
 
   onDelete() {
@@ -305,7 +310,10 @@ export class TablePresenceComponent {
   onUpdate(): void {
     console.log("Update iscrizione");
     alert('Update avvenuto con successo');
-    console.log(this.registrationForm.value);
+    //console.log(this.registrationForm.value);
+    console.log(this.elenco_nomi);
+    console.log(PRESENCE_DATA);
+    this.refreshSelect();
   }
 
 }
