@@ -306,29 +306,23 @@ export class TablePresenceComponent {
 
   }
 
-  startEdit(i:number, cod_evento: number, nome_evento: string, targa: string, costo_unitario: number, posti_disponibili: number, partecipanti_iscritti: number, partecipanti_effettivi: number) {
-    var presenze:TablePresenceItem={cod_evento: 0, nome_evento: '', targa: '', costo_unitario: 0, posti_disponibili: 0, partecipanti_iscritti: 0, partecipanti_effettivi: 0};
-    presenze.cod_evento=cod_evento;
-    presenze.nome_evento=nome_evento;
-    presenze.targa= targa;
-    presenze.costo_unitario= costo_unitario;
-    presenze.posti_disponibili= posti_disponibili;
-    presenze.partecipanti_iscritti= partecipanti_iscritti;
-    presenze.partecipanti_effettivi= partecipanti_effettivi;
-    this.index = i;
-    console.log(this.index);
-    console.log(presenze);
+  startEdit(iscrizione:TablePresenceItem) {
+
     const dialogRef = this.dialog.open(PresenceEditComponent, {
-      data: {cod_evento: cod_evento, nome_evento: nome_evento, targa: targa, costo_unitario: costo_unitario, posti_disponibili: posti_disponibili, partecipanti_iscritti: partecipanti_iscritti, partecipanti_effettivi: partecipanti_effettivi}
+      data: {cod_evento: iscrizione.cod_evento, 
+             nome_evento: iscrizione.nome_evento, 
+             targa: iscrizione.targa, 
+             costo_unitario: iscrizione.costo_unitario, 
+             posti_disponibili: iscrizione.posti_disponibili, 
+             partecipanti_iscritti: iscrizione.partecipanti_iscritti, 
+             partecipanti_effettivi: iscrizione.partecipanti_effettivi}
     }
   )}
 
-   deleteItem(i: number, cod_evento: number) {
-      this.index = i;
-      console.log(this.index);
-      console.log(cod_evento);
+   deleteItem(iscrizione:TablePresenceItem) {
+
       const dialogRef = this.dialog.open(PresenceDeleteComponent, {
-       data: {cod_evento:cod_evento}
+       data: {cod_evento: iscrizione.cod_evento}
       }
     )};
 

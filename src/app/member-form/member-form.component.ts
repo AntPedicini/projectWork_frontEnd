@@ -15,7 +15,7 @@ import { ServiceAutoService } from '../service-auto.service';
 export class MemberFormComponent {
   //Socio
   addressForm = this.fb.group({
-    tessera_socio: [null, Validators.required],
+    tessera_socio: [null],
     validita: [null, Validators.required],
     nome: [null, Validators.required],
     cognome: [null, Validators.required],
@@ -30,6 +30,7 @@ export class MemberFormComponent {
     postalCode: [null, Validators.compose([
       Validators.required, Validators.minLength(5), Validators.maxLength(5)])
     ],
+    targa_esistente: [null],
     consiglio: false,
     segretario: false,
 
@@ -94,7 +95,10 @@ export class MemberFormComponent {
     console.log("Registrazione auto");
     //alert('Registrazione auto avvenuta con successo');
     console.log(this.addressForm.value);
+
+    if(this.addressForm.valid){
     this.insertAuto(this.addressForm.value);
+    }
   }
 
 //=======================

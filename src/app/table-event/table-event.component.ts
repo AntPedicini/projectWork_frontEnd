@@ -181,30 +181,23 @@ export class TableEventComponent implements AfterViewInit {
 
   }
 
-  startEdit(i:number, cod_evento: number, nome_evento: string, data_inizio: string, data_fine: string, location: string, costo_unitario: number, posti_disponibili: number, descrizione: string) {
-    var eventi:TableEventItem={cod_evento: 0, nome_evento: '', data_inizio: '', data_fine: '', location: '', costo_unitario: 0, posti_disponibili: 0, descrizione: ''};
-    eventi.cod_evento=cod_evento;
-    eventi.nome_evento=nome_evento;
-    eventi.data_inizio=data_inizio;
-    eventi.data_fine=data_fine;
-    eventi.location=location;
-    eventi.costo_unitario=costo_unitario;
-    eventi.posti_disponibili=posti_disponibili;
-    eventi.descrizione=descrizione;
-    this.index = i;
-    console.log(this.index);
-    console.log(eventi);
+  startEdit(evento:TableEventItem) {
+    
     const dialogRef = this.dialog.open(EventEditComponent, {
-      data: {cod_evento: cod_evento, nome_evento: nome_evento, data_inizio: data_inizio, data_fine: data_fine, location: location, costo_unitario: costo_unitario, posti_disponibili: posti_disponibili, descrizione: descrizione}
+      data: {cod_evento: evento.cod_evento, 
+             nome_evento: evento.nome_evento, 
+             data_inizio: evento.data_inizio, 
+             data_fine: evento.data_fine, 
+             location: location, 
+             costo_unitario: evento.costo_unitario, 
+             posti_disponibili: evento.posti_disponibili, 
+             descrizione: evento.descrizione}
     }
   )}
 
-   deleteItem(i: number, cod_evento: number) {
-      this.index = i;
-      console.log(this.index);
-      console.log(cod_evento);
+   deleteItem(evento:TableEventItem) {
       const dialogRef = this.dialog.open(EventDeleteComponent, {
-       data: {cod_evento:cod_evento}
+       data: {cod_evento:evento.cod_evento}
       }
     )};
 
