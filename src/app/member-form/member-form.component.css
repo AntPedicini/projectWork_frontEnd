@@ -93,3 +93,10 @@ input[type="button"] {
   font-style: oblique;
   text-shadow: 2px, 2px, 5px, black;
 }
+body{
+  position: absolute;
+}
+
+.back{
+  z-index: -1;
+}

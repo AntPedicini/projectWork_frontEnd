@@ -6,6 +6,7 @@ import { DatePipe, formatCurrency } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ServiceAutoService } from '../service-auto.service';
 
+
 @Component({
   selector: 'app-member-form',
   templateUrl: './member-form.component.html',

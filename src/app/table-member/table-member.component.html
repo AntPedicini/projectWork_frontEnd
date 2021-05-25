@@ -1,36 +1,37 @@
-<h2 class = title >Soci</h2>
+<h2 class=title>Soci</h2>
+
 
 <mat-form-field>
   <mat-label>Cerca in tutti i campi</mat-label>
-  <input name = "findAll"  matInput (keyup)="allFilter($event)" placeholder="Inserisci testo" #input>
+  <input name="findAll" matInput (keyup)="allFilter($event)" placeholder="Inserisci testo" #input>
 </mat-form-field>
 
 <mat-form-field class="find">
   <mat-label>Cerca per Tessera</mat-label>
-  <input name = "findByTessera" matInput (keyup)="tesseraFilter($event)" placeholder="Inserisci Numero Tessera" #input>
+  <input name="findByTessera" matInput (keyup)="tesseraFilter($event)" placeholder="Inserisci Numero Tessera" #input>
 </mat-form-field>
 
 <mat-form-field class="find">
   <mat-label>Cerca per Nome</mat-label>
-  <input name = "findByName" matInput (keyup)="nomeCognomeFilter($event)" placeholder="Inserisci Nome o Cognome" #input>
+  <input name="findByName" matInput (keyup)="nomeCognomeFilter($event)" placeholder="Inserisci Nome o Cognome" #input>
 </mat-form-field>
 
 <mat-form-field class="find">
   <mat-label>Cerca per Codice Fiscale</mat-label>
-  <input name = "findByCF" matInput (keyup)="cfFilter($event)" placeholder="Inserisci Codice Fiscale" #input>
+  <input name="findByCF" matInput (keyup)="cfFilter($event)" placeholder="Inserisci Codice Fiscale" #input>
 </mat-form-field>
 
 <mat-form-field class="find">
   <mat-label>Cerca per email</mat-label>
-  <input name = "findByEmail" matInput (keyup)="emailFilter($event)" placeholder="Inserisci email" #input>
+  <input name="findByEmail" matInput (keyup)="emailFilter($event)" placeholder="Inserisci email" #input>
 </mat-form-field>
 
 <div class="mat-elevation-z8">
   <table mat-table class="full-width-table" matSort aria-label="Elements">
     <!-- Id Column -->
-    <ng-container matColumnDef="tessera" >
+    <ng-container matColumnDef="tessera">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Numero Tessera</th>
-      <td mat-cell *matCellDef="let row; let socio;" (click) = "setActive(socio)">{{row.tessera}}</td>
+      <td mat-cell *matCellDef="let row; let socio;" (click)="setActive(socio)">{{row.tessera}}</td>
     </ng-container>
 
     <ng-container matColumnDef="validita">
@@ -41,12 +42,12 @@
     <!-- Name Column -->
     <ng-container matColumnDef="nome">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Nome</th>
-      <td mat-cell *matCellDef="let row,let socio" (click) = "setActive(socio)">{{row.nome}}</td>
+      <td mat-cell *matCellDef="let row,let socio" (click)="setActive(socio)">{{row.nome}}</td>
     </ng-container>
 
     <ng-container matColumnDef="cognome">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Cognome</th>
-      <td mat-cell *matCellDef="let row,let socio" (click) = "setActive(socio)">{{row.cognome}}</td>
+      <td mat-cell *matCellDef="let row,let socio" (click)="setActive(socio)">{{row.cognome}}</td>
     </ng-container>
 
     <ng-container matColumnDef="nato_il">
@@ -90,7 +91,7 @@
         <button mat-icon-button color="primary" (click)="startEdit(socio)">
           <mat-icon aria-label="Edit">edit</mat-icon>
         </button>
-          <button mat-icon-button color="primary" (click)="deleteItem(socio)">
+        <button mat-icon-button color="primary" (click)="deleteItem(socio)">
           <mat-icon aria-label="Delete">delete</mat-icon>
         </button>
       </td>
@@ -105,10 +106,7 @@
     </tr>
   </table>
 
-  <mat-paginator #paginator 
-  [length]="dataSource?.data?.length" 
-  [pageIndex]="0" 
-  [pageSize]="10"
-  [pageSizeOptions]="[5, 10, 20]">
+  <mat-paginator #paginator [length]="dataSource?.data?.length" [pageIndex]="0" [pageSize]="10"
+    [pageSizeOptions]="[5, 10, 20]">
   </mat-paginator>
 </div>

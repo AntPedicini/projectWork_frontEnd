@@ -55,6 +55,8 @@ import { MemberDeleteComponent } from './dialogs/delete/member-delete/member-del
 import { EventDeleteComponent } from './dialogs/delete/event-delete/event-delete.component';
 import { PresenceDeleteComponent } from './dialogs/delete/presence-delete/presence-delete.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 
 
@@ -117,7 +119,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTabsModule,
+    MatExpansionModule
+    
   ],
   providers: [
     DatePipe,

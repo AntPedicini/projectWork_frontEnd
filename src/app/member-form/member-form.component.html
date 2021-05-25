@@ -1,258 +1,378 @@
-<form [formGroup]="addressForm" novalidate> <!-- (ngSubmit)="onSubmit()" -->
-  <mat-card class="shipping-card">
-    <mat-card-header>
+<mat-tab-group class="position">
+  <mat-tab class="back" label="Aggiungi Nuovo Socio">
 
-      <!-- REGISTRAZIONE SOCIO -->
-      <mat-card-title class = "title">Nuovo socio</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <div class="row">
+    <form [formGroup]="addressForm" novalidate>
+      <!-- (ngSubmit)="onSubmit()" -->
+      <mat-card class="shipping-card">
+        <mat-card-header>
 
-        <!-- SCADENZA TESSERA --> <!-- ELIMINATA DAL FORM IN QUANTO AUTOMATICA -->
-<!--         <div class="col">
-          <mat-form-field color="primary" class="full-width">
-            <mat-label>Scadenza tessera</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="validita">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker color="primary"></mat-datepicker>
-            <mat-error *ngIf="addressForm.controls['validita'].hasError('required')">
-              Scadenza <strong>obbligatoria!</strong>
-            </mat-error>
-          </mat-form-field>
-        </div> -->
-      </div>
-      <div class="row">
-        <!-- NOME -->
-        <div class="col">
-          <mat-form-field class="full-width">
-            <input name = "nome" matInput placeholder="Nome" formControlName="nome">
-            <mat-error *ngIf="addressForm.controls['nome'].hasError('required')">
-              Nome <strong>obbligatorio!</strong>
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <!-- COGNOME -->
-        <div class="col">
-          <mat-form-field class="full-width">
-            <input name = "cognome" matInput placeholder="Cognome" formControlName="cognome">
-            <mat-error *ngIf="addressForm.controls['cognome'].hasError('required')">
-              Cognome <strong>obbligatorio!</strong>
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <!-- CF -->
-        <div class="col">
-          <mat-form-field class="full-width">
-            <input #CF name = "codice_fiscale" matInput maxlength="16" placeholder="Codice Fiscale" formControlName="codice_fiscale">
-            <mat-hint align="end">{{CF.value?.length || 0}}/16</mat-hint>
-            <mat-error *ngIf="addressForm.controls['codice_fiscale'].hasError('required')">
-              Codice fiscale <strong>obbligatorio!</strong>
-            </mat-error>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <!-- EMAIL -->
-        <div class="col">
-          <mat-form-field class="full-width">
-            <input name = "email" matInput placeholder="Email" formControlName="email">
-            <mat-error *ngIf="addressForm.controls['email'].hasError('required')">
-              Email <strong>obbligatoria!</strong>
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <!-- DATA DI NASCITA -->
-        <div class="col">
-          <mat-form-field color="primary" class="fill">
-              <mat-label>Data di nascita</mat-label>
-              <input name = "nato_il" matInput [matDatepicker]="picke" formControlName="nato_il">
-              <mat-datepicker-toggle matSuffix [for]="picke"></mat-datepicker-toggle>
-              <mat-datepicker #picke color="primary"></mat-datepicker>
-              <mat-error *ngIf="addressForm.controls['nato_il'].hasError('required')">
-                Data di nascita <strong>obbligatoria!</strong>
-              </mat-error>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <!-- VIA -->
-        <div class="col">
-          <mat-form-field class="full-width">
-            <input name = "indirizzo" matInput placeholder="Via e civico" formControlName="indirizzo">
-            <mat-error *ngIf="addressForm.controls['indirizzo'].hasError('required')">
-              Via <strong>obbligatoria!</strong>
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <!-- CITTA' -->
-        <div class="col">
-          <mat-form-field class="full-width">
-            <input name = "citta" matInput placeholder="Città" formControlName="citta">
-            <mat-error *ngIf="addressForm.controls['citta'].hasError('required')">
-              Città <strong>obbligatoria!</strong>
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <!-- PROVINCIA -->
-        <div class="col">
-          <mat-form-field class="full-width">
-            <input name = "provincia" matInput maxlength="2" placeholder="Provincia" formControlName="provincia">
-            <mat-hint align="end">{{input.value?.length || 0}}/2</mat-hint>
-            <mat-error *ngIf="addressForm.controls['provincia'].hasError('required')">
-              Provincia <strong>obbligatoria!</strong>
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <!-- CAP -->
-        <div class="col">
-          <mat-form-field class="full-width">
-            <input name = "postalCode" matInput #postalCode maxlength="5" placeholder="CAP" type="number" formControlName="postalCode">
-            <mat-hint align="end">{{postalCode.value?.length || 0}}/5</mat-hint>
-            <mat-error *ngIf="addressForm.controls['provincia'].hasError('required')">
-              CAP <strong>obbligatorio!</strong>
-            </mat-error>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-         <!-- TARGA -->
-         <div class="col"> 
-          <mat-form-field class="width">
-            <mat-label>Scegli una targa</mat-label>
-            <mat-select [value]="selected" formControlName="targa" matInput placeholder="targa" #input>
-              <mat-option value="targa">--</mat-option>
-              <mat-option *ngFor="let targa of elenco_targhe" [value]="targa">{{targa}}</mat-option>
-            </mat-select> 
-            <mat-error *ngIf="addressForm.controls['targa'].hasError('required')">
-              Targa <strong>obbligatorio!</strong>
-            </mat-error>
-          </mat-form-field>
-          <mat-label> *Da compilare se si vuole aggiungere un auto già presente in Database</mat-label>
-        </div>
-      </div>
-      <div class="row">
-        <!-- MEMRBO DEL CONSIGLIO -->
-        <div class="col">
-          <section class="example-section">
-            <!--<mat-checkbox class="example-margin" formControlName="consiglio">Membro del consiglio</mat-checkbox>-->
-            <mat-slide-toggle name = "consiglio" value="false" formControlName="consiglio" color="primary">Membro del consiglio</mat-slide-toggle>
-          </section>
-        </div>
-      </div>
-      <div class="row">
-        <!-- SEGRETARIO DEL CLUB -->
-        <div class="col">
-          <section class="example-section">
-            <!-- <mat-checkbox class="example-margin" formControlName="segretario">Segretario</mat-checkbox> -->
-            <mat-slide-toggle name = "segretario" value="false" formControlName="segretario" color="primary">Segretario</mat-slide-toggle>
-          </section>
-        </div>
-      </div>
+          <!-- REGISTRAZIONE SOCIO -->
+          <mat-card-title class="title">Nuovo socio</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="row">
+          </div>
+          <div class="row">
+            <!-- NOME -->
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input name="nome" matInput placeholder="Nome" formControlName="nome">
+                <mat-error *ngIf="addressForm.controls['nome'].hasError('required')">
+                  Nome <strong>obbligatorio!</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <!-- COGNOME -->
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input name="cognome" matInput placeholder="Cognome" formControlName="cognome">
+                <mat-error *ngIf="addressForm.controls['cognome'].hasError('required')">
+                  Cognome <strong>obbligatorio!</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <!-- CF -->
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input #CF name="codice_fiscale" matInput maxlength="16" placeholder="Codice Fiscale"
+                  formControlName="codice_fiscale">
+                <mat-hint align="end">{{CF.value?.length || 0}}/16</mat-hint>
+                <mat-error *ngIf="addressForm.controls['codice_fiscale'].hasError('required')">
+                  Codice fiscale <strong>obbligatorio!</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <!-- EMAIL -->
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input name="email" matInput placeholder="Email" formControlName="email">
+                <mat-error *ngIf="addressForm.controls['email'].hasError('required')">
+                  Email <strong>obbligatoria!</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <!-- DATA DI NASCITA -->
+            <div class="col">
+              <mat-form-field color="primary" class="fill">
+                <mat-label>Data di nascita</mat-label>
+                <input name="nato_il" matInput [matDatepicker]="picke" formControlName="nato_il">
+                <mat-datepicker-toggle matSuffix [for]="picke"></mat-datepicker-toggle>
+                <mat-datepicker #picke color="primary"></mat-datepicker>
+                <mat-error *ngIf="addressForm.controls['nato_il'].hasError('required')">
+                  Data di nascita <strong>obbligatoria!</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <!-- VIA -->
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input name="indirizzo" matInput placeholder="Via e civico" formControlName="indirizzo">
+                <mat-error *ngIf="addressForm.controls['indirizzo'].hasError('required')">
+                  Via <strong>obbligatoria!</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <!-- CITTA' -->
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input name="citta" matInput placeholder="Città" formControlName="citta">
+                <mat-error *ngIf="addressForm.controls['citta'].hasError('required')">
+                  Città <strong>obbligatoria!</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <!-- PROVINCIA -->
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input name="provincia" matInput maxlength="2" placeholder="Provincia" formControlName="provincia">
+                <mat-hint align="end">{{input.value?.length || 0}}/2</mat-hint>
+                <mat-error *ngIf="addressForm.controls['provincia'].hasError('required')">
+                  Provincia <strong>obbligatoria!</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <!-- CAP -->
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input name="postalCode" matInput #postalCode maxlength="5" placeholder="CAP" type="number"
+                  formControlName="postalCode">
+                <mat-hint align="end">{{postalCode.value?.length || 0}}/5</mat-hint>
+                <mat-error *ngIf="addressForm.controls['provincia'].hasError('required')">
+                  CAP <strong>obbligatorio!</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <!-- TARGA -->
+            <div class="col">
+              <mat-form-field class="width">
+                <mat-label>Scegli una targa</mat-label>
+                <mat-select [value]="selected" formControlName="targa" matInput placeholder="targa" #input>
+                  <mat-option value="targa">--</mat-option>
+                  <mat-option *ngFor="let targa of elenco_targhe" [value]="targa">{{targa}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="addressForm.controls['targa'].hasError('required')">
+                  Targa <strong>obbligatorio!</strong>
+                </mat-error>
+              </mat-form-field>
+              <mat-label> *Da compilare se si vuole aggiungere un auto già presente in Database</mat-label>
+            </div>
+          </div>
+          <div class="row">
+            <!-- MEMRBO DEL CONSIGLIO -->
+            <div class="col">
+              <section class="example-section">
+                <!--<mat-checkbox class="example-margin" formControlName="consiglio">Membro del consiglio</mat-checkbox>-->
+                <mat-slide-toggle name="consiglio" value="false" formControlName="consiglio" color="primary">Membro del
+                  consiglio</mat-slide-toggle>
+              </section>
+            </div>
+          </div>
+          <div class="row">
+            <!-- SEGRETARIO DEL CLUB -->
+            <div class="col">
+              <section class="example-section">
+                <!-- <mat-checkbox class="example-margin" formControlName="segretario">Segretario</mat-checkbox> -->
+                <mat-slide-toggle name="segretario" value="false" formControlName="segretario" color="primary">
+                  Segretario
+                </mat-slide-toggle>
+              </section>
+            </div>
+          </div>
+        </mat-card-content>
 
-      <hr class="hr">
+        <mat-accordion class="menu-compatto" multi>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
 
-      <!-- REGISTRAZIONE AUTO -->
-      <mat-card-header>
-        <mat-card-title class = "title">Nuova auto</mat-card-title>
-      </mat-card-header>
-      <div class="row">
-        <!-- ID TESSERA -->
-        <div class="col"> 
-          <mat-form-field class="full-width">
-            <mat-label>Scegli una tessera</mat-label>
-            <mat-select [value]="selected" formControlName="tessera_socio" matInput placeholder="Ospite" #input>
-              <mat-option>Ospite</mat-option>
-              <mat-option *ngFor="let tessera of elenco_tessere" [value]="tessera">{{tessera}}</mat-option>
-            </mat-select>
-            <mat-error *ngIf="addressForm.controls['tessera_socio'].hasError('required')">
-              Tessera <strong>obbligatorio!</strong>
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <!-- TARGA -->
-        <div class="col">
-          <mat-form-field class="full-width">
-            <input #Targa name = "targa" matInput maxlength="7" placeholder="Targa" formControlName="targa">
-            <mat-hint align="end">{{Targa.value?.length || 0}}/7</mat-hint>
-            <mat-error *ngIf="addressForm.controls['targa'].hasError('required')">
-              Targa <strong>obbligatoria!</strong>
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <!-- MODELLO -->
-        <div class="col">
-          <mat-form-field class="full-width">
-            <input name = "modello" matInput placeholder="Modello" formControlName="modello">
-            <mat-error *ngIf="addressForm.controls['modello'].hasError('required')">
-              Modello <strong>obbligatorio!</strong>
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <!-- MARCA -->
-        <div class="col">
-          <mat-form-field class="full-width">
-            <input name = "marca" matInput placeholder="Marca" formControlName="marca">
-            <mat-error *ngIf="addressForm.controls['marca'].hasError('required')">
-              Marca <strong>obbligatoria!</strong>
-            </mat-error>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <!-- ANNO -->
-        <div class="col">
-          <mat-form-field color="primary" class="full-width">
-            <!--<mat-label>Anno</mat-label>
-            <input matInput [matDatepicker]="picker2" formControlName="anno">
-            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-            <mat-datepicker #picker2 color="primary"></mat-datepicker>-->
-            <input #Anno name = "anno" matInput maxlength="4" placeholder="Anno" formControlName="anno" type="number">
-            <mat-hint align="end">{{Anno.value?.length || 0}}/4</mat-hint>
-            <mat-error *ngIf="addressForm.controls['anno'].hasError('required')">
-              Anno <strong>obbligatorio!</strong>
-            </mat-error>
-        </mat-form-field>
-        </div>
-        <!-- DATA DI IMMATRICOLAZIONE -->
-        <div class="col">
-          <mat-form-field color="primary" class="full-width">
-            <mat-label>Data di immatricolazione</mat-label>
-              <input name = "immatricolazione" matInput [matDatepicker]="picker3" formControlName="immatricolazione">
-              <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-              <mat-datepicker #picker3 color="primary"></mat-datepicker>
-              <mat-error *ngIf="addressForm.controls['immatricolazione'].hasError('required')">
-                Data di immatricolazione <strong>obbligatoria!</strong>
-              </mat-error>
-          </mat-form-field>
-        </div>
-        <!-- CERTIFICAZIONE ASI -->
-        <div class="col">
-          <mat-form-field class="full-width">
-            <input name = "ASI" matInput placeholder="Certicazione ASI" formControlName="ASI">
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <!-- FOTO -->
-        <div class="col">
-          <mat-form-field class="field">
-            <input matInput class="margin_input" placeholder="Foto" formControlName="foto" readonly="readonly">
-            <label class="custom-file-upload">
-              <input name = "foto" #myInput type="file" (change)="selectFiles($event)" multiple >
-                Seleziona Foto
-            </label>
-            <label class="custom-file-upload" id="input_css">
-              <input name = "reset_foto" type="button" value="Rimuovi" (click)="reset()">
-                Reset
-            </label>
-          </mat-form-field>
-        </div>
-      </div>
-      <img class="image" *ngFor="let url of urls" [src]="url" alt="">
-    </mat-card-content>
-    <mat-card-actions>
-      <button name = "insertSocio" mat-raised-button color="primary" type="submit" value="aggiungi_totale" (click)="onSubmitSocio()">Registra Socio</button>
-      <button name = "insertAuto" mat-raised-button color="primary" type="submit" value="aggiungi_auto" (click)="onSubmitAuto()">Registra Auto</button>
-    </mat-card-actions>
-  </mat-card>
-</form>
+              </mat-panel-title>
+              <mat-panel-description>
+                <b> Clicka qui se vuoi inserire un veicolo non presente in database</b>
+                <mat-icon>add</mat-icon>
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <mat-card-content>
+              <!-- REGISTRAZIONE AUTO -->
+              <mat-card-header>
+                <mat-card-title class="title">Nuova auto</mat-card-title>
+              </mat-card-header>
+              <div class="row">
+
+                <!-- ID TESSERA -->
+
+                <!-- TARGA -->
+                <div class="col">
+                  <mat-form-field class="full-width">
+                    <input #Targa name="targa" matInput maxlength="7" placeholder="Targa" formControlName="targa">
+                    <mat-hint align="end">{{Targa.value?.length || 0}}/7</mat-hint>
+                    <mat-error *ngIf="addressForm.controls['targa'].hasError('required')">
+                      Targa <strong>obbligatoria!</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <!-- MODELLO -->
+                <div class="col">
+                  <mat-form-field class="full-width">
+                    <input name="modello" matInput placeholder="Modello" formControlName="modello">
+                    <mat-error *ngIf="addressForm.controls['modello'].hasError('required')">
+                      Modello <strong>obbligatorio!</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <!-- MARCA -->
+                <div class="col">
+                  <mat-form-field class="full-width">
+                    <input name="marca" matInput placeholder="Marca" formControlName="marca">
+                    <mat-error *ngIf="addressForm.controls['marca'].hasError('required')">
+                      Marca <strong>obbligatoria!</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <!-- ANNO -->
+                <div class="col">
+                  <mat-form-field color="primary" class="full-width">
+                    <!--<mat-label>Anno</mat-label>
+              <input matInput [matDatepicker]="picker2" formControlName="anno">
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2 color="primary"></mat-datepicker>-->
+                    <input #Anno name="anno" matInput maxlength="4" placeholder="Anno" formControlName="anno"
+                      type="number">
+                    <mat-hint align="end">{{Anno.value?.length || 0}}/4</mat-hint>
+                    <mat-error *ngIf="addressForm.controls['anno'].hasError('required')">
+                      Anno <strong>obbligatorio!</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <!-- DATA DI IMMATRICOLAZIONE -->
+                <div class="col">
+                  <mat-form-field color="primary" class="full-width">
+                    <mat-label>Data di immatricolazione</mat-label>
+                    <input name="immatricolazione" matInput [matDatepicker]="picker3"
+                      formControlName="immatricolazione">
+                    <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                    <mat-datepicker #picker3 color="primary"></mat-datepicker>
+                    <mat-error *ngIf="addressForm.controls['immatricolazione'].hasError('required')">
+                      Data di immatricolazione <strong>obbligatoria!</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <!-- CERTIFICAZIONE ASI -->
+                <div class="col">
+                  <mat-form-field class="full-width">
+                    <input name="ASI" matInput placeholder="Certicazione ASI" formControlName="ASI">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <!-- FOTO -->
+                <div class="col">
+                  <mat-form-field class="field">
+                    <input matInput class="margin_input" placeholder="Foto" formControlName="foto" readonly="readonly">
+                    <label class="custom-file-upload">
+                      <input name="foto" #myInput type="file" (change)="selectFiles($event)" multiple>
+                      Seleziona Foto
+                    </label>
+                    <label class="custom-file-upload" id="input_css">
+                      <input name="reset_foto" type="button" value="Rimuovi" (click)="reset()">
+                      Reset
+                    </label>
+                  </mat-form-field>
+                </div>
+              </div>
+              <img class="image" *ngFor="let url of urls" [src]="url" alt="">
+            </mat-card-content>
+
+          </mat-expansion-panel>
+        </mat-accordion>
+
+        <mat-card-actions>
+          <button name="insertSocio" mat-raised-button color="primary" type="submit" value="aggiungi_totale"
+            (click)="onSubmitSocio()">Registra Socio</button>
+        </mat-card-actions>
+      </mat-card>
+    </form>
+
+  </mat-tab>
+  <mat-tab class="back" label="Aggiungi Auto a Socio Esistente">
+
+    <form [formGroup]="addressForm" novalidate>
+      <!-- (ngSubmit)="onSubmit()" -->
+      <mat-card class="shipping-card">
+        <mat-card-content>
+          <!-- REGISTRAZIONE AUTO -->
+          <mat-card-header>
+            <mat-card-title class="title">Nuova Auto</mat-card-title>
+          </mat-card-header>
+          <div class="row">
+            <!-- ID TESSERA -->
+            <div class="col">
+              <mat-form-field class="full-width">
+                <mat-label>Scegli una tessera</mat-label>
+                <mat-select [value]="selected" formControlName="tessera_socio" matInput placeholder="Ospite" #input>
+                  <mat-option>Ospite</mat-option>
+                  <mat-option *ngFor="let tessera of elenco_tessere" [value]="tessera">{{tessera}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="addressForm.controls['tessera_socio'].hasError('required')">
+                  Tessera <strong>obbligatorio!</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <!-- TARGA -->
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input #Targa name="targa" matInput maxlength="7" placeholder="Targa" formControlName="targa">
+                <mat-hint align="end">{{Targa.value?.length || 0}}/7</mat-hint>
+                <mat-error *ngIf="addressForm.controls['targa'].hasError('required')">
+                  Targa <strong>obbligatoria!</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <!-- MODELLO -->
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input name="modello" matInput placeholder="Modello" formControlName="modello">
+                <mat-error *ngIf="addressForm.controls['modello'].hasError('required')">
+                  Modello <strong>obbligatorio!</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <!-- MARCA -->
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input name="marca" matInput placeholder="Marca" formControlName="marca">
+                <mat-error *ngIf="addressForm.controls['marca'].hasError('required')">
+                  Marca <strong>obbligatoria!</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <!-- ANNO -->
+            <div class="col">
+              <mat-form-field color="primary" class="full-width">
+                <!--<mat-label>Anno</mat-label>
+                        <input matInput [matDatepicker]="picker2" formControlName="anno">
+                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2 color="primary"></mat-datepicker>-->
+                <input #Anno name="anno" matInput maxlength="4" placeholder="Anno" formControlName="anno" type="number">
+                <mat-hint align="end">{{Anno.value?.length || 0}}/4</mat-hint>
+                <mat-error *ngIf="addressForm.controls['anno'].hasError('required')">
+                  Anno <strong>obbligatorio!</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <!-- DATA DI IMMATRICOLAZIONE -->
+            <div class="col">
+              <mat-form-field color="primary" class="full-width">
+                <mat-label>Data di immatricolazione</mat-label>
+                <input name="immatricolazione" matInput [matDatepicker]="picker4" formControlName="immatricolazione">
+                <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+                <mat-datepicker #picker4 color="primary"></mat-datepicker>
+                <mat-error *ngIf="addressForm.controls['immatricolazione'].hasError('required')">
+                  Data di immatricolazione <strong>obbligatoria!</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <!-- CERTIFICAZIONE ASI -->
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input name="ASI" matInput placeholder="Certicazione ASI" formControlName="ASI">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <!-- FOTO -->
+            <div class="col">
+              <mat-form-field class="field">
+                <input matInput class="margin_input" placeholder="Foto" formControlName="foto" readonly="readonly">
+                <label class="custom-file-upload">
+                  <input name="foto" #myInput type="file" (change)="selectFiles($event)" multiple>
+                  Seleziona Foto
+                </label>
+                <label class="custom-file-upload" id="input_css">
+                  <input name="reset_foto" type="button" value="Rimuovi" (click)="reset()">
+                  Reset
+                </label>
+              </mat-form-field>
+            </div>
+          </div>
+          <img class="image" *ngFor="let url of urls" [src]="url" alt="">
+        </mat-card-content>
+        <mat-card-actions>
+          <button name="insertAuto" mat-raised-button color="primary" type="submit" value="aggiungi_auto"
+            (click)="onSubmitAuto()">Registra Auto</button>
+        </mat-card-actions>
+      </mat-card>
+    </form>
+
+  </mat-tab>
+</mat-tab-group>
