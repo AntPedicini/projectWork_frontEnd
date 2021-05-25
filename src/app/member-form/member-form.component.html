@@ -43,7 +43,8 @@
         <!-- CF -->
         <div class="col">
           <mat-form-field class="full-width">
-            <input name = "codice_fiscale" matInput maxlength="16" placeholder="Codice Fiscale" formControlName="codice_fiscale">
+            <input #CF name = "codice_fiscale" matInput maxlength="16" placeholder="Codice Fiscale" formControlName="codice_fiscale">
+            <mat-hint align="end">{{CF.value?.length || 0}}/16</mat-hint>
             <mat-error *ngIf="addressForm.controls['codice_fiscale'].hasError('required')">
               Codice fiscale <strong>obbligatorio!</strong>
             </mat-error>
@@ -96,6 +97,7 @@
         <div class="col">
           <mat-form-field class="full-width">
             <input name = "provincia" matInput maxlength="2" placeholder="Provincia" formControlName="provincia">
+            <mat-hint align="end">{{input.value?.length || 0}}/2</mat-hint>
             <mat-error *ngIf="addressForm.controls['provincia'].hasError('required')">
               Provincia <strong>obbligatoria!</strong>
             </mat-error>
@@ -105,7 +107,7 @@
         <div class="col">
           <mat-form-field class="full-width">
             <input name = "postalCode" matInput #postalCode maxlength="5" placeholder="CAP" type="number" formControlName="postalCode">
-            <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
+            <mat-hint align="end">{{postalCode.value?.length || 0}}/5</mat-hint>
             <mat-error *ngIf="addressForm.controls['provincia'].hasError('required')">
               CAP <strong>obbligatorio!</strong>
             </mat-error>
@@ -168,7 +170,8 @@
         <!-- TARGA -->
         <div class="col">
           <mat-form-field class="full-width">
-            <input name = "targa" matInput maxlength="7" placeholder="Targa" formControlName="targa">
+            <input #Targa name = "targa" matInput maxlength="7" placeholder="Targa" formControlName="targa">
+            <mat-hint align="end">{{Targa.value?.length || 0}}/7</mat-hint>
             <mat-error *ngIf="addressForm.controls['targa'].hasError('required')">
               Targa <strong>obbligatoria!</strong>
             </mat-error>
@@ -201,7 +204,8 @@
             <input matInput [matDatepicker]="picker2" formControlName="anno">
             <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
             <mat-datepicker #picker2 color="primary"></mat-datepicker>-->
-            <input name = "anno" matInput maxlength="4" placeholder="Anno" formControlName="anno" type="number">
+            <input #Anno name = "anno" matInput maxlength="4" placeholder="Anno" formControlName="anno" type="number">
+            <mat-hint align="end">{{Anno.value?.length || 0}}/4</mat-hint>
             <mat-error *ngIf="addressForm.controls['anno'].hasError('required')">
               Anno <strong>obbligatorio!</strong>
             </mat-error>
