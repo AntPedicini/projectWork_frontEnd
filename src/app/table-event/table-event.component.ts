@@ -46,7 +46,7 @@ export class TableEventComponent implements AfterViewInit {
 
       res.forEach((element: TableEventItem) => {
         EXAMPLE_DATA.push(element);
-        this.eventi = res;
+        this.eventi.push(element);
       });
       console.log(this.eventi);
       this.refreshTable();
@@ -186,7 +186,7 @@ export class TableEventComponent implements AfterViewInit {
   });
 
   setActive(evento:any){
-    console.log(evento.descrizione);
+    console.log(evento);
 
   }
 

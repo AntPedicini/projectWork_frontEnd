@@ -30,7 +30,7 @@
     <!-- Id Column -->
     <ng-container matColumnDef="cod_evento">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Codice Evento</th>
-      <td mat-cell *matCellDef="let row">{{row.cod_evento}}</td>
+      <td mat-cell *matCellDef="let row,let evento" (click)= "setActive(evento)">{{row.cod_evento}}</td>
     </ng-container>
 
     <!-- Name Column -->
