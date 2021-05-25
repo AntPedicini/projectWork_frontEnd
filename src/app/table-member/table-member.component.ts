@@ -197,32 +197,25 @@ export class TableMemberComponent implements OnInit {
     tessera: [null, Validators.required],
   });
 
-  startEdit(i: any) {
-    var socio:TableMemberItem={tessera:0,validita:0,nome:'',nato_il:'', cognome:'',codice_fiscale:'',indirizzo:'',email:'',segretario:false,consiglio:false,targa:''};
- /*    let socio2:TableMemberItem = null;
-    socio2.tessera=i.tessera; */
-    socio.tessera=i.tessera;
-    socio.validita= i.validita;
-    socio.nome=i.nome;
-    socio.cognome= i.cognome;
-    socio.nato_il= i.nato_il;
-    socio.codice_fiscale= i.codice_fiscale;
-    socio.indirizzo= i.indirizzo;
-    socio.email= i.email;
-    this.index = i;
-    console.log(this.index);
-    console.log(socio);
+  startEdit(socio: TableMemberItem) {
+ 
     const dialogRef = this.dialog.open(MemberEditComponent, {
-      data: {tessera :i.tessera, validita: i.validita, nome: i.nome, nato_il: i.nato_il, cognome: i.cognome, codice_fiscale: i.codice_fiscale, indirizzo: i.indirizzo, email: i.email, segretario: i.segretario, consiglio: i.consiglio }
+      data: {tessera :socio.tessera, 
+             validita: socio.validita, 
+             nome: socio.nome, 
+             nato_il: socio.nato_il, 
+             cognome: socio.cognome, 
+             codice_fiscale: socio.codice_fiscale, 
+             indirizzo: socio.indirizzo, 
+             email: socio.email, 
+             segretario: socio.segretario, 
+             consiglio: socio.consiglio }
     }
   )}
 
-   deleteItem(i:any) {
-      this.index = i;
-      console.log(i.tessera);
-      //console.log(tessera);
+   deleteItem(socio:TableMemberItem) {
       const dialogRef = this.dialog.open(MemberDeleteComponent, {
-       data: {tessera:i.tessera}
+       data: {tessera:socio.tessera}
       }
     )}
 }

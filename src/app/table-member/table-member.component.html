@@ -86,11 +86,11 @@
 
     <ng-container matColumnDef="edit">
       <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
-      <td mat-cell *matCellDef="let row; let i;">
-        <button mat-icon-button color="primary" (click)="startEdit(i)">
+      <td mat-cell *matCellDef="let row; let socio;">
+        <button mat-icon-button color="primary" (click)="startEdit(socio)">
           <mat-icon aria-label="Edit">edit</mat-icon>
         </button>
-          <button mat-icon-button color="primary" (click)="deleteItem(i)">
+          <button mat-icon-button color="primary" (click)="deleteItem(socio)">
           <mat-icon aria-label="Delete">delete</mat-icon>
         </button>
       </td>

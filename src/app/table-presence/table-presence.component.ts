@@ -84,6 +84,7 @@ export class TablePresenceComponent {
         console.log('[[' + error.name + ' || ' + error.message + ']]');
         alert('Nessun Socio presente in database');
         this.refreshTable();
+        this.refreshSelect();
       }
     );
   }
@@ -94,6 +95,7 @@ export class TablePresenceComponent {
 
   //Metodo per recuperare tutti i dati relativi a un evento e popolare così la tabella iscrizioni
   getInfoEventi() {
+    this.elenco_eventi = [];
     this.serviceEvento.getAllEventi().subscribe((res: any) => {
 
       res.forEach((element: any) => {
@@ -165,12 +167,12 @@ export class TablePresenceComponent {
 
       },
         (error: HttpErrorResponse) => {                       //Error callback
-         console.log(error)
-          if(error.status == 404)
-           alert('Qualcosa è andato storto... :(\n Nessuna iscrizione trovata per il veicolo con targa '+targa+' all\'evento '+ nome_evento);
-          if(error.status == 400 || error.status == 500)
+          console.log(error)
+          if (error.status == 404)
+            alert('Qualcosa è andato storto... :(\n Nessuna iscrizione trovata per il veicolo con targa ' + targa + ' all\'evento ' + nome_evento);
+          if (error.status == 400 || error.status == 500)
             alert('Qualcosa è andato storto... :(\n Controlla tutti i campi e riprova')
-          });
+        });
     }
   }
 
@@ -180,7 +182,7 @@ export class TablePresenceComponent {
 
   checkout(iscrizione: any) {
 
-    iscrizione.partecipanti_effettivi=iscrizione.partecipanti;
+    iscrizione.partecipanti_effettivi = iscrizione.partecipanti;
     console.log(iscrizione);
     this.servicePresence.checkout(iscrizione).subscribe((res: any) => {
       alert('Pagamento effettuato con successo :D')
@@ -188,9 +190,9 @@ export class TablePresenceComponent {
       this.registrationForm.reset();
     },
       (error: HttpErrorResponse) => {                       //Error callback
-        if(error.status==400)
+        if (error.status == 400)
           alert('Qualcosa è andato storto... :(\n Controlla i dati inseriti ');
-        if(error.status==404)
+        if (error.status == 404)
           alert('Qualcosa è andato storto... \n Iscrizione non presente in Database')
       });
 
@@ -210,14 +212,16 @@ export class TablePresenceComponent {
   }
   //metodo per refreshare la select per selezionare la tessera
   private refreshSelect() {
-    this.elenco_nomi = [];
-    var n: any = null;
-    PRESENCE_DATA.forEach(element => {
-      if (element.nome_evento != n) {
-        this.elenco_nomi.push(element.nome_evento);
-        n = element.nome_evento;
-      }
-    });
+    this.elenco_nomi=[];
+     PRESENCE_DATA.forEach(presenza => {
+      console.log(1111);
+
+
+      //TODO========================================================================
+
+
+        this.elenco_nomi.push(presenza.nome_evento);
+     });
   }
   //======================================================================
   //Metodi per impostare i filtri nella ricerca
@@ -293,38 +297,32 @@ export class TablePresenceComponent {
   onSubmit() {
     // TODO: Use EventEmitter with form value
     console.log("Funzione registrazione");
-    this.registrationForm.value.partecipanti_effettivi=this.registrationForm.value.partecipanti;
+    this.registrationForm.value.partecipanti_effettivi = this.registrationForm.value.partecipanti;
     this.elenco_eventi.forEach(element => {
-      if(element.nome_evento == this.registrationForm.value.nome_evento)
+      if (element.nome_evento == this.registrationForm.value.nome_evento)
         this.registrationForm.value.cod_evento = element.cod_evento;
     });
     this.checkout(this.registrationForm.value);
-    
+
   }
 
-  startEdit(i:number, cod_evento: number, nome_evento: string, targa: string, costo_unitario: number, posti_disponibili: number, partecipanti_iscritti: number, partecipanti_effettivi: number) {
-    var presenze:TablePresenceItem={cod_evento: 0, nome_evento: '', targa: '', costo_unitario: 0, posti_disponibili: 0, partecipanti_iscritti: 0, partecipanti_effettivi: 0};
-    presenze.cod_evento=cod_evento;
-    presenze.nome_evento=nome_evento;
-    presenze.targa= targa;
-    presenze.costo_unitario= costo_unitario;
-    presenze.posti_disponibili= posti_disponibili;
-    presenze.partecipanti_iscritti= partecipanti_iscritti;
-    presenze.partecipanti_effettivi= partecipanti_effettivi;
-    this.index = i;
-    console.log(this.index);
-    console.log(presenze);
+  startEdit(iscrizione:TablePresenceItem) {
+
     const dialogRef = this.dialog.open(PresenceEditComponent, {
-      data: {cod_evento: cod_evento, nome_evento: nome_evento, targa: targa, costo_unitario: costo_unitario, posti_disponibili: posti_disponibili, partecipanti_iscritti: partecipanti_iscritti, partecipanti_effettivi: partecipanti_effettivi}
+      data: {cod_evento: iscrizione.cod_evento, 
+             nome_evento: iscrizione.nome_evento, 
+             targa: iscrizione.targa, 
+             costo_unitario: iscrizione.costo_unitario, 
+             posti_disponibili: iscrizione.posti_disponibili, 
+             partecipanti_iscritti: iscrizione.partecipanti_iscritti, 
+             partecipanti_effettivi: iscrizione.partecipanti_effettivi}
     }
   )}
 
-   deleteItem(i: number, cod_evento: number) {
-      this.index = i;
-      console.log(this.index);
-      console.log(cod_evento);
+   deleteItem(iscrizione:TablePresenceItem) {
+
       const dialogRef = this.dialog.open(PresenceDeleteComponent, {
-       data: {cod_evento:cod_evento}
+       data: {cod_evento: iscrizione.cod_evento}
       }
     )};
 

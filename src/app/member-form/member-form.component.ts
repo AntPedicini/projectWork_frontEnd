@@ -15,7 +15,7 @@ import { ServiceAutoService } from '../service-auto.service';
 export class MemberFormComponent {
   //Socio
   addressForm = this.fb.group({
-    tessera_socio: [null, Validators.required],
+    tessera_socio: [null],
     validita: [null, Validators.required],
     nome: [null, Validators.required],
     cognome: [null, Validators.required],
@@ -84,16 +84,15 @@ export class MemberFormComponent {
   //Submit
   onSubmitSocio(): void {
     console.log("Registrazione socio");
-    //alert('Registrazione avvenuta con successo');
-    console.log(this.addressForm.value);
+    //console.log(this.addressForm.value);
     this.insertSocio(this.addressForm.value);
-    this.addressForm.reset();
+    //this.addressForm.reset();
   }
 
   onSubmitAuto(): void {
     console.log("Registrazione auto");
     //alert('Registrazione auto avvenuta con successo');
-    console.log(this.addressForm.value);
+    //console.log(this.addressForm.value);
     this.insertAuto(this.addressForm.value);
   }
 
