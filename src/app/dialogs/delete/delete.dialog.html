@@ -1,0 +1,16 @@
+<div class="container">
+    <h3 mat-dialog-title>Sei sicuro?</h3>
+    <div mat-dialog-content>
+      Codice Evento: {{data.cod_evento}}
+      <p></p>
+      Nome evento: {{data.nome_evento}}
+      <p></p>
+      Targa: {{data.targa}}
+      <p></p>
+    </div>
+  
+    <div mat-dialog-actions>
+      <button mat-button mat-dialog-close="1" (click)="confirmDelete()">Elimina</button>
+      <button mat-button (click)="onNoClick()" tabindex="-1">Cancella</button>
+    </div>
+  </div>

@@ -5,6 +5,8 @@ import { ServiceSocioService } from '../service-socio.service';
 import { DatePipe, formatCurrency } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ServiceAutoService } from '../service-auto.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { EXAMPLE_DATA } from '../table-member/table-member-datasource';
 
 
 
@@ -47,8 +49,20 @@ export class MemberFormComponent {
 
   allComplete: boolean = false;
   hasUnitNumber = false;
+  elenco_tessere: any[] = [];
+  selected = null;
+  dataSource: any;
   
-  constructor(private fb: FormBuilder,private serviceSocio:ServiceSocioService, private serviceAuto:ServiceAutoService, public datepipe: DatePipe) {}
+  constructor(private fb: FormBuilder,private serviceSocio:ServiceSocioService, private serviceAuto:ServiceAutoService, public datepipe: DatePipe) {
+    this.dataSource = new MatTableDataSource(EXAMPLE_DATA);
+    var n:any=null;
+    EXAMPLE_DATA.forEach(element => {
+      if(element.tessera!=n){
+        this.elenco_tessere.push(element.tessera);
+        n=element.tessera;
+      }
+    });
+  }
 
   //Import foto
   //Import 1++ foto

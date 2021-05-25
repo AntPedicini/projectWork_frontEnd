@@ -12,6 +12,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ServiceEventoService } from '../service-evento.service';
 import { ServiceAutoService } from '../service-auto.service';
 import { TableEventItem } from '../table-event/table-event-datasource';
+import {PresenceEditComponent} from '../dialogs/edit/presence-edit/presence-edit.component';
+import {DeleteDialogComponent} from '../dialogs/delete/delete.dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 
@@ -32,17 +35,22 @@ export class TablePresenceComponent {
   elenco_targhe: any = [];
   selected = null;
   presenze: TablePresenceItem[] = [];
+  index:number=0;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['cod_evento', 'nome_evento', 'targa', 'costo_unitario', 'posti_disponibili', 'partecipanti_iscritti', 'partecipanti_effettivi'];
+  displayedColumns = ['cod_evento', 'nome_evento', 'targa', 'costo_unitario', 'posti_disponibili', 'partecipanti_iscritti', 'partecipanti_effettivi', 'edit'];
 
   constructor(private fb: FormBuilder,
     private servicePresence: ServicePresenceService,
     private serviceEvento: ServiceEventoService,
-    private serviceAuto: ServiceAutoService) {
+    private serviceAuto: ServiceAutoService,
+    private dialog: MatDialog) {
 
     this.getAllIscrizioni();
+    this.refreshSelect();
     this.dataSource = new MatTableDataSource(PRESENCE_DATA);
+
+
   }
 
   ngAfterViewInit(): void {
@@ -294,19 +302,31 @@ export class TablePresenceComponent {
     
   }
 
-  onDelete() {
-    // TODO: Use EventEmitter with form value
-    console.log("Funzione cancellazione");
-    console.log(this.registrationForm.value);
-    this.deleteIscrizione(this.registrationForm.value.nome_evento, this.registrationForm.value.targa);
-    this.registrationForm.reset();
-  }
+  startEdit(i:number, cod_evento: number, nome_evento: string, targa: string, costo_unitario: number, posti_disponibili: number, partecipanti_iscritti: number, partecipanti_effettivi: number) {
+    var presenze:TablePresenceItem={cod_evento: 0, nome_evento: '', targa: '', costo_unitario: 0, posti_disponibili: 0, partecipanti_iscritti: 0, partecipanti_effettivi: 0};
+    presenze.cod_evento=cod_evento;
+    presenze.nome_evento=nome_evento;
+    presenze.targa= targa;
+    presenze.costo_unitario= costo_unitario;
+    presenze.posti_disponibili= posti_disponibili;
+    presenze.partecipanti_iscritti= partecipanti_iscritti;
+    presenze.partecipanti_effettivi= partecipanti_effettivi;
+    this.index = i;
+    console.log(this.index);
+    console.log(presenze);
+    const dialogRef = this.dialog.open(PresenceEditComponent, {
+      data: {cod_evento: cod_evento, nome_evento: nome_evento, targa: targa, costo_unitario: costo_unitario, posti_disponibili: posti_disponibili, partecipanti_iscritti: partecipanti_iscritti, partecipanti_effettivi: partecipanti_effettivi}
+    }
+  )}
 
-  onUpdate(): void {
-    console.log("Update iscrizione");
-    alert('Update avvenuto con successo');
-    console.log(this.registrationForm.value);
-  }
+   deleteItem(i: number, cod_evento: number) {
+      this.index = i;
+      console.log(this.index);
+      console.log(cod_evento);
+      const dialogRef = this.dialog.open(DeleteDialogComponent, {
+       data: {cod_evento:cod_evento}
+      }
+    )};
 
 }
 

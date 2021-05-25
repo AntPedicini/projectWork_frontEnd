@@ -8,6 +8,9 @@ import { HttpClient, HttpClientModule, HttpErrorResponse } from '@angular/common
 import { FormBuilder, Validators } from '@angular/forms';
 import { auto } from '../_models/auto.model';
 import { ServiceAutoService } from '../service-auto.service';
+import { AutoEditComponent } from '../dialogs/edit/auto-edit/auto-edit.component';
+import {DeleteDialogComponent} from '../dialogs/delete/delete.dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 //import { auto } from '../_models/auto.model';
 
 @Component({
@@ -24,12 +27,13 @@ export class TableAutoComponent {
   elenco_targhe: any[] = [];
   selected = null;
   auto: TableAutoItem[] = [];
+  index:number=0;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['targa', 'tessera_socio', 'marca', 'modello', 'anno', 'immatricolazione', 'ASI'];
+  displayedColumns = ['targa', 'tessera_socio', 'marca', 'modello', 'anno', 'immatricolazione', 'ASI', 'edit'];
 
 
-  constructor(private fb: FormBuilder, private serviceAuto: ServiceAutoService) {
+  constructor(private fb: FormBuilder, private serviceAuto: ServiceAutoService, private dialog: MatDialog) {
 
     this.getAllAuto();
     this.dataSource = new MatTableDataSource(EXAMPLE_DATA);
@@ -172,19 +176,6 @@ export class TableAutoComponent {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  onDelete() {
-    // TODO: Use EventEmitter with form value
-    console.log("Funzione cancellazione");
-    //console.log(this.registrationForm.value.targa);
-    this.deleteAuto(this.registrationForm.value.targa);
-  }
-
-  onUpdate(): void {
-    console.log("Update socio/auto");
-    alert('Update avvenuto con successo');
-    console.log(this.registrationForm.value);
-  }
-
   registrationForm = this.fb.group({
     targa: [null, Validators.required],
   });
@@ -192,6 +183,32 @@ export class TableAutoComponent {
   setActive(auto:any){
     console.log(auto.foto);
   }
+
+  startEdit(i:number, targa: string, tessera_socio: number, marca:string, modello: string, anno: number, immatricolazione: string, ASI: string) {
+    var auto:TableAutoItem={targa: '', tessera_socio: 0, marca:'', modello: '', anno: 0, immatricolazione: '', ASI: ''};
+    auto.targa=targa;
+    auto.tessera_socio=tessera_socio;
+    auto.marca= marca;
+    auto.modello= modello;
+    auto.anno= anno;
+    auto.immatricolazione= immatricolazione;
+    auto.ASI= ASI;
+    this.index = i;
+    console.log(this.index);
+    console.log(auto);
+    const dialogRef = this.dialog.open(AutoEditComponent, {
+      data: {targa: targa, tessera_socio: tessera_socio, marca: marca, modello: modello, anno: anno, immatricolazione: immatricolazione, ASI: ASI}
+    }
+  )}
+
+   deleteItem(i: number, targa: string) {
+      this.index = i;
+      console.log(this.index);
+      console.log(targa);
+      const dialogRef = this.dialog.open(DeleteDialogComponent, {
+       data: {cod_evento:targa}
+      }
+    )};
 
 }
 
