@@ -1,0 +1,22 @@
+<div class="container">
+    <h3 mat-dialog-title>Sei sicuro?</h3>
+    <div mat-dialog-content>
+      Targa: {{data.targa}}
+      <p></p>
+      Marca: {{data.marca}}
+      <p></p>
+      Modello: {{data.modello}}
+      <p></p>
+      Anno: {{data.anno}}
+      <p></p>
+      Immatricolazione: {{data.immatricolazione}}
+      <p></p>
+      ASI: {{data.ASI}}
+      <p></p>
+    </div>
+  
+    <div mat-dialog-actions>
+      <button class="btn_blue" mat-button [mat-dialog-close]="1" (click)="confirmDelete()">Elimina</button>
+      <button class="btn_blue" mat-button (click)="onNoClick()" tabindex="-1">Cancella</button>
+    </div>
+  </div>

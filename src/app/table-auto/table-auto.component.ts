@@ -6,8 +6,11 @@ import { EXAMPLE_DATA, TableAutoDataSource, TableAutoItem } from './table-auto-d
 import { MatTableDataSource } from '@angular/material/table';
 import { HttpClient, HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
-import { auto } from '../_models/auto.model';
 import { ServiceAutoService } from '../service-auto.service';
+import { AutoEditComponent } from '../dialogs/edit/auto-edit/auto-edit.component';
+import { AutoDeleteComponent } from '../dialogs/delete/auto-delete/auto-delete.component';
+import { MatDialog } from '@angular/material/dialog';
+import { TableEventItem } from '../table-event/table-event-datasource';
 //import { auto } from '../_models/auto.model';
 
 @Component({
@@ -24,12 +27,13 @@ export class TableAutoComponent {
   elenco_targhe: any[] = [];
   selected = null;
   auto: TableAutoItem[] = [];
+  index:number=0;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['targa', 'tessera_socio', 'marca', 'modello', 'anno', 'immatricolazione', 'ASI'];
+  displayedColumns = ['targa', 'tessera_socio', 'marca', 'modello', 'anno', 'immatricolazione', 'ASI', 'edit'];
 
 
-  constructor(private fb: FormBuilder, private serviceAuto: ServiceAutoService) {
+  constructor(private fb: FormBuilder, private serviceAuto: ServiceAutoService, private dialog: MatDialog) {
 
     this.getAllAuto();
     this.dataSource = new MatTableDataSource(EXAMPLE_DATA);
@@ -172,19 +176,6 @@ export class TableAutoComponent {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  onDelete() {
-    // TODO: Use EventEmitter with form value
-    console.log("Funzione cancellazione");
-    //console.log(this.registrationForm.value.targa);
-    this.deleteAuto(this.registrationForm.value.targa);
-  }
-
-  onUpdate(): void {
-    console.log("Update socio/auto");
-    alert('Update avvenuto con successo');
-    console.log(this.registrationForm.value);
-  }
-
   registrationForm = this.fb.group({
     targa: [null, Validators.required],
   });
@@ -193,6 +184,23 @@ export class TableAutoComponent {
     console.log(auto.foto);
   }
 
+  startEdit(auto:TableAutoItem) {
+    const dialogRef = this.dialog.open(AutoEditComponent, {
+      data: {targa: auto.targa, 
+             tessera_socio: auto.tessera_socio, 
+             marca: auto.marca, 
+             modello: auto.modello, 
+             anno: auto.anno, 
+             immatricolazione: auto.immatricolazione, 
+             ASI: auto.ASI}
+    }
+  )}
+
+   deleteItem(auto:any) {
+      console.log(auto);
+      const dialogRef = this.dialog.open(AutoDeleteComponent, {
+       data: {targa:auto.targa}
+      }
+    )};
+
 }
-
-

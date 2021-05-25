@@ -71,6 +71,18 @@
       <td mat-cell *matCellDef="let row">{{row.posti_disponibili}}</td>
     </ng-container>
 
+    <ng-container matColumnDef="edit">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+      <td mat-cell *matCellDef="let row; let i=index;">
+      <button mat-icon-button color="primary" (click)="startEdit(i, row.cod_evento, row.nome_evento, row.data_inizio, row.data_fine, row.location, row.costo_unitario, row.posti_disponibili, row.descrizione)">
+        <mat-icon aria-label="Edit">edit</mat-icon>
+      </button>
+        <button mat-icon-button color="primary" (click)="deleteItem(i, row.cod_evento)">
+        <mat-icon aria-label="Delete">delete</mat-icon>
+      </button>
+      </td>
+    </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
@@ -87,20 +99,4 @@
   [pageSize]="10"
   [pageSizeOptions]="[5, 10, 20]">
   </mat-paginator>
-
-  <form [formGroup]="registrationForm" >
-    <mat-form-field class="reg">
-      <mat-label>Scegli Codice evento</mat-label>
-      <mat-select [value]="selected" formControlName="nome_evento" matInput placeholder="Nome evento" #input>
-        <mat-option *ngFor="let evento of elenco_eventi" [value]="evento">{{evento}}</mat-option>
-      </mat-select>
-      <mat-error *ngIf="registrationForm.controls['nome_evento'].hasError('required')">
-        Codice evento <strong>obbligatorio!</strong>
-      </mat-error>
-    </mat-form-field>
-    <div class="btn">
-      <button mat-raised-button  color="primary" type="submit" value="delete" (click)="onDelete()">Cancella Evento</button>
-    </div>
-    <button mat-raised-button color="primary" type="submit" value="modifica" (click)="onUpdate()">Modifca Evento</button>
-  </form>
 </div>

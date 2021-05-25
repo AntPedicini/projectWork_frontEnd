@@ -7,6 +7,10 @@ import { MatTable } from '@angular/material/table';
 import { MatTableDataSource } from '@angular/material/table';
 import { ServiceSocioService } from '../service-socio.service';
 import { EXAMPLE_DATA, TableMemberDataSource, TableMemberItem } from './table-member-datasource';
+import {MemberEditComponent} from '../dialogs/edit/member-edit/member-edit.component';
+import {MemberDeleteComponent} from '../dialogs/delete/member-delete/member-delete.component';
+import { MatDialog } from '@angular/material/dialog';
+
 
 
 @Component({
@@ -14,6 +18,7 @@ import { EXAMPLE_DATA, TableMemberDataSource, TableMemberItem } from './table-me
   templateUrl: './table-member.component.html',
   styleUrls: ['./table-member.component.css']
 })
+
 export class TableMemberComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -26,9 +31,9 @@ export class TableMemberComponent implements OnInit {
   index:number=0;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['tessera', 'validita', 'nome', 'cognome', 'nato_il', 'codice_fiscale', 'indirizzo', 'email', 'consiglio', 'segretario'];
+  displayedColumns = ['tessera', 'validita', 'nome', 'cognome', 'nato_il', 'codice_fiscale', 'indirizzo', 'email', 'consiglio', 'segretario', 'edit'];
 
-  constructor(private fb: FormBuilder, private serviceSocio: ServiceSocioService) {
+  constructor(private fb: FormBuilder, private serviceSocio: ServiceSocioService, private dialog: MatDialog) {
 
     this.getAllSocio();
     this.dataSource = new MatTableDataSource(EXAMPLE_DATA);
@@ -188,21 +193,37 @@ export class TableMemberComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  onDelete() {
-    console.log("Funzione cancellazione");
-    console.log(typeof this.registrationForm.value);
-    this.deleteSocio(this.registrationForm.value.tessera);
-  }
-
-  onUpdate(): void {
-    //console.log("Update socio/auto");
-    alert('Update avvenuto con successo');
-    //console.log(this.registrationForm.value);
-  }
-
   registrationForm = this.fb.group({
     tessera: [null, Validators.required],
   });
 
+  startEdit(i: any) {
+    var socio:TableMemberItem={tessera:0,validita:0,nome:'',nato_il:'', cognome:'',codice_fiscale:'',indirizzo:'',email:'',segretario:false,consiglio:false,targa:''};
+ /*    let socio2:TableMemberItem = null;
+    socio2.tessera=i.tessera; */
+    socio.tessera=i.tessera;
+    socio.validita= i.validita;
+    socio.nome=i.nome;
+    socio.cognome= i.cognome;
+    socio.nato_il= i.nato_il;
+    socio.codice_fiscale= i.codice_fiscale;
+    socio.indirizzo= i.indirizzo;
+    socio.email= i.email;
+    this.index = i;
+    console.log(this.index);
+    console.log(socio);
+    const dialogRef = this.dialog.open(MemberEditComponent, {
+      data: {tessera :i.tessera, validita: i.validita, nome: i.nome, nato_il: i.nato_il, cognome: i.cognome, codice_fiscale: i.codice_fiscale, indirizzo: i.indirizzo, email: i.email, segretario: i.segretario, consiglio: i.consiglio }
+    }
+  )}
+
+   deleteItem(i:any) {
+      this.index = i;
+      console.log(i.tessera);
+      //console.log(tessera);
+      const dialogRef = this.dialog.open(MemberDeleteComponent, {
+       data: {tessera:i.tessera}
+      }
+    )}
 }
 

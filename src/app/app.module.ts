@@ -44,6 +44,16 @@ import { ServiceAutoService } from './service-auto.service';
 import { ServiceEventoService } from './service-evento.service';
 import { LoginComponent } from './login/login.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatDialogModule} from '@angular/material/dialog';
+import { FormsModule } from '@angular/forms';
+import { MemberEditComponent } from './dialogs/edit/member-edit/member-edit.component';
+import { PresenceEditComponent } from './dialogs/edit/presence-edit/presence-edit.component';
+import { AutoEditComponent } from './dialogs/edit/auto-edit/auto-edit.component';
+import { EventEditComponent } from './dialogs/edit/event-edit/event-edit.component';
+import { AutoDeleteComponent } from './dialogs/delete/auto-delete/auto-delete.component';
+import { MemberDeleteComponent } from './dialogs/delete/member-delete/member-delete.component';
+import { EventDeleteComponent } from './dialogs/delete/event-delete/event-delete.component';
+import { PresenceDeleteComponent } from './dialogs/delete/presence-delete/presence-delete.component';
 
 
 
@@ -62,7 +72,17 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     EventFormComponent,
     RegistrationFormComponent,
     MenuComponent,
-    LoginComponent
+    LoginComponent,
+    MemberEditComponent,
+    PresenceEditComponent,
+    AutoEditComponent,
+    EventEditComponent,
+    AutoDeleteComponent,
+    MemberDeleteComponent,
+    EventDeleteComponent,
+    PresenceDeleteComponent
+    
+    
    
   ],
   imports: [
@@ -90,8 +110,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatNativeDateModule,
     MatSlideToggleModule,
     HttpClientModule,
+    MatDialogModule,
+    FormsModule,
+    
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    FormsModule,
+    MatDialogModule
   ],
   providers: [
     DatePipe,
