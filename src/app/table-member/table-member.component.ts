@@ -12,6 +12,7 @@ import {MemberDeleteComponent} from '../dialogs/delete/member-delete/member-dele
 import { MatDialog } from '@angular/material/dialog';
 
 
+
 @Component({
   selector: 'app-table-member',
   templateUrl: './table-member.component.html',
@@ -220,7 +221,7 @@ export class TableMemberComponent implements OnInit {
       this.index = i;
       console.log(i.tessera);
       //console.log(tessera);
-      const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      const dialogRef = this.dialog.open(MemberDeleteComponent, {
        data: {tessera:i.tessera}
       }
     )}

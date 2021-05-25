@@ -198,7 +198,7 @@ export class TableAutoComponent {
 
    deleteItem(auto:any) {
       console.log(auto);
-      const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      const dialogRef = this.dialog.open(AutoDeleteComponent, {
        data: {targa:auto.targa}
       }
     )};
