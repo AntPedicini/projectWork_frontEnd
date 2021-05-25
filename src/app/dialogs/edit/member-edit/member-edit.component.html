@@ -1,55 +1,55 @@
 <div class="container">
     <h3 mat-dialog-title>tessera: {{data.tessera}}</h3>
   
-    <form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">
+    <form [formGroup]="memberForm"  class="mat-dialog-content"  #formControl="ngForm">
   
       <div class="form">
         <mat-form-field color="accent">
-          <input matInput #input [disabled]="true" class="form-control" placeholder="Tessera" [(ngModel)]="data.tessera" name="tessera" required readonly="readonly">
+          <input matInput #input  class="form-control" placeholder="Tessera" [(ngModel)]="data.tessera" name="tessera" required formControlName="tessera_socio" readonly="readonly">
         </mat-form-field>
       </div>
   
     
       <div class="form">
         <mat-form-field color="accent">
-          <input matInput #input class="form-control" placeholder="Validità" [(ngModel)]="data.validita" name="validita" >
+          <input matInput #input class="form-control" placeholder="Validità" [(ngModel)]="data.validita" formControlName="validita" name="validita" >
         </mat-form-field>
       </div>
   
     
       <div class="form">
         <mat-form-field color="accent">
-          <input matInput #input class="form-control" placeholder="Nome" [(ngModel)]="data.nome" name="nome" >
+          <input matInput #input class="form-control" placeholder="Nome" [(ngModel)]="data.nome" formControlName="nome" name="nome" >
         </mat-form-field>
       </div>
   
       <div class="form">
           <mat-form-field color="accent">
-            <input matInput #input class="form-control" placeholder="Cognome" [(ngModel)]="data.cognome" name="cognome">
+            <input matInput #input class="form-control" placeholder="Cognome" [(ngModel)]="data.cognome" formControlName="cognome" name="cognome">
           </mat-form-field>
       </div>
   
       <div class="form">
         <mat-form-field color="accent">
-          <input matInput #input class="form-control" placeholder="Nato il" [(ngModel)]="data.nato_il" name="nato_il">
+          <input matInput #input class="form-control" placeholder="Nato il" [(ngModel)]="data.nato_il" formControlName="nato_il" name="nato_il">
         </mat-form-field>
       </div>
   
       <div class="form">
         <mat-form-field color="accent">
-          <input matInput #input class="form-control" placeholder="Codice fiscale" [(ngModel)]="data.codice_fiscale" name="codice_fiscale">
+          <input matInput #input class="form-control" placeholder="Codice fiscale" [(ngModel)]="data.codice_fiscale" formControlName="codice_fiscale" name="codice_fiscale">
         </mat-form-field>
       </div>
 
       <div class="form">
         <mat-form-field color="accent">
-          <input matInput #input class="form-control" placeholder="Indirizzo" [(ngModel)]="data.indirizzo" name="indirizzo">
+          <input matInput #input class="form-control" placeholder="Indirizzo" [(ngModel)]="data.indirizzo" formControlName="indirizzo" name="indirizzo">
         </mat-form-field>
       </div>
 
       <div class="form">
         <mat-form-field color="accent">
-          <input matInput #input class="form-control" placeholder="Email" [(ngModel)]="data.email" name="email">
+          <input matInput #input class="form-control" placeholder="Email" [(ngModel)]="data.email" formControlName="email" name="email">
         </mat-form-field>
       </div>
   

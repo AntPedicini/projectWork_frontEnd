@@ -129,9 +129,11 @@ export class MemberFormComponent {
         alert('Socio inserito con successo');
       },
       (error:HttpErrorResponse) => {                       //Error callback
-        console.error('error caught in component')
-        alert('Qualcosa è andato storto... :(\n Prova a ricontrollare tutti i campi ');
-       } );
+       if(error.status==400)
+        alert('Qualcosa è andato storto... :(\n Prova a ricontrollare tutti i campi \n NB:Verifica che la targa inserita non appartenente a un altro socio ');
+      if (error.status==404)
+      alert('Qualcosa è andato storto... :(\n Prova a ricontrollare tutti i campi \n NB:Verifica che la targa inserita non appartenente a un altro socio ');
+      } );
   
   }
 
@@ -145,18 +147,17 @@ insertAuto(auto:any): void {
 
       if(auto.targa != null)
         auto.targa = auto.targa.toUpperCase();
-      if(auto.tessera_socio != null){
-        var valueNumber = Number(auto.tessera_socio);
-        auto.tessera_socio = valueNumber; 
-      }
+
   //=============================CHIAMATA AL SERVIZIO=======================================
 
     this.serviceAuto.insertAuto( auto ).subscribe(res=>{
         alert('Veicolo inserito con successo');
       },
       (error:HttpErrorResponse) => {                       //Error callback
-        console.error('error caught in component')
-        alert('Qualcosa è andato storto... :(\n Prova a ricontrollare tutti i campi ');
+        if(error.status==400)
+          alert('Qualcosa è andato storto... :(\n Prova a ricontrollare tutti i campi');
+        if(error.status==404)
+          alert('Qualcosa è andato storto... :(\n Socio associato inesistente ');
        } );
   
   } 

@@ -122,11 +122,12 @@
             <mat-select [value]="selected" formControlName="targa" matInput placeholder="targa" #input>
               <mat-option value="targa">--</mat-option>
               <mat-option *ngFor="let targa of elenco_targhe" [value]="targa">{{targa}}</mat-option>
-            </mat-select>
+            </mat-select> 
             <mat-error *ngIf="addressForm.controls['targa'].hasError('required')">
               Targa <strong>obbligatorio!</strong>
             </mat-error>
           </mat-form-field>
+          <mat-label> *Da compilare se si vuole aggiungere un auto già presente in Database</mat-label>
         </div>
       </div>
       <div class="row">
