@@ -81,7 +81,8 @@
         <!-- PROVINCIA -->
         <div class="col">
           <mat-form-field class="full-width">
-            <input name = "provincia" matInput maxlength="2" placeholder="Provincia" formControlName="provincia">
+            <input #Provincia name = "provincia" matInput maxlength="2" placeholder="Provincia" formControlName="provincia">
+            <mat-hint align="end">{{Provincia.value?.length || 0}}/2</mat-hint>
             <mat-error *ngIf="addressForm.controls['provincia'].hasError('required')">
               Provincia <strong>obbligatoria!</strong>
             </mat-error>
@@ -90,8 +91,8 @@
         <!-- CAP -->
         <div class="col">
           <mat-form-field class="full-width">
-            <input name = "CAP" matInput #postalCode maxlength="5" placeholder="CAP" type="number" formControlName="postalCode">
-            <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
+            <input #CAP name = "CAP" matInput #postalCode maxlength="5" placeholder="CAP" type="number" formControlName="postalCode">
+            <mat-hint align="end">{{CAP.value?.length || 0}}/5</mat-hint>
             <mat-error *ngIf="addressForm.controls['provincia'].hasError('required')">
               CAP <strong>obbligatorio!</strong>
             </mat-error>
