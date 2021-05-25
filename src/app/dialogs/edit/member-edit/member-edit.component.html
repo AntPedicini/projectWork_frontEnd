@@ -1,5 +1,5 @@
 <div class="container">
-    <h3 mat-dialog-title>Tessera: {{data.tessera}}</h3>
+    <h3 mat-dialog-title>tessera: {{data.tessera}}</h3>
   
     <form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">
   
@@ -54,7 +54,7 @@
       </div>
   
       <div mat-dialog-actions>
-        <button mat-button type="submit" [mat-dialog-close]="1" (click)="stopEdit()">Salva</button>
+        <button mat-icon-button color="primary" type="submit" [mat-dialog-close]="1" (click)="stopEdit()">Salva</button>
         <button mat-button (click)="onNoClick()" tabindex="-1">Cancella</button>
       </div>
     </form>

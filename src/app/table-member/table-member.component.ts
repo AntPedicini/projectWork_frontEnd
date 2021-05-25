@@ -195,30 +195,32 @@ export class TableMemberComponent implements OnInit {
     tessera: [null, Validators.required],
   });
 
-  startEdit(i: number, tessera: number, validita: number, nome: string, cognome: string, nato_il: string, codice_fiscale: string, indirizzo: string, email: string, consiglio: string, segretario: string) {
+  startEdit(i: any) {
     var socio:TableMemberItem={tessera:0,validita:0,nome:'',nato_il:'', cognome:'',codice_fiscale:'',indirizzo:'',email:'',segretario:false,consiglio:false,targa:''};
-    socio.tessera=tessera;
-    socio.validita= validita;
-    socio.nome=nome;
-    socio.cognome= cognome;
-    socio.nato_il= nato_il;
-    socio.codice_fiscale= codice_fiscale;
-    socio.indirizzo= indirizzo;
-    socio.email= email;
+ /*    let socio2:TableMemberItem = null;
+    socio2.tessera=i.tessera; */
+    socio.tessera=i.tessera;
+    socio.validita= i.validita;
+    socio.nome=i.nome;
+    socio.cognome= i.cognome;
+    socio.nato_il= i.nato_il;
+    socio.codice_fiscale= i.codice_fiscale;
+    socio.indirizzo= i.indirizzo;
+    socio.email= i.email;
     this.index = i;
     console.log(this.index);
     console.log(socio);
     const dialogRef = this.dialog.open(MemberEditComponent, {
-      data: {validita: validita, nome: nome, nato_il: nato_il, cognome: cognome, codice_fiscale: codice_fiscale, indirizzo: indirizzo, email: email, segretario: segretario, consiglio: consiglio }
+      data: {tessera :i.tessera, validita: i.validita, nome: i.nome, nato_il: i.nato_il, cognome: i.cognome, codice_fiscale: i.codice_fiscale, indirizzo: i.indirizzo, email: i.email, segretario: i.segretario, consiglio: i.consiglio }
     }
   )}
 
-   deleteItem(i: number, tessera: number) {
+   deleteItem(i:any) {
       this.index = i;
-      console.log(this.index);
-      console.log(tessera);
+      console.log(i.tessera);
+      //console.log(tessera);
       const dialogRef = this.dialog.open(DeleteDialogComponent, {
-       data: {tessera:tessera}
+       data: {tessera:i.tessera}
       }
     )}
 

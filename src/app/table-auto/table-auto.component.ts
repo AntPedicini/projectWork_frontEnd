@@ -206,7 +206,7 @@ export class TableAutoComponent {
       console.log(this.index);
       console.log(targa);
       const dialogRef = this.dialog.open(DeleteDialogComponent, {
-       data: {cod_evento:targa}
+       data: {targa:targa}
       }
     )};
 
