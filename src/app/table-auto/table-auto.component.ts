@@ -6,7 +6,6 @@ import { EXAMPLE_DATA, TableAutoDataSource, TableAutoItem } from './table-auto-d
 import { MatTableDataSource } from '@angular/material/table';
 import { HttpClient, HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
-import { auto } from '../_models/auto.model';
 import { ServiceAutoService } from '../service-auto.service';
 import { AutoEditComponent } from '../dialogs/edit/auto-edit/auto-edit.component';
 import {DeleteDialogComponent} from '../dialogs/delete/delete.dialog.component';
@@ -211,5 +210,3 @@ export class TableAutoComponent {
     )};
 
 }
-
-

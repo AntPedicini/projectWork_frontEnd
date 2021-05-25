@@ -75,6 +75,8 @@ import { EventEditComponent } from './dialogs/edit/event-edit/event-edit.compone
     PresenceEditComponent,
     AutoEditComponent,
     EventEditComponent
+    
+    
    
   ],
   imports: [
@@ -102,6 +104,9 @@ import { EventEditComponent } from './dialogs/edit/event-edit/event-edit.compone
     MatNativeDateModule,
     MatSlideToggleModule,
     HttpClientModule,
+    MatDialogModule,
+    FormsModule,
+    
     MatFormFieldModule,
     MatInputModule,
     FormsModule,

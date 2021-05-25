@@ -113,6 +113,20 @@
         </div>
       </div>
       <div class="row">
+         <!-- TARGA -->
+         <div class="col"> 
+          <mat-form-field class="width">
+            <mat-label>Scegli una targa</mat-label>
+            <mat-select [value]="selected" formControlName="targa" matInput placeholder="targa" #input>
+              <mat-option *ngFor="let targa of elenco_targhe" [value]="targa">{{targa}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="addressForm.controls['targa'].hasError('required')">
+              Tessera <strong>obbligatorio!</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
         <!-- MEMRBO DEL CONSIGLIO -->
         <div class="col">
           <section class="example-section">
@@ -139,10 +153,10 @@
       </mat-card-header>
       <div class="row">
         <!-- ID TESSERA -->
-        <div class="col">
-          <mat-form-field class="width">
+        <div class="col"> 
+          <mat-form-field class="full-width">
             <mat-label>Scegli una tessera</mat-label>
-            <mat-select [(value)]="selected" formControlName="tessera_socio" matInput placeholder="tessera_socio" #input>
+            <mat-select [(value)]="selected" formControlName="tessera_socio" matInput placeholder="Ospite" #input>
               <mat-option>Ospite</mat-option>
               <mat-option *ngFor="let tessera of elenco_tessere" value="{{tessera}}">{{tessera}}</mat-option>
             </mat-select>

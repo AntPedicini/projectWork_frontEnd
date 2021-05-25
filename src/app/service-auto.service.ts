@@ -28,4 +28,5 @@ export class ServiceAutoService {
   deleteAuto(targa:string):Observable<any>{
     return this.http.delete(this.url +'/'+ targa).pipe(map((res: any)=> res));
   }
+
 }

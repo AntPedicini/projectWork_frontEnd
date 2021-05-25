@@ -208,5 +208,4 @@ export class TableEventComponent implements AfterViewInit {
       }
     )};
 
-
 }

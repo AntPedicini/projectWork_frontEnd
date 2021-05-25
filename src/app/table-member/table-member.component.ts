@@ -17,6 +17,7 @@ import { MatDialog } from '@angular/material/dialog';
   templateUrl: './table-member.component.html',
   styleUrls: ['./table-member.component.css']
 })
+
 export class TableMemberComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -223,6 +224,5 @@ export class TableMemberComponent implements OnInit {
        data: {tessera:i.tessera}
       }
     )}
-
 }
 
