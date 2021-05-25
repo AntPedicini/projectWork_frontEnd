@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 
 import { AuthenticationService } from '../_services';
+
 
 @Component({ 
         styleUrls: ['./login.component.css'],
@@ -19,10 +21,12 @@ export class LoginComponent implements OnInit {
     hide=true;
 
     constructor(
+        private popErrore: MatSnackBar,
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
         private router: Router,
-        private authenticationService: AuthenticationService
+        private authenticationService: AuthenticationService,
+        
     ) { 
         // redirect to home if already logged in
         if (this.authenticationService.currentUserValue) { 
@@ -60,9 +64,11 @@ export class LoginComponent implements OnInit {
                     this.router.navigate([this.returnUrl]);
                 },
                 error => {
-                    this.error = "errore autenticazione";
+                    this.popErrore.open('dati inseriti non validi','esci', {duration: 2000, panelClass: ['coloreRed']});
                     this.loading = false;
                 });
     }
+    
+
 
 }

@@ -51,6 +51,9 @@ import { MemberEditComponent } from './dialogs/edit/member-edit/member-edit.comp
 import { PresenceEditComponent } from './dialogs/edit/presence-edit/presence-edit.component';
 import { AutoEditComponent } from './dialogs/edit/auto-edit/auto-edit.component';
 import { EventEditComponent } from './dialogs/edit/event-edit/event-edit.component';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+
+
 
 
 
@@ -105,7 +108,9 @@ import { EventEditComponent } from './dialogs/edit/event-edit/event-edit.compone
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
-    MatDialogModule
+    MatDialogModule,
+    
+    
   ],
   providers: [
     DatePipe,
@@ -116,7 +121,9 @@ import { EventEditComponent } from './dialogs/edit/event-edit/event-edit.compone
   
   exports: [
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatSnackBarModule
+    
   ],
   bootstrap: [AppComponent]
 })

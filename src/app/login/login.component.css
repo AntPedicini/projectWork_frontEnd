@@ -23,11 +23,16 @@ mat-card-content {
 }
 
 .button {
-    width:100%;
+    width: 100%;
     display: flex;
     justify-content: flex-end;
 }
 
-.container{
-   box-shadow: 2px,2px,5px, black;
+.container {
+    box-shadow: 2px, 2px, 5px, black;
+}
+
+::ng-deep .coloreRed {
+    background-color: rgb(109, 97, 97);
+    color: white;
 }
