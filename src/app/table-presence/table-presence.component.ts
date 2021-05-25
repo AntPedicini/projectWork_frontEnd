@@ -13,7 +13,7 @@ import { ServiceEventoService } from '../service-evento.service';
 import { ServiceAutoService } from '../service-auto.service';
 import { TableEventItem } from '../table-event/table-event-datasource';
 import {PresenceEditComponent} from '../dialogs/edit/presence-edit/presence-edit.component';
-import {DeleteDialogComponent} from '../dialogs/delete/delete.dialog.component';
+import {PresenceDeleteComponent} from '../dialogs/delete/presence-delete/presence-delete.component';
 import { MatDialog } from '@angular/material/dialog';
 
 
@@ -323,7 +323,7 @@ export class TablePresenceComponent {
       this.index = i;
       console.log(this.index);
       console.log(cod_evento);
-      const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      const dialogRef = this.dialog.open(PresenceDeleteComponent, {
        data: {cod_evento:cod_evento}
       }
     )};

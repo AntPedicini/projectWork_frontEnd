@@ -4,12 +4,12 @@ import {Component, Inject} from '@angular/core';
 
 @Component({
   selector: 'app-delete.dialog',
-  templateUrl: '../../dialogs/delete/delete.dialog.html',
-  styleUrls: ['../../dialogs/delete/delete.dialog.css']
+  templateUrl: './member-delete.component.html',
+  styleUrls: ['./member-delete.component.css']
 })
-export class DeleteDialogComponent {
+export class MemberDeleteComponent {
 
-  constructor(@Inject(MatDialogRef) public dialogRef: MatDialogRef<DeleteDialogComponent>,
+  constructor(@Inject(MatDialogRef) public dialogRef: MatDialogRef<MemberDeleteComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   onNoClick(): void {

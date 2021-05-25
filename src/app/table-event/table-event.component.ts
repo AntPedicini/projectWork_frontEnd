@@ -7,7 +7,7 @@ import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { ServiceEventoService } from '../service-evento.service';
 import { EXAMPLE_DATA, TableEventDataSource, TableEventItem } from './table-event-datasource';
 import {EventEditComponent} from '../dialogs/edit/event-edit/event-edit.component';
-import {DeleteDialogComponent} from '../dialogs/delete/delete.dialog.component';
+import { EventDeleteComponent } from '../dialogs/delete/event-delete/event-delete.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
@@ -203,7 +203,7 @@ export class TableEventComponent implements AfterViewInit {
       this.index = i;
       console.log(this.index);
       console.log(cod_evento);
-      const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      const dialogRef = this.dialog.open(EventDeleteComponent, {
        data: {cod_evento:cod_evento}
       }
     )};
