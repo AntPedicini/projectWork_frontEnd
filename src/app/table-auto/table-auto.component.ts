@@ -10,6 +10,7 @@ import { ServiceAutoService } from '../service-auto.service';
 import { AutoEditComponent } from '../dialogs/edit/auto-edit/auto-edit.component';
 import {DeleteDialogComponent} from '../dialogs/delete/delete.dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { TableEventItem } from '../table-event/table-event-datasource';
 //import { auto } from '../_models/auto.model';
 
 @Component({
@@ -183,29 +184,22 @@ export class TableAutoComponent {
     console.log(auto.foto);
   }
 
-  startEdit(i:number, targa: string, tessera_socio: number, marca:string, modello: string, anno: number, immatricolazione: string, ASI: string) {
-    var auto:TableAutoItem={targa: '', tessera_socio: 0, marca:'', modello: '', anno: 0, immatricolazione: '', ASI: ''};
-    auto.targa=targa;
-    auto.tessera_socio=tessera_socio;
-    auto.marca= marca;
-    auto.modello= modello;
-    auto.anno= anno;
-    auto.immatricolazione= immatricolazione;
-    auto.ASI= ASI;
-    this.index = i;
-    console.log(this.index);
-    console.log(auto);
+  startEdit(auto:TableAutoItem) {
     const dialogRef = this.dialog.open(AutoEditComponent, {
-      data: {targa: targa, tessera_socio: tessera_socio, marca: marca, modello: modello, anno: anno, immatricolazione: immatricolazione, ASI: ASI}
+      data: {targa: auto.targa, 
+             tessera_socio: auto.tessera_socio, 
+             marca: auto.marca, 
+             modello: auto.modello, 
+             anno: auto.anno, 
+             immatricolazione: auto.immatricolazione, 
+             ASI: auto.ASI}
     }
   )}
 
-   deleteItem(i: number, targa: string) {
-      this.index = i;
-      console.log(this.index);
-      console.log(targa);
+   deleteItem(auto:any) {
+      console.log(auto);
       const dialogRef = this.dialog.open(DeleteDialogComponent, {
-       data: {targa:targa}
+       data: {targa:auto.targa}
       }
     )};
 
