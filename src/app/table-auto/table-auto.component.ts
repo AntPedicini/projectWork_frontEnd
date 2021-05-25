@@ -30,7 +30,7 @@ export class TableAutoComponent {
   index:number=0;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['targa', 'tessera_socio', 'marca', 'modello', 'anno', 'immatricolazione', 'ASI', 'edit'];
+  displayedColumns = ['targa', 'tessera_socio', 'marca', 'modello', 'anno', 'immatricolazione', 'asi', 'edit'];
 
 
   constructor(private fb: FormBuilder, private serviceAuto: ServiceAutoService, private dialog: MatDialog) {
@@ -135,7 +135,7 @@ export class TableAutoComponent {
     this.dataSource.filterPredicate = (data: TableAutoItem, filter: any) => {
       return data.targa.trim().toLowerCase().includes(filter.trim().toLowerCase()) ||
         data.tessera_socio.toString().trim().toLowerCase().includes(filter.trim().toLowerCase()) ||
-        data.ASI.trim().toLowerCase().includes(filter.trim().toLowerCase()) ||
+        data.asi.trim().toLowerCase().includes(filter.trim().toLowerCase()) ||
         data.anno.toString().trim().toLowerCase().includes(filter.trim().toLowerCase()) ||
         data.immatricolazione.trim().toLowerCase().includes(filter.trim().toLowerCase()) ||
         data.marca.trim().toLowerCase().includes(filter.trim().toLowerCase()) ||
@@ -169,7 +169,7 @@ export class TableAutoComponent {
   ASIFilter(event: Event) {
 
     this.dataSource.filterPredicate = (data: TableAutoItem, filter: any) => {
-      return data.ASI.trim().toLowerCase().includes(filter.trim().toLowerCase());
+      return data.asi.trim().toLowerCase().includes(filter.trim().toLowerCase());
     };
 
     const filterValue = (event.target as HTMLInputElement).value;
@@ -192,7 +192,7 @@ export class TableAutoComponent {
              modello: auto.modello, 
              anno: auto.anno, 
              immatricolazione: auto.immatricolazione, 
-             ASI: auto.ASI,
+             asi: auto.asi,
              tessera:auto.tessera_socio}
     }
   )}
@@ -206,7 +206,7 @@ export class TableAutoComponent {
               modello: auto.modello, 
               anno: auto.anno, 
               immatricolazione: auto.immatricolazione, 
-              ASI: auto.ASI,
+              asi: auto.asi,
               tessera:auto.tessera_socio}
       }
     )};

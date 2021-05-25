@@ -24,8 +24,19 @@
     border-radius: 5px;
     border: 1px solid #ccc;
     display: inline-block;
-    padding: 6px 12px;
     cursor: pointer;
     font-size: 100%;
     font-weight: 450;
+    width: 10em;
+    height: 3em;
+  }
+
+  .ib{
+   /*  display: inline-block; */
+    margin-left: 2em;
+    width: 20%;
+  }
+
+  .evento{
+    width: 80%;
   }

@@ -1,49 +1,32 @@
 <div class="container">
     <h3 mat-dialog-title><strong>Edit iscrizione all'evento: {{data.nome_evento}}</strong></h3>
   
-    <form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">
-  
-      <div class="form">
-        <mat-form-field color="accent">
-          <input matInput [disabled]="true" #input class="form-control" placeholder="Codice evento" [(ngModel)]="data.cod_evento" name="cod_evento" >
-        </mat-form-field>
-      </div>
-  
+    <form [formGroup]="registrationForm" class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">  
     
       <div class="form">
-        <mat-form-field color="accent">
-          <input matInput [disabled]="true"#input class="form-control" placeholder="Nome evento" [(ngModel)]="data.nome_evento" name="nome_evento" >
+        <mat-form-field class="evento" color="accent">
+          <input matInput [disabled]="true"#input class="form-control" placeholder="Nome evento" [(ngModel)]="data.nome_evento" formControlName="nome_evento" name="nome_evento" readonly="readonly" >
         </mat-form-field>
-      </div>
-  
-    
-      <div class="form">
-        <mat-form-field color="accent">
-          <input matInput [disabled]="true" #input class="form-control" placeholder="Targa" [(ngModel)]="data.targa" name="targa" maxlength="7" >
-        </mat-form-field>
-      </div>
-  
-      <div class="form">
-          <mat-form-field color="accent">
-            <input matInput [disabled]="true" #input class="form-control" placeholder="Costo unitario" [(ngModel)]="data.costo_unitario" name="costo_unitario" readonly="readonly">
-          </mat-form-field>
-      </div>
-  
-      <div class="form">
-        <mat-form-field color="accent">
-          <input matInput [disabled]="true" #input class="form-control" placeholder="Posti disponibili" [(ngModel)]="data.posti_disponibili" name="posti_disponibili">
+        <mat-form-field class="ib" color="accent">
+          <input matInput [disabled]="true"#input class="form-control" placeholder="Posti Disponibili" [(ngModel)]="data.posti_disponibili" formControlName="posti_disponibili" name="posti_disponibili" readonly="readonly" >
         </mat-form-field>
       </div>
   
       <div class="form">
         <mat-form-field color="accent">
-          <input matInput #input class="form-control" placeholder="Numero iscritti" [(ngModel)]="data.partecipanti_iscritti" name="partecipanti_iscritti">
+          <input matInput [disabled]="true" #input class="form-control" placeholder="Targa" [(ngModel)]="data.targa" formControlName="targa" name="targa" maxlength="7" readonly="readonly" >
+        </mat-form-field>
+      </div>
+      
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput #input class="form-control" placeholder="Numero iscritti" [(ngModel)]="data.partecipanti_iscritti" formControlName="partecipanti_iscritti" name="partecipanti_iscritti">
         </mat-form-field>
       </div>
 
       <div class="form">
         <mat-form-field color="accent">
-          <input matInput #input class="form-control" placeholder="Presenti" [(ngModel)]="data.partecipanti_effettivi" name="partecipanti_effettivi">
+          <input matInput #input class="form-control" placeholder="Presenti" [(ngModel)]="data.partecipanti_effettivi" formControlName="partecipanti_effettivi" name="partecipanti_effettivi">
         </mat-form-field>
       </div>
   

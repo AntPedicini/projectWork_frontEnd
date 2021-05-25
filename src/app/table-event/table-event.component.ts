@@ -40,7 +40,7 @@ export class TableEventComponent implements AfterViewInit {
   }
 
   //=================================
-  //RECUPERO DATI SOCI DAL DATABASE
+  //RECUPERO DATI EVENTI DAL DATABASE
   //=================================
 
   //=======================METODO CHE RICHIAMA IL SERVIZIO========================

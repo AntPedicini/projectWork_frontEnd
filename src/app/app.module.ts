@@ -54,6 +54,7 @@ import { AutoDeleteComponent } from './dialogs/delete/auto-delete/auto-delete.co
 import { MemberDeleteComponent } from './dialogs/delete/member-delete/member-delete.component';
 import { EventDeleteComponent } from './dialogs/delete/event-delete/event-delete.component';
 import { PresenceDeleteComponent } from './dialogs/delete/presence-delete/presence-delete.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 
@@ -112,7 +113,7 @@ import { PresenceDeleteComponent } from './dialogs/delete/presence-delete/presen
     HttpClientModule,
     MatDialogModule,
     FormsModule,
-    
+    MatProgressSpinnerModule,
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
