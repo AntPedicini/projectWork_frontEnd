@@ -1,11 +1,11 @@
 <div class="container">
-    <h3 mat-dialog-title>tessera: {{data.tessera}}</h3>
+    <h3 mat-dialog-title><strong>Edit socio con tessera: {{data.tessera}}</strong></h3>
   
     <form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">
   
       <div class="form">
         <mat-form-field color="accent">
-          <input matInput #input [disabled]="true" class="form-control" placeholder="Tessera" [(ngModel)]="data.tessera" name="tessera" required readonly="readonly">
+          <input matInput #input [disabled]="true" class="form-control" placeholder="Tessera" [(ngModel)]="data.tessera" name="tessera" readonly="readonly">
         </mat-form-field>
       </div>
   

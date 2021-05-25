@@ -1,18 +1,18 @@
 <div class="container"> 
-    <h3 mat-dialog-title>Targa: {{data.targa}}</h3>
+    <h3 mat-dialog-title><strong>Edit auto con targa: {{data.targa}}</strong></h3>
   
     <form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">
   
       <div class="form">
         <mat-form-field color="accent">
-          <input matInput #input class="form-control" placeholder="Targa" [(ngModel)]="data.targa" name="targa" readonly="readonly">
+          <input matInput #input [disabled]="true"class="form-control" placeholder="Targa" [(ngModel)]="data.targa" name="targa" readonly="readonly">
         </mat-form-field>
       </div>
   
     
       <div class="form">
         <mat-form-field color="accent">
-          <input matInput #input class="form-control" placeholder="Tessera" [(ngModel)]="data.tessera" name="tessera" >
+          <input matInput #input class="form-control" placeholder="Tessera" [(ngModel)]="data.tessera_socio" name="tessera_socio" >
         </mat-form-field>
       </div>
   
