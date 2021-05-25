@@ -179,6 +179,10 @@ export class TableAutoComponent {
     targa: [null, Validators.required],
   });
 
+  setActive(auto:any){
+    console.log(auto.foto);
+  }
+
   startEdit(i:number, targa: string, tessera_socio: number, marca:string, modello: string, anno: number, immatricolazione: string, ASI: string) {
     var auto:TableAutoItem={targa: '', tessera_socio: 0, marca:'', modello: '', anno: 0, immatricolazione: '', ASI: ''};
     auto.targa=targa;
@@ -206,4 +210,3 @@ export class TableAutoComponent {
     )};
 
 }
-

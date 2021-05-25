@@ -3,27 +3,21 @@ import { AfterViewInit, Component, Output, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
-import { TablePresenceDataSource, TablePresenceItem } from './table-presence-datasource';
+import { DATA as PRESENCE_DATA, TablePresenceDataSource, TablePresenceItem } from './table-presence-datasource';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
+import { element, EventEmitter } from 'protractor';
+import { ServicePresenceService } from '../service-presence.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ServiceEventoService } from '../service-evento.service';
+import { ServiceAutoService } from '../service-auto.service';
+import { TableEventItem } from '../table-event/table-event-datasource';
 import {PresenceEditComponent} from '../dialogs/edit/presence-edit/presence-edit.component';
 import {DeleteDialogComponent} from '../dialogs/delete/delete.dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 
-export const EXAMPLE_DATA: TablePresenceItem[] = [
-  { cod_evento: 1, nome_evento: 'GIORNATA NAZIONALE VEICOLI D EPOCA', targa: 'XXX111XXX', costo_unitario: 35.7, posti_disponibili: 1, partecipanti_iscritti: 4, partecipanti_effettivi: 3 },
-  { cod_evento: 1, nome_evento: 'GIORNATA NAZIONALE VEICOLI D EPOCA', targa: 'XXX222XXX', costo_unitario: 35.7, posti_disponibili: 1, partecipanti_iscritti: 2, partecipanti_effettivi: 2 },
-  { cod_evento: 1, nome_evento: 'GIORNATA NAZIONALE VEICOLI D EPOCA', targa: 'XXX333XXX', costo_unitario: 35.7, posti_disponibili: 1, partecipanti_iscritti: 4, partecipanti_effettivi: NaN },
-  { cod_evento: 1, nome_evento: 'GIORNATA NAZIONALE VEICOLI D EPOCA', targa: 'XXX444XXX', costo_unitario: 35.7, posti_disponibili: 1, partecipanti_iscritti: 1, partecipanti_effettivi: 1 },
-  { cod_evento: 2, nome_evento: 'ASI SOLIDALE: RALLY THERAPY', targa: 'XXX111XXX', costo_unitario: 32.9, posti_disponibili: 1, partecipanti_iscritti: 4, partecipanti_effettivi: 3 },
-  { cod_evento: 2, nome_evento: 'ASI SOLIDALE: RALLY THERAPY', targa: 'XXX222XXX', costo_unitario: 32.9, posti_disponibili: 1, partecipanti_iscritti: 2, partecipanti_effettivi: 2 },
-  { cod_evento: 2, nome_evento: 'ASI SOLIDALE: RALLY THERAPY', targa: 'XXX333XXX', costo_unitario: 32.9, posti_disponibili: 1, partecipanti_iscritti: 4, partecipanti_effettivi: NaN },
-  { cod_evento: 2, nome_evento: 'ASI SOLIDALE: RALLY THERAPY', targa: 'XXX444XXX', costo_unitario: 32.9, posti_disponibili: 1, partecipanti_iscritti: 1, partecipanti_effettivi: 1 },
-  { cod_evento: 3, nome_evento: 'XXIII RONDE DELLE ZOLFARE', targa: 'XXX111XXX', costo_unitario: 54.5, posti_disponibili: 1, partecipanti_iscritti: 4, partecipanti_effettivi: 3 },
-  { cod_evento: 3, nome_evento: 'XXIII RONDE DELLE ZOLFARE', targa: 'XXX222XXX', costo_unitario: 54.5, posti_disponibili: 1, partecipanti_iscritti: 3, partecipanti_effettivi: 2 },
-  { cod_evento: 3, nome_evento: 'XXIII RONDE DELLE ZOLFARE', targa: 'XXX333XXX', costo_unitario: 54.5, posti_disponibili: 1, partecipanti_iscritti: 4, partecipanti_effettivi: NaN },
-  { cod_evento: 3, nome_evento: 'XXIII RONDE DELLE ZOLFARE', targa: 'XXX444XXX', costo_unitario: 54.5, posti_disponibili: 1, partecipanti_iscritti: 1, partecipanti_effettivi: 1 },
-];
+
+
 
 @Component({
   selector: 'app-table-presence',
@@ -36,32 +30,194 @@ export class TablePresenceComponent {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<TablePresenceItem>;
   dataSource: MatTableDataSource<TablePresenceItem>;
+  elenco_eventi: TableEventItem[] = [];
   elenco_nomi: String[] = [];
+  elenco_targhe: any = [];
   selected = null;
   presenze: TablePresenceItem[] = [];
   index:number=0;
 
-
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['cod_evento', 'nome_evento', 'targa', 'costo_unitario', 'posti_disponibili', 'partecipanti_iscritti', 'partecipanti_effettivi', 'edit'];
 
-  constructor(private fb: FormBuilder, private dialog: MatDialog) {
-    this.dataSource = new MatTableDataSource(EXAMPLE_DATA);
-    var n:any=null;
-    EXAMPLE_DATA.forEach(element => {
-      if(element.nome_evento!=n){
-        this.elenco_nomi.push(element.nome_evento);
-        n=element.nome_evento;
-      }
-    });
+  constructor(private fb: FormBuilder,
+    private servicePresence: ServicePresenceService,
+    private serviceEvento: ServiceEventoService,
+    private serviceAuto: ServiceAutoService,
+    private dialog: MatDialog) {
+
+    this.getAllIscrizioni();
+    this.refreshSelect();
+    this.dataSource = new MatTableDataSource(PRESENCE_DATA);
+
+
   }
  
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
+  }
 
-    postiDisponibili();
+  //======================================
+  //RECUPERO DATI ISCRIZIONE DAL DATABASE
+  //======================================
+
+  getAllIscrizioni() {
+    PRESENCE_DATA.splice(0, PRESENCE_DATA.length); //workaround per svuotare l'array ad ogni update pagina
+    this.servicePresence.getAllIscrizioni().subscribe((res: any) => {
+
+      res.forEach((element: TablePresenceItem) => {
+        PRESENCE_DATA.push(element);
+        this.presenze = res;
+      });
+      console.log(PRESENCE_DATA);
+
+      //recupero i dati relativi all'evento e refresh tabella e select eventi
+      this.getInfoEventi();
+      this.getInfoAuto();
+      this.refreshTable();
+      this.refreshSelect();
+    },
+
+      (error: HttpErrorResponse) => {
+        console.log('[[' + error.name + ' || ' + error.message + ']]');
+        alert('Nessun Socio presente in database');
+        this.refreshTable();
+      }
+    );
+  }
+
+  //==================================
+  //RECUPERO DATI EVENTI DAL DATABASE
+  //==================================
+
+  //Metodo per recuperare tutti i dati relativi a un evento e popolare così la tabella iscrizioni
+  getInfoEventi() {
+    this.serviceEvento.getAllEventi().subscribe((res: any) => {
+
+      res.forEach((element: any) => {
+
+        this.elenco_eventi.push(element);
+        PRESENCE_DATA.forEach(el => {
+          if (el.cod_evento == element.cod_evento) {
+            //recupero il nome dell'evento da visualizzare
+            el.nome_evento = element.nome_evento;
+            //recupero il costo unitario
+            el.costo_unitario = element.costo_unitario;
+            //recupero il calcolo dei posti rimanenti
+            el.posti_disponibili = element.posti_rimanenti;
+            /*             if(el.partecipanti_effettivi == null)
+                          el.partecipanti_effettivi=0; */
+          }
+        });
+      });
+      this.refreshTable();
+      this.refreshSelect();
+    },
+
+      (error: HttpErrorResponse) => {
+        console.log('[[' + error.name + ' || ' + error.message + ']]');
+        alert('Nessun Evento presente in database');
+        this.refreshTable();
+      }
+    );
+  }
+
+  //=====================================
+  //RECUPERO DATI AUTO DAL DATABASE
+  //=====================================
+
+  getInfoAuto(): any {
+    this.serviceAuto.getAllAuto().subscribe((res: any) => {
+
+      this.elenco_targhe = [];
+      var n: any = null;
+      res.forEach((element: any) => {
+        if (element.targa != n) {
+          this.elenco_targhe.push(element.targa);
+          n = element.targa;
+        }
+      });
+    },
+      (error: HttpErrorResponse) => {
+        console.log('[[' + error.name + ' || ' + error.message + ']]');
+        alert('Nessuna auto presente in database');
+      });
+  }
+
+  //=========================
+  //CANCELLAZIONE ISCRIZIONE
+  //=========================
+
+  deleteIscrizione(nome_evento: string, targa: string) {
+    if (nome_evento == null || targa == null)
+      alert('Devi specificare il NOME dell\'evento e la TARGA del veicolo iscritto');
+    else {
+      var cod_evento: number = 0;
+      PRESENCE_DATA.forEach(element => {
+        if (element.nome_evento == nome_evento)
+          cod_evento = element.cod_evento;
+      });
+      this.servicePresence.deleteIscrizione(cod_evento, targa).subscribe((res: any) => {
+        alert('L\'Iscrizione del veicolo con TARGA ' + targa + ' dall\'evento ' + nome_evento + ' è stata cancellata con successo :D');
+        this.getAllIscrizioni();
+
+      },
+        (error: HttpErrorResponse) => {                       //Error callback
+         console.log(error)
+          if(error.status == 404)
+           alert('Qualcosa è andato storto... :(\n Nessuna iscrizione trovata per il veicolo con targa '+targa+' all\'evento '+ nome_evento);
+          if(error.status == 400 || error.status == 500)
+            alert('Qualcosa è andato storto... :(\n Controlla tutti i campi e riprova')
+          });
+    }
+  }
+
+  //=========================
+  //METODO CHECKOUT
+  //=========================
+
+  checkout(iscrizione: any) {
+
+    iscrizione.partecipanti_effettivi=iscrizione.partecipanti;
+    console.log(iscrizione);
+    this.servicePresence.checkout(iscrizione).subscribe((res: any) => {
+      alert('Pagamento effettuato con successo :D')
+      this.getAllIscrizioni();
+      this.registrationForm.reset();
+    },
+      (error: HttpErrorResponse) => {                       //Error callback
+        if(error.status==400)
+          alert('Qualcosa è andato storto... :(\n Controlla i dati inseriti ');
+        if(error.status==404)
+          alert('Qualcosa è andato storto... \n Iscrizione non presente in Database')
+      });
+
+  }
+
+  //metodo per refreshare la tabella
+  private refreshTable() {
+    // if there's nothing in filter
+    if (this.dataSource.filter === '') {
+      this.dataSource.filter = ' ';
+      this.dataSource.filter = '';
+    } else {
+      // if there's something, we make a simple change and then put back old value
+      this.dataSource.filter = '';
+      this.dataSource.filter = this.dataSource.filter.valueOf();
+    }
+  }
+  //metodo per refreshare la select per selezionare la tessera
+  private refreshSelect() {
+    this.elenco_nomi = [];
+    var n: any = null;
+    PRESENCE_DATA.forEach(element => {
+      if (element.nome_evento != n) {
+        this.elenco_nomi.push(element.nome_evento);
+        n = element.nome_evento;
+      }
+    });
   }
   //======================================================================
   //Metodi per impostare i filtri nella ricerca
@@ -114,7 +270,7 @@ export class TablePresenceComponent {
 
   //ReactiveForm
   registrationForm = this.fb.group({
-    cod_evento: [null, Validators.required],
+    nome_evento: [null, Validators.required],
     targa: [null, Validators.required],
     partecipanti: [null, Validators.required],
     costo: null
@@ -125,8 +281,8 @@ export class TablePresenceComponent {
   //======================================================================
   setCosto(): string {
     var costoTot: number = 0;
-    this.dataSource.data.forEach(element => {
-      if (element.cod_evento == this.registrationForm.value.cod_evento)
+    PRESENCE_DATA.forEach(element => {
+      if (element.nome_evento == this.registrationForm.value.nome_evento)
         costoTot = element.costo_unitario * this.registrationForm.value.partecipanti;
     });
     //console.log(this.registrationForm.value.partecipanti)
@@ -137,8 +293,13 @@ export class TablePresenceComponent {
   onSubmit() {
     // TODO: Use EventEmitter with form value
     console.log("Funzione registrazione");
-    console.log(this.registrationForm.value);
-    alert('Submit');
+    this.registrationForm.value.partecipanti_effettivi=this.registrationForm.value.partecipanti;
+    this.elenco_eventi.forEach(element => {
+      if(element.nome_evento == this.registrationForm.value.nome_evento)
+        this.registrationForm.value.cod_evento = element.cod_evento;
+    });
+    this.checkout(this.registrationForm.value);
+    
   }
 
   startEdit(i:number, cod_evento: number, nome_evento: string, targa: string, costo_unitario: number, posti_disponibili: number, partecipanti_iscritti: number, partecipanti_effettivi: number) {
@@ -169,24 +330,4 @@ export class TablePresenceComponent {
 
 }
 
-//======================================================================
-//Funzione per calcolare i posti rimanenti in base alle prenotazioni
-//======================================================================
-function postiDisponibili() {
-  //per ogni elemento dei dati in ingresso prendi il numero massimo di partecipanti, sottrai la somma dei partecipanti iscritti
-  var tot: number = 0;
-  EXAMPLE_DATA.forEach(element => {
-    if (element.cod_evento == 1) {
-      element.posti_disponibili = 150;
-    }
-    if (element.cod_evento == 2) {
-      element.posti_disponibili = 62;
-    }
-    if (element.cod_evento == 3) {
-      element.posti_disponibili = 132;
-    }
-  });
-
-}
-//======================================================================
 

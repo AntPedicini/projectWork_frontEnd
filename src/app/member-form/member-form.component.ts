@@ -5,8 +5,8 @@ import { ServiceSocioService } from '../service-socio.service';
 import { DatePipe, formatCurrency } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ServiceAutoService } from '../service-auto.service';
-import { EXAMPLE_DATA } from '../table-member/table-member-datasource';
 import { MatTableDataSource } from '@angular/material/table';
+import { EXAMPLE_DATA } from '../table-member/table-member-datasource';
 
 
 

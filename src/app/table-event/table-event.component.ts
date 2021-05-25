@@ -50,7 +50,7 @@ export class TableEventComponent implements AfterViewInit {
 
       res.forEach((element: TableEventItem) => {
         EXAMPLE_DATA.push(element);
-        this.eventi = res;
+        this.eventi.push(element);
       });
       console.log(this.eventi);
       this.refreshTable();
@@ -66,7 +66,7 @@ export class TableEventComponent implements AfterViewInit {
   }
 
   //====================
-  //CANCELLAZIONE SOCIO
+  //CANCELLAZIONE EVENTO
   //====================
 
   deleteEvento(cod_evento: number) {
@@ -175,6 +175,11 @@ export class TableEventComponent implements AfterViewInit {
   registrationForm = this.fb.group({
     cod_evento: [null, Validators.required],
   });
+
+  setActive(evento:any){
+    console.log(evento);
+
+  }
 
   startEdit(i:number, cod_evento: number, nome_evento: string, data_inizio: string, data_fine: string, location: string, costo_unitario: number, posti_disponibili: number, descrizione: string) {
     var eventi:TableEventItem={cod_evento: 0, nome_evento: '', data_inizio: '', data_fine: '', location: '', costo_unitario: 0, posti_disponibili: 0, descrizione: ''};

@@ -97,8 +97,10 @@ export class TableMemberComponent implements OnInit {
 
       },
         (error: HttpErrorResponse) => {                       //Error callback
-          console.error('error caught in component')
-          alert('Qualcosa è andato storto... :(\n Controlla il numero TESSERA inserito ');
+          if(error.status == 404)
+            alert('Qualcosa è andato storto... :(\n Socio con TESSERA '+numberValue+' non presente in database ');
+          if(error.status == 400)
+            alert('Qualcosa è andato storto... :(\n Controlla idati inseriti e riprova ');
         });
     }
   }

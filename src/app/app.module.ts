@@ -42,6 +42,8 @@ import { ServiceSocioService } from './service-socio.service';
 import { DatePipe } from '@angular/common';
 import { ServiceAutoService } from './service-auto.service';
 import { ServiceEventoService } from './service-evento.service';
+import { LoginComponent } from './login/login.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatDialogModule} from '@angular/material/dialog';
 import {DeleteDialogComponent} from './dialogs/delete/delete.dialog.component';
 import { FormsModule } from '@angular/forms';
@@ -49,6 +51,7 @@ import { MemberEditComponent } from './dialogs/edit/member-edit/member-edit.comp
 import { PresenceEditComponent } from './dialogs/edit/presence-edit/presence-edit.component';
 import { AutoEditComponent } from './dialogs/edit/auto-edit/auto-edit.component';
 import { EventEditComponent } from './dialogs/edit/event-edit/event-edit.component';
+
 
 
 @NgModule({
@@ -66,6 +69,7 @@ import { EventEditComponent } from './dialogs/edit/event-edit/event-edit.compone
     EventFormComponent,
     RegistrationFormComponent,
     MenuComponent,
+    LoginComponent,
     DeleteDialogComponent,
     MemberEditComponent,
     PresenceEditComponent,
@@ -73,6 +77,7 @@ import { EventEditComponent } from './dialogs/edit/event-edit/event-edit.compone
     EventEditComponent
     
     
+   
   ],
   imports: [
     BrowserModule,
@@ -102,6 +107,10 @@ import { EventEditComponent } from './dialogs/edit/event-edit/event-edit.compone
     MatDialogModule,
     FormsModule,
     
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    MatDialogModule
   ],
   providers: [
     DatePipe,
@@ -109,6 +118,11 @@ import { EventEditComponent } from './dialogs/edit/event-edit/event-edit.compone
     ServiceAutoService,
     ServiceEventoService,
     {provide: MAT_DATE_LOCALE, useValue: 'it-IT'}],
+  
+  exports: [
+    MatFormFieldModule,
+    MatInputModule
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
