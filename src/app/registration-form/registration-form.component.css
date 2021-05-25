@@ -2,19 +2,15 @@
   width: 100%;
 }
 
-.shipping-card {
-  min-width: 120px;
-  margin: 20px auto;
-}
-
-.mat-radio-button {
-  display: block;
-  margin: 5px 0;
-}
-
-.row {
+ .row {
   display: flex;
   flex-direction: row;
+}
+
+.row2 {
+  display: flex;
+  flex-direction: row;
+  margin-top: 2em;
 }
 
 .col {
@@ -22,12 +18,15 @@
   margin-right: 20px;
 }
 
-.col:last-child {
-  margin-right: 0;
+
+.select{
+  width: 100%;
 }
 
-.width{
-  width: 32.3%;
+.card{
+  display: inline-block; 
+  height: 30px;
+
 }
 
 .title {
@@ -35,5 +34,13 @@
   font-size: 2em;
   font-style: oblique;
   text-shadow: 2px, 2px, 5px, black;
+}
+
+.select{
+  width: 70%;
+}
+
+.display{
+  color: black;
 }
 

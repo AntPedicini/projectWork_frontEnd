@@ -6,7 +6,12 @@
                 <p>
                     <mat-form-field appearance="outline">
                         <mat-label>Username</mat-label>
-                        <input name matInput type="text" formControlName="username" [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
+                        <!--<input matInput [type]="hide ? 'password' : 'text'" formControlName="username" matNativeControl [ngClass]="{ 'is-invalid': submitted && f.username.errors }"/>
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>-->
+
+                        <input name="username" matInput type="text" formControlName="username" [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
                         <!--<mat-error *ngIf="submitted && f.username.errors"> Dati non validi</mat-error>-->
                         <mat-error *ngIf="f.username.errors">username non valido</mat-error>
                     </mat-form-field>

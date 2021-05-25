@@ -6,6 +6,9 @@ import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { ServiceEventoService } from '../service-evento.service';
 import { EXAMPLE_DATA, TableEventDataSource, TableEventItem } from './table-event-datasource';
+import {EventEditComponent} from '../dialogs/edit/event-edit/event-edit.component';
+import {DeleteDialogComponent} from '../dialogs/delete/delete.dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-table-event',
@@ -20,11 +23,12 @@ export class TableEventComponent implements AfterViewInit {
   elenco_eventi: any[] = [];
   selected = null;
   eventi: TableEventItem[] = [];
+  index:number=0;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['cod_evento', 'nome_evento', 'data_inizio', 'data_fine', 'location', 'costo_unitario', 'posti_disponibili'];
+  displayedColumns = ['cod_evento', 'nome_evento', 'data_inizio', 'data_fine', 'location', 'costo_unitario', 'posti_disponibili', 'edit'];
 
-  constructor(private fb: FormBuilder, private serviceEvento: ServiceEventoService) {
+  constructor(private fb: FormBuilder, private serviceEvento: ServiceEventoService, private dialog: MatDialog) {
     this.getAllEventi();
     this.dataSource = new MatTableDataSource(EXAMPLE_DATA);
   }
@@ -46,7 +50,7 @@ export class TableEventComponent implements AfterViewInit {
 
       res.forEach((element: TableEventItem) => {
         EXAMPLE_DATA.push(element);
-        this.eventi = res;
+        this.eventi.push(element);
       });
       console.log(this.eventi);
       this.refreshTable();
@@ -62,7 +66,7 @@ export class TableEventComponent implements AfterViewInit {
   }
 
   //====================
-  //CANCELLAZIONE SOCIO
+  //CANCELLAZIONE EVENTO
   //====================
 
   deleteEvento(cod_evento: number) {
@@ -168,21 +172,41 @@ export class TableEventComponent implements AfterViewInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  onDelete() {
-    // TODO: Use EventEmitter with form value
-    console.log("Funzione cancellazione");
-    console.log(this.registrationForm.value);
-    this.deleteEvento(this.registrationForm.value.cod_evento);
-  }
-
-  onUpdate(): void {
-    console.log("Update evento");
-    alert('Update avvenuto con successo');
-    console.log(this.registrationForm.value);
-  }
-
   registrationForm = this.fb.group({
     cod_evento: [null, Validators.required],
   });
+
+  setActive(evento:any){
+    console.log(evento);
+
+  }
+
+  startEdit(i:number, cod_evento: number, nome_evento: string, data_inizio: string, data_fine: string, location: string, costo_unitario: number, posti_disponibili: number, descrizione: string) {
+    var eventi:TableEventItem={cod_evento: 0, nome_evento: '', data_inizio: '', data_fine: '', location: '', costo_unitario: 0, posti_disponibili: 0, descrizione: ''};
+    eventi.cod_evento=cod_evento;
+    eventi.nome_evento=nome_evento;
+    eventi.data_inizio=data_inizio;
+    eventi.data_fine=data_fine;
+    eventi.location=location;
+    eventi.costo_unitario=costo_unitario;
+    eventi.posti_disponibili=posti_disponibili;
+    eventi.descrizione=descrizione;
+    this.index = i;
+    console.log(this.index);
+    console.log(eventi);
+    const dialogRef = this.dialog.open(EventEditComponent, {
+      data: {cod_evento: cod_evento, nome_evento: nome_evento, data_inizio: data_inizio, data_fine: data_fine, location: location, costo_unitario: costo_unitario, posti_disponibili: posti_disponibili, descrizione: descrizione}
+    }
+  )}
+
+   deleteItem(i: number, cod_evento: number) {
+      this.index = i;
+      console.log(this.index);
+      console.log(cod_evento);
+      const dialogRef = this.dialog.open(DeleteDialogComponent, {
+       data: {cod_evento:cod_evento}
+      }
+    )};
+
 
 }

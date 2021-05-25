@@ -2,27 +2,27 @@
 
 <mat-form-field>
   <mat-label>Cerca in tutti i campi</mat-label>
-  <input matInput (keyup)="allFilter($event)" placeholder="Inserisci testo" #input>
+  <input name = "findAll"  matInput (keyup)="allFilter($event)" placeholder="Inserisci testo" #input>
 </mat-form-field>
 
 <mat-form-field class="find">
   <mat-label>Cerca per Tessera</mat-label>
-  <input matInput (keyup)="tesseraFilter($event)" placeholder="Inserisci Numero Tessera" #input>
+  <input name = "findByTessera" matInput (keyup)="tesseraFilter($event)" placeholder="Inserisci Numero Tessera" #input>
 </mat-form-field>
 
 <mat-form-field class="find">
   <mat-label>Cerca per Nome</mat-label>
-  <input matInput (keyup)="nomeCognomeFilter($event)" placeholder="Inserisci Nome o Cognome" #input>
+  <input name = "findByName" matInput (keyup)="nomeCognomeFilter($event)" placeholder="Inserisci Nome o Cognome" #input>
 </mat-form-field>
 
 <mat-form-field class="find">
   <mat-label>Cerca per Codice Fiscale</mat-label>
-  <input matInput (keyup)="cfFilter($event)" placeholder="Inserisci Codice Fiscale" #input>
+  <input name = "findByCF" matInput (keyup)="cfFilter($event)" placeholder="Inserisci Codice Fiscale" #input>
 </mat-form-field>
 
 <mat-form-field class="find">
   <mat-label>Cerca per email</mat-label>
-  <input matInput (keyup)="emailFilter($event)" placeholder="Inserisci email" #input>
+  <input name = "findByEmail" matInput (keyup)="emailFilter($event)" placeholder="Inserisci email" #input>
 </mat-form-field>
 
 <div class="mat-elevation-z8">
@@ -41,12 +41,12 @@
     <!-- Name Column -->
     <ng-container matColumnDef="nome">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Nome</th>
-      <td mat-cell *matCellDef="let row">{{row.nome}}</td>
+      <td mat-cell *matCellDef="let row,let socio" (click) = "setActive(socio)">{{row.nome}}</td>
     </ng-container>
 
     <ng-container matColumnDef="cognome">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Cognome</th>
-      <td mat-cell *matCellDef="let row">{{row.cognome}}</td>
+      <td mat-cell *matCellDef="let row,let socio" (click) = "setActive(socio)">{{row.cognome}}</td>
     </ng-container>
 
     <ng-container matColumnDef="nato_il">
@@ -84,6 +84,18 @@
       </td>
     </ng-container>
 
+    <ng-container matColumnDef="edit">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+      <td mat-cell *matCellDef="let row; let i=index;">
+        <button mat-icon-button color="primary" (click)="startEdit(i, row.tessera, row.validita, row.nome, row.cognome, row.nato_il, row.codice_fiscale, row.indirizzo, row.email, row.consiglio, row.segretario )">
+          <mat-icon aria-label="Edit">edit</mat-icon>
+        </button>
+          <button mat-icon-button color="primary" (click)="deleteItem(i, row.tessera)">
+          <mat-icon aria-label="Delete">delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
@@ -99,20 +111,4 @@
   [pageSize]="10"
   [pageSizeOptions]="[5, 10, 20]">
   </mat-paginator>
-
-  <form [formGroup]="registrationForm" >
-    <mat-form-field class="reg">
-      <mat-label>Scegli ID Tessera</mat-label>
-      <mat-select [(value)]="selected" formControlName="tessera" matInput placeholder="Tessera" #input>
-        <mat-option *ngFor="let tessera of elenco_tessere" value="{{tessera}}">{{tessera}}</mat-option>
-      </mat-select>
-      <mat-error *ngIf="registrationForm.controls['tessera'].hasError('required')">
-        Tessera <strong>obbligatoria!</strong>
-      </mat-error>
-    </mat-form-field>
-    <div class="btn_delete">
-      <button mat-raised-button  color="primary" type="submit" value="delete" (click)="onDelete()">Cancella Socio</button> 
-    </div>
-    <button mat-raised-button color="primary" type="submit" value="modifica" (click)="onUpdate()">Modifca</button>
-  </form>
 </div>

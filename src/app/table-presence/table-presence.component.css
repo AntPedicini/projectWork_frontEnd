@@ -23,7 +23,7 @@
 
 .reg{
   display: inline-block;
-  width: 10%;
+  width: 20%;
   margin-left: 30px;
   padding-right: 10px;
 }
@@ -54,4 +54,8 @@
   font-size: 2em;
   font-style: oblique;
   text-shadow: 2px, 2px, 5px, black;
+}
+
+.display{
+  font-size: 2em;
 }

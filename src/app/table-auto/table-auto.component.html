@@ -2,27 +2,27 @@
 
 <mat-form-field>
   <mat-label>Cerca in tutti i campi </mat-label>
-  <input matInput (keyup)="allFilter($event)" placeholder="Inserisci testo" #input>
+  <input name = "findAll" matInput (keyup)="allFilter($event)" placeholder="Inserisci testo" #input>
 </mat-form-field>
 
 <mat-form-field class="find">
   <mat-label>Cerca per Targa</mat-label>
-  <input matInput (keyup)="targaFilter($event)" placeholder="Inserisci targa" #input>
+  <input name = "finByTarga" matInput (keyup)="targaFilter($event)" placeholder="Inserisci targa" #input>
 </mat-form-field>
 
 <mat-form-field class="find">
   <mat-label>Cerca per Tessera</mat-label>
-  <input matInput (keyup)="tesseraFilter($event)" placeholder="Inserisci Numero Tessera" #input>
+  <input name = "findByTessera" matInput (keyup)="tesseraFilter($event)" placeholder="Inserisci Numero Tessera" #input>
 </mat-form-field>
 
 <mat-form-field class="find">
   <mat-label>Cerca per Anno</mat-label>
-  <input matInput (keyup)="annoFilter($event)" placeholder="Inserisci Anno" #input>
+  <input name = "findByYear" matInput (keyup)="annoFilter($event)" placeholder="Inserisci Anno" #input>
 </mat-form-field>
 
 <mat-form-field class="find">
   <mat-label>Cerca per ASI</mat-label>
-  <input matInput (keyup)="ASIFilter($event)" placeholder="Inserisci ASI" #input>
+  <input name = "findByASI" matInput (keyup)="ASIFilter($event)" placeholder="Inserisci ASI" #input>
 </mat-form-field>
 
 <div class="mat-elevation-z8">
@@ -30,7 +30,7 @@
     <!-- Id Column -->
     <ng-container matColumnDef="targa">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Targa</th>
-      <td mat-cell *matCellDef="let row">{{row.targa}}</td>
+      <td mat-cell *matCellDef="let row, let auto" (click) = "setActive(auto)">{{row.targa}}</td>
     </ng-container>
 
     <!-- Name Column -->
@@ -64,6 +64,18 @@
       <td mat-cell *matCellDef="let row">{{row.ASI}}</td>
     </ng-container>
 
+    <ng-container matColumnDef="edit">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+      <td mat-cell *matCellDef="let row; let i=index;">
+      <button mat-icon-button color="primary" (click)="startEdit(i, row.targa, row.tessera_socio, row.marca, row.modello, row.anno, row.immatricolazione, row.ASI)">
+        <mat-icon aria-label="Edit">edit</mat-icon>
+      </button>
+        <button mat-icon-button color="primary" (click)="deleteItem(i, row.targa)">
+        <mat-icon aria-label="Delete">delete</mat-icon>
+      </button>
+      </td>
+    </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
    
@@ -80,20 +92,4 @@
   [pageSize]="10"
   [pageSizeOptions]="[5, 10, 20]">
   </mat-paginator>
-
-  <form [formGroup]="registrationForm" >
-    <mat-form-field class="reg">
-      <mat-label>Scegli Targa</mat-label>
-      <mat-select [(value)]="selected" formControlName="targa" matInput placeholder="Targa" #input>
-        <mat-option *ngFor="let targa of elenco_targhe" value="{{targa}}">{{targa}}</mat-option>
-      </mat-select>
-      <mat-error *ngIf="registrationForm.controls['targa'].hasError('required')">
-        Targa <strong>obbligatoria!</strong>
-      </mat-error>
-    </mat-form-field>
-    <div class="btn">
-      <button mat-raised-button  color="primary" type="submit" value="delete" (click)="onDelete()">Cancella Auto</button>
-    </div>
-    <button mat-raised-button color="primary" type="submit" value="modifica" (click)="onUpdate()">Modifca</button>
-  </form>
 </div>

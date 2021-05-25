@@ -1,0 +1,55 @@
+<div class="container"> 
+    <h3 mat-dialog-title>Targa: {{data.targa}}</h3>
+  
+    <form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">
+  
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput #input class="form-control" placeholder="Targa" [(ngModel)]="data.targa" name="targa" required readonly="readonly">
+        </mat-form-field>
+      </div>
+  
+    
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput #input class="form-control" placeholder="Tessera" [(ngModel)]="data.tessera" name="tessera" required >
+        </mat-form-field>
+      </div>
+  
+    
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput #input class="form-control" placeholder="Marca" [(ngModel)]="data.marca" name="marca" required >
+        </mat-form-field>
+      </div>
+  
+      <div class="form">
+          <mat-form-field color="accent">
+            <input matInput #input class="form-control" placeholder="Modello" [(ngModel)]="data.modello" name="modello" required>
+          </mat-form-field>
+      </div>
+  
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput #input class="form-control" placeholder="Anno" [(ngModel)]="data.anno" name="anno" required>
+        </mat-form-field>
+      </div>
+  
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput #input class="form-control" placeholder="Immatricolazione" [(ngModel)]="data.immatricolazione" name="immatricolazione" required>
+        </mat-form-field>
+      </div>
+
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput #input class="form-control" placeholder="ASI" [(ngModel)]="data.ASI" name="ASI" required>
+        </mat-form-field>
+      </div>
+  
+      <div mat-dialog-actions>
+        <button mat-button type="submit" [mat-dialog-close]="1" (click)="stopEdit()">Salva</button>
+        <button mat-button (click)="onNoClick()" tabindex="-1">Cancella</button>
+      </div>
+    </form>
+  </div>

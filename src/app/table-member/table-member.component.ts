@@ -7,6 +7,9 @@ import { MatTable } from '@angular/material/table';
 import { MatTableDataSource } from '@angular/material/table';
 import { ServiceSocioService } from '../service-socio.service';
 import { EXAMPLE_DATA, TableMemberDataSource, TableMemberItem } from './table-member-datasource';
+import {MemberEditComponent} from '../dialogs/edit/member-edit/member-edit.component';
+import {DeleteDialogComponent} from '../dialogs/delete/delete.dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -26,9 +29,9 @@ export class TableMemberComponent implements OnInit {
   index:number=0;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['tessera', 'validita', 'nome', 'cognome', 'nato_il', 'codice_fiscale', 'indirizzo', 'email', 'consiglio', 'segretario'];
+  displayedColumns = ['tessera', 'validita', 'nome', 'cognome', 'nato_il', 'codice_fiscale', 'indirizzo', 'email', 'consiglio', 'segretario', 'edit'];
 
-  constructor(private fb: FormBuilder, private serviceSocio: ServiceSocioService) {
+  constructor(private fb: FormBuilder, private serviceSocio: ServiceSocioService, private dialog: MatDialog) {
 
     this.getAllSocio();
     this.dataSource = new MatTableDataSource(EXAMPLE_DATA);
@@ -93,8 +96,10 @@ export class TableMemberComponent implements OnInit {
 
       },
         (error: HttpErrorResponse) => {                       //Error callback
-          console.error('error caught in component')
-          alert('Qualcosa è andato storto... :(\n Controlla il numero TESSERA inserito ');
+          if(error.status == 404)
+            alert('Qualcosa è andato storto... :(\n Socio con TESSERA '+numberValue+' non presente in database ');
+          if(error.status == 400)
+            alert('Qualcosa è andato storto... :(\n Controlla idati inseriti e riprova ');
         });
     }
   }
@@ -186,21 +191,36 @@ export class TableMemberComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  onDelete() {
-    console.log("Funzione cancellazione");
-    console.log(typeof this.registrationForm.value);
-    this.deleteSocio(this.registrationForm.value.tessera);
-  }
-
-  onUpdate(): void {
-    //console.log("Update socio/auto");
-    alert('Update avvenuto con successo');
-    //console.log(this.registrationForm.value);
-  }
-
   registrationForm = this.fb.group({
     tessera: [null, Validators.required],
   });
+
+  startEdit(i: number, tessera: number, validita: number, nome: string, cognome: string, nato_il: string, codice_fiscale: string, indirizzo: string, email: string, consiglio: string, segretario: string) {
+    var socio:TableMemberItem={tessera:0,validita:0,nome:'',nato_il:'', cognome:'',codice_fiscale:'',indirizzo:'',email:'',segretario:false,consiglio:false,targa:''};
+    socio.tessera=tessera;
+    socio.validita= validita;
+    socio.nome=nome;
+    socio.cognome= cognome;
+    socio.nato_il= nato_il;
+    socio.codice_fiscale= codice_fiscale;
+    socio.indirizzo= indirizzo;
+    socio.email= email;
+    this.index = i;
+    console.log(this.index);
+    console.log(socio);
+    const dialogRef = this.dialog.open(MemberEditComponent, {
+      data: {validita: validita, nome: nome, nato_il: nato_il, cognome: cognome, codice_fiscale: codice_fiscale, indirizzo: indirizzo, email: email, segretario: segretario, consiglio: consiglio }
+    }
+  )}
+
+   deleteItem(i: number, tessera: number) {
+      this.index = i;
+      console.log(this.index);
+      console.log(tessera);
+      const dialogRef = this.dialog.open(DeleteDialogComponent, {
+       data: {tessera:tessera}
+      }
+    )}
 
 }
 
