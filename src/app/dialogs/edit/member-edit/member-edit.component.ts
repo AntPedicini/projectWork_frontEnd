@@ -22,7 +22,7 @@ export class MemberEditComponent {
     codice_fiscale: [null, Validators.required],
     nato_il: [null, Validators.required],
     email: [null, Validators.required],
-    residenza: ['', Validators.required],
+    indirizzo: ['', Validators.required],
     citta: ['', Validators.required],
     provincia: ['', Validators.compose([
       Validators.required, Validators.minLength(2), Validators.maxLength(2)])
