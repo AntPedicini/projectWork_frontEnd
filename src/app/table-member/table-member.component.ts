@@ -10,6 +10,7 @@ import { EXAMPLE_DATA, TableMemberDataSource, TableMemberItem } from './table-me
 import {MemberEditComponent} from '../dialogs/edit/member-edit/member-edit.component';
 import {MemberDeleteComponent} from '../dialogs/delete/member-delete/member-delete.component';
 import { MatDialog } from '@angular/material/dialog';
+import { InfoSocioComponent } from '../dialogs/info/info-socio/info-socio.component';
 
 
 
@@ -40,10 +41,7 @@ export class TableMemberComponent implements OnInit {
 
   }
 
-  //funzione legata alle righe della tabella che prende tutte le info di un socio(comprese quelle non visualizzate provenienti dal backend)
-  setActive(socio:any){
-    console.log(socio);
-  }
+
 
   ngOnInit(): void {
 
@@ -187,8 +185,8 @@ export class TableMemberComponent implements OnInit {
              email: socio.email, 
              segretario: socio.segretario, 
              consiglio: socio.consiglio }
-    }
-  )}
+    })
+}
 
    deleteItem(socio:TableMemberItem) {
       const dialogRef = this.dialog.open(MemberDeleteComponent, {
@@ -206,5 +204,23 @@ export class TableMemberComponent implements OnInit {
         this.getAllSocio();
       });
     }
+
+      //funzione legata alle righe della tabella che prende tutte le info di un socio(comprese quelle non visualizzate provenienti dal backend)
+  setActive(socio:any){
+    console.log(socio);
+    const dialogRef = this.dialog.open(InfoSocioComponent, {
+      data: {tessera:socio.tessera,
+             nome:socio.nome,
+             cognome:socio.cognome,
+             nato_il:socio.nato_il,
+             codice_fiscale: socio.codice_fiscale, 
+             indirizzo: socio.indirizzo, 
+             email: socio.email, 
+             segretario: socio.segretario, 
+             consiglio: socio.consiglio,
+             listaAuto: socio.listaAuto
+          }
+     });
+  }
 }
 

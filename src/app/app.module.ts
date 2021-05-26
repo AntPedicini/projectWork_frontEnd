@@ -57,6 +57,9 @@ import { PresenceDeleteComponent } from './dialogs/delete/presence-delete/presen
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { InfoSocioComponent } from './dialogs/info/info-socio/info-socio.component';
+import { InfoEventoComponent } from './dialogs/info/info-evento/info-evento.component';
+import { InfoAutoComponent } from './dialogs/info/info-auto/info-auto.component';
 
 
 
@@ -83,7 +86,10 @@ import { MatExpansionModule } from '@angular/material/expansion';
     AutoDeleteComponent,
     MemberDeleteComponent,
     EventDeleteComponent,
-    PresenceDeleteComponent
+    PresenceDeleteComponent,
+    InfoSocioComponent,
+    InfoEventoComponent,
+    InfoAutoComponent
     
     
    

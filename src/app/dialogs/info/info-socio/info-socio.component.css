@@ -1,0 +1,26 @@
+.full-width-table {
+  width: 100%;
+}
+
+.container{
+  text-align: center;
+}
+
+.btn_blue{
+  display: inline-block;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1em;
+  background-color: rgb(3, 169, 244);
+  color: white;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  display: inline-block;
+  cursor: pointer;
+  font-size: 100%;
+  font-weight: 450;
+  width: 10em;
+  height: 3em;
+  box-shadow: 2px 2px 5px rgb(150, 150, 150);
+}
