@@ -1,7 +1,7 @@
 import { Injectable, ɵCompiler_compileModuleSync__POST_R3__ } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { TableMemberItem } from './table-member/table-member-datasource';
 
 

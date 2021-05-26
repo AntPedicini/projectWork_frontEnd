@@ -24,7 +24,7 @@
 <div class="white">
   <mat-form-field >
     <mat-label >Seleziona un evento</mat-label>
-    <mat-select class= "gap" [value]="selected" formControlName="nome_evento" matInput placeholder="Nome Evento" #inputSelect  [(ngModel)]="select" (ngModelChange)="onChange($event)" >
+    <mat-select class= "gap"  formControlName="nome_evento" matInput placeholder="Nome Evento" #inputSelect  [(ngModel)]="select" (ngModelChange)="onChange($event)" >
       <mat-option *ngFor="let name of elenco_nomi" [value]="name">{{name}}</mat-option>
     </mat-select>
   </mat-form-field>

@@ -15,6 +15,7 @@ import { TableEventItem } from '../table-event/table-event-datasource';
 import { PresenceEditComponent } from '../dialogs/edit/presence-edit/presence-edit.component';
 import { PresenceDeleteComponent } from '../dialogs/delete/presence-delete/presence-delete.component';
 import { MatDialog } from '@angular/material/dialog';
+import { timeout } from 'rxjs/operators';
 
 
 
@@ -290,7 +291,12 @@ export class TablePresenceComponent {
 
       this.isWait = true;
       this.getAllIscrizioni();
-      this.onChange(this.select);
+
+      setTimeout(() => {
+        this.onChange(this.select);
+        //this.onChange(this.select);
+      }, 50);
+      //this.onChange(this.select);
       this.isWait = false;
     });
   }
@@ -313,7 +319,9 @@ export class TablePresenceComponent {
 
       this.isWait = true;
       this.getAllIscrizioni();
-      this.onChange(this.select);
+      setTimeout(() => {
+        this.onChange(this.select);
+      }, 50);
       this.isWait = false;
     });
   };
