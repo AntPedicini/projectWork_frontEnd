@@ -59,6 +59,9 @@ export class TableAutoComponent {
 
       res.forEach((element: TableAutoItem) => {
 
+        if(element.tessera_socio==null)
+          element.tessera_socio = NaN; 
+
         EXAMPLE_DATA.push(element);
         this.auto = res;
       });
@@ -103,7 +106,7 @@ export class TableAutoComponent {
     //imposta i campi di ricerca sul quale agisce il filtro
     this.dataSource.filterPredicate = (data: TableAutoItem, filter: any) => {
       if(data.tessera_socio==null)
-        data.tessera_socio=0;
+        data.tessera_socio=NaN;
       return data.tessera_socio.toString().includes(filter);
     };
 
@@ -117,7 +120,7 @@ export class TableAutoComponent {
    
     this.dataSource.filterPredicate = (data: TableAutoItem, filter: any) => {
       if(data.tessera_socio==null)
-        data.tessera_socio=0;
+        data.tessera_socio=NaN;
 
       if(data.asi==null)
         data.asi='';
