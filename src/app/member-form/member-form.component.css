@@ -88,6 +88,7 @@ input[type="button"] {
 }
 
 .title {
+  margin-top: 1em;
   font-family: Pattaya;
   font-size: 2em;
   font-style: oblique;
