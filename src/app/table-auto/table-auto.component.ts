@@ -186,8 +186,12 @@ export class TableAutoComponent {
              immatricolazione: auto.immatricolazione, 
              asi: auto.asi,
              tessera:auto.tessera_socio}
-    }
-  )}
+    });
+
+    dialogRef.afterClosed().subscribe(res => {
+      this.getAllAuto();
+    });
+}
 
    deleteItem(auto:any) {
       console.log(auto);
@@ -200,7 +204,7 @@ export class TableAutoComponent {
               immatricolazione: auto.immatricolazione, 
               asi: auto.asi,
               tessera:auto.tessera_socio} 
-      })
+      });
       dialogRef.afterClosed().subscribe(res => {
         this.getAllAuto();
       });

@@ -29,4 +29,8 @@ export class ServiceAutoService {
     return this.http.delete(this.url +'/'+ targa).pipe(map((res: any)=> res));
   }
 
+  editAuto(auto:TableAutoItem): Observable<any>{
+    return this.http.put(this.url +'/'+ auto.targa, auto).pipe(map((res:any)=> res));
+  }
+
 }
