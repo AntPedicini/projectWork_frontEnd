@@ -65,27 +65,6 @@ export class TableEventComponent implements AfterViewInit {
     );
   }
 
-  //====================
-  //CANCELLAZIONE EVENTO
-  //====================
-
-  deleteEvento(cod_evento: number) {
-    if (cod_evento == null)
-      alert('Devi specificare il Codice Evento da eliminare');
-    else {
-      //var numberValue = Number(cod_evento);
-      console.log(cod_evento);
-      this.serviceEvento.deleteEvento(cod_evento).subscribe((res: any) => {
-        alert('Evento con ID \''+ cod_evento +'\' eliminato con successo dal database \n NB: Le eventuali iscrizioni associate sono state cancellate :D');
-        this.getAllEventi();
-
-      },
-        (error: HttpErrorResponse) => {                       //Error callback
-          console.error('error caught in component')
-          alert('Qualcosa è andato storto... :(\n Controlla il Codice Evento inserito ');
-        });
-    }
-  }
 
   //metodo per refreshare la tabella
   private refreshTable() {
@@ -205,7 +184,12 @@ export class TableEventComponent implements AfterViewInit {
               costo_unitario: evento.costo_unitario, 
               posti_disponibili: evento.posti_disponibili, 
               descrizione: evento.descrizione}
-      }
-    )};
+      });
+
+      dialogRef.afterClosed().subscribe(res => {
+        this.getAllEventi();
+      });
+  
+  };
  
 }

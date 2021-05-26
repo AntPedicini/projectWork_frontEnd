@@ -82,29 +82,6 @@ export class TableMemberComponent implements OnInit {
 
   }
 
-  //====================
-  //CANCELLAZIONE SOCIO
-  //====================
-
-  deleteSocio(id_socio: number) {
-    if (id_socio == null)
-      alert('Devi specificare il numero TESSERA del socio');
-    else {
-      var numberValue = Number(id_socio);
-      console.log(numberValue);
-      this.serviceSocio.deleteSocio(numberValue).subscribe((res: any) => {
-        alert('Socio con TESSERA \''+ numberValue +'\' eliminato con successo dal database \n NB: Le eventuali auto associate non sono state cancellate :D');
-        this.getAllSocio();
-
-      },
-        (error: HttpErrorResponse) => {                       //Error callback
-          if(error.status == 404)
-            alert('Qualcosa è andato storto... :(\n Socio con TESSERA '+numberValue+' non presente in database ');
-          if(error.status == 400)
-            alert('Qualcosa è andato storto... :(\n Controlla idati inseriti e riprova ');
-        });
-    }
-  }
 
   //metodo per refreshare la tabella
   private refreshTable() {
@@ -224,8 +201,10 @@ export class TableMemberComponent implements OnInit {
               email: socio.email, 
               segretario: socio.segretario, 
               consiglio: socio.consiglio}
-      }
-    )}
-
+      });
+      dialogRef.afterClosed().subscribe(res => {
+        this.getAllSocio();
+      });
+    }
 }
 

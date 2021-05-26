@@ -301,7 +301,7 @@ export class TablePresenceComponent {
         partecipanti_iscritti: iscrizione.partecipanti_iscritti,
         partecipanti_effettivi: iscrizione.partecipanti_effettivi
       }
-    })
+    });
 
     dialogRef.afterClosed().subscribe(res => {
 
