@@ -285,8 +285,14 @@ export class TablePresenceComponent {
         partecipanti_iscritti: iscrizione.partecipanti_iscritti,
         partecipanti_effettivi: iscrizione.partecipanti_effettivi
       }
-    }
-    )
+    });
+    dialogRef.afterClosed().subscribe(res => {
+
+      this.isWait = true;
+      this.getAllIscrizioni();
+      this.onChange(this.select);
+      this.isWait = false;
+    });
   }
 
   deleteItem(iscrizione: TablePresenceItem) {

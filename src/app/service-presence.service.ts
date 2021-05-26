@@ -27,7 +27,11 @@ export class ServicePresenceService {
     return this.http.delete(this.url + '/' + cod_evento + '/' + targa).pipe(map((res: any) => res));
   }
 
-  checkout(iscrizione: TablePresenceItem): Observable<any>{
+  editIscrizione(iscrizione: TablePresenceItem): Observable<any> {
+    return this.http.put<any>(this.url + '/'+ iscrizione.cod_evento+'/'+ iscrizione.targa, iscrizione).pipe(map((res: any) => res));
+  }
+
+  checkout(iscrizione: any): Observable<any>{
     return this.http.put( 'http://localhost:8080/checkout', iscrizione ).pipe(map((res:any) => res));
 
   }
