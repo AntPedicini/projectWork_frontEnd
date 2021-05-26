@@ -1,61 +1,83 @@
 <div class="container">
-    <h3 mat-dialog-title><strong>Edit socio con tessera: {{data.tessera}}</strong></h3>
-  
-    <form [formGroup]="memberForm"  class="mat-dialog-content"  #formControl="ngForm">
-  
-      <div class="form">
-        <mat-form-field color="accent">
-          <input matInput #input  class="form-control" placeholder="Tessera" [(ngModel)]="data.tessera" name="tessera" required formControlName="tessera_socio" readonly="readonly">
-        </mat-form-field>
-      </div>
-  
-    
-      <div class="form">
-        <mat-form-field color="accent">
-          <input matInput #input class="form-control" placeholder="Validità" [(ngModel)]="data.validita" formControlName="validita" name="validita" >
-        </mat-form-field>
-      </div>
-  
-    
-      <div class="form">
-        <mat-form-field color="accent">
-          <input matInput #input class="form-control" placeholder="Nome" [(ngModel)]="data.nome" formControlName="nome" name="nome" >
-        </mat-form-field>
-      </div>
-  
-      <div class="form">
-          <mat-form-field color="accent">
-            <input matInput #input class="form-control" placeholder="Cognome" [(ngModel)]="data.cognome" formControlName="cognome" name="cognome">
-          </mat-form-field>
-      </div>
-  
-      <div class="form">
-        <mat-form-field color="accent">
-          <input matInput #input class="form-control" placeholder="Nato il" [(ngModel)]="data.nato_il" formControlName="nato_il" name="nato_il">
-        </mat-form-field>
-      </div>
-  
-      <div class="form">
-        <mat-form-field color="accent">
-          <input matInput #input class="form-control" placeholder="Codice fiscale" [(ngModel)]="data.codice_fiscale" formControlName="codice_fiscale" name="codice_fiscale">
-        </mat-form-field>
-      </div>
+  <h3 mat-dialog-title><strong>Edit socio con tessera: {{data.tessera}}</strong></h3>
 
-      <div class="form">
-        <mat-form-field color="accent">
-          <input matInput #input class="form-control" placeholder="Indirizzo" [(ngModel)]="data.indirizzo" formControlName="indirizzo" name="indirizzo">
-        </mat-form-field>
-      </div>
+  <form [formGroup]="memberForm" class="mat-dialog-content" #formControl="ngForm">
 
-      <div class="form">
-        <mat-form-field color="accent">
-          <input matInput #input class="form-control" placeholder="Email" [(ngModel)]="data.email" formControlName="email" name="email">
-        </mat-form-field>
-      </div>
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput #input class="form-control" placeholder="Tessera" [(ngModel)]="data.tessera" name="tessera"
+          required formControlName="tessera" readonly="readonly">
+      </mat-form-field>
+    </div>
+
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput #input class="form-control" placeholder="Validità" [(ngModel)]="data.validita"
+          formControlName="validita" name="validita">
+      </mat-form-field>
+    </div>
+
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput #input class="form-control" placeholder="Nome" [(ngModel)]="data.nome" formControlName="nome"
+          name="nome">
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput #input class="form-control" placeholder="Cognome" [(ngModel)]="data.cognome"
+          formControlName="cognome" name="cognome">
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput #input class="form-control" placeholder="Nato il (yyyy-MM-dd)" [(ngModel)]="data.nato_il"
+          formControlName="nato_il" name="nato_il">
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput #input class="form-control" placeholder="Codice fiscale" [(ngModel)]="data.codice_fiscale"
+          formControlName="codice_fiscale" name="codice_fiscale">
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput #input class="form-control" placeholder="residenza" [(ngModel)]="data.indirizzo"
+          formControlName="residenza" name="residenza">
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field color="accent">
+        <input matInput #input class="form-control" placeholder="Email" [(ngModel)]="data.email" formControlName="email"
+          name="email">
+      </mat-form-field>
+    </div>
+
+    <div class="form">
   
-      <div mat-dialog-actions>
-        <button class="btn_blue" mat-button type="submit" [mat-dialog-close]="1" (click)="stopEdit()">Salva</button>
-        <button class="btn_blue" mat-button (click)="onNoClick()" tabindex="-1">Cancella</button>
-      </div>
-    </form>
-  </div>
+        <section class="example-section">
+          <mat-checkbox matInput #input name="consiglio" formControlName="consiglio" [(ngModel)]="data.consiglio" class="example-margin">Consiglio</mat-checkbox>
+          <mat-checkbox matInput #input  name="segretario" formControlName="segretario" [(ngModel)]="data.segretario" class="example-margin">Segretario</mat-checkbox>
+        </section>
+     
+    </div>
+
+
+
+
+
+
+    <div mat-dialog-actions>
+      <button class="btn_blue" mat-button type="submit" [mat-dialog-close]="1" (click)="confirmEdit()">Salva</button>
+      <button class="btn_blue" mat-button (click)="exit()" tabindex="-1">Cancella</button>
+    </div>
+  </form>
+</div>

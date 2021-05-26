@@ -185,7 +185,10 @@ export class TableMemberComponent implements OnInit {
              email: socio.email, 
              segretario: socio.segretario, 
              consiglio: socio.consiglio }
-    })
+    });
+    dialogRef.afterClosed().subscribe(res => {
+      this.getAllSocio();
+    });
 }
 
    deleteItem(socio:TableMemberItem) {
@@ -205,7 +208,7 @@ export class TableMemberComponent implements OnInit {
       });
     }
 
-      //funzione legata alle righe della tabella che prende tutte le info di un socio(comprese quelle non visualizzate provenienti dal backend)
+    //funzione legata alle righe della tabella che prende tutte le info di un socio(comprese quelle non visualizzate provenienti dal backend)
   setActive(socio:any){
     console.log(socio);
     const dialogRef = this.dialog.open(InfoSocioComponent, {

@@ -30,3 +30,7 @@
     width: 10em;
     height: 3em;
   }
+
+  mat-checkbox{
+    margin: 1em;
+  }

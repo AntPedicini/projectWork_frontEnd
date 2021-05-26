@@ -6,7 +6,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { ServiceEventoService } from '../service-evento.service';
 import { EXAMPLE_DATA, TableEventDataSource, TableEventItem } from './table-event-datasource';
-import {EventEditComponent} from '../dialogs/edit/event-edit/event-edit.component';
+import { EventEditComponent } from '../dialogs/edit/event-edit/event-edit.component';
 import { EventDeleteComponent } from '../dialogs/delete/event-delete/event-delete.component';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -23,7 +23,7 @@ export class TableEventComponent implements AfterViewInit {
   elenco_eventi: any[] = [];
   selected = null;
   eventi: TableEventItem[] = [];
-  index:number=0;
+  index: number = 0;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['cod_evento', 'nome_evento', 'data_inizio', 'data_fine', 'location', 'costo_unitario', 'posti_disponibili', 'edit'];
@@ -155,41 +155,46 @@ export class TableEventComponent implements AfterViewInit {
     cod_evento: [null, Validators.required],
   });
 
-  setActive(evento:any){
+  setActive(evento: any) {
     console.log(evento);
 
   }
 
-  startEdit(evento:TableEventItem) {
-    
+  startEdit(evento: TableEventItem) {
+
     const dialogRef = this.dialog.open(EventEditComponent, {
-      data: {cod_evento: evento.cod_evento, 
-             nome_evento: evento.nome_evento, 
-             data_inizio: evento.data_inizio, 
-             data_fine: evento.data_fine, 
-             location: evento.location, 
-             costo_unitario: evento.costo_unitario, 
-             posti_disponibili: evento.posti_disponibili, 
-             descrizione: evento.descrizione}
-    }
-  )}
+      data: {
+        cod_evento: evento.cod_evento,
+        nome_evento: evento.nome_evento,
+        data_inizio: evento.data_inizio,
+        data_fine: evento.data_fine,
+        location: evento.location,
+        costo_unitario: evento.costo_unitario,
+        posti_disponibili: evento.posti_disponibili,
+        descrizione: evento.descrizione
+      }
+    });
+    dialogRef.afterClosed().subscribe(res => {
+      this.getAllEventi();
+    });
+  }
 
-   deleteItem(evento:TableEventItem) {
-      const dialogRef = this.dialog.open(EventDeleteComponent, {
-       data: {cod_evento:evento.cod_evento,
-              nome_evento: evento.nome_evento, 
-              data_inizio: evento.data_inizio, 
-              data_fine: evento.data_fine, 
-              location: evento.location, 
-              costo_unitario: evento.costo_unitario, 
-              posti_disponibili: evento.posti_disponibili, 
-              descrizione: evento.descrizione}
-      });
-
-      dialogRef.afterClosed().subscribe(res => {
-        this.getAllEventi();
-      });
-  
+  deleteItem(evento: TableEventItem) {
+    const dialogRef = this.dialog.open(EventDeleteComponent, {
+      data: {
+        cod_evento: evento.cod_evento,
+        nome_evento: evento.nome_evento,
+        data_inizio: evento.data_inizio,
+        data_fine: evento.data_fine,
+        location: evento.location,
+        costo_unitario: evento.costo_unitario,
+        posti_disponibili: evento.posti_disponibili,
+        descrizione: evento.descrizione
+      }
+    });
+    dialogRef.afterClosed().subscribe(res => {
+      this.getAllEventi();
+    });
   };
- 
+
 }

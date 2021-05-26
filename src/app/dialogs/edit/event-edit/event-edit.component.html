@@ -19,13 +19,13 @@
     
       <div class="form">
         <mat-form-field color="accent">
-          <input matInput #input class="form-control" placeholder="Data inizio" [(ngModel)]="data.data_inizio" formControlName="data_inizio" name="data_inizio" >
+          <input matInput #input class="form-control" placeholder="Data inizio (yyyy-MM-dd)" [(ngModel)]="data.data_inizio" formControlName="data_inizio" name="data_inizio" >
         </mat-form-field>
       </div>
   
       <div class="form">
           <mat-form-field color="accent">
-            <input matInput #input class="form-control" placeholder="Data fine" [(ngModel)]="data.data_fine" formControlName="data_fine" name="data_fine">
+            <input matInput #input class="form-control" placeholder="Data fine (yyyy-MM-dd)" [(ngModel)]="data.data_fine" formControlName="data_fine" name="data_fine">
           </mat-form-field>
       </div>
   
@@ -54,8 +54,8 @@
       </div>
   
       <div mat-dialog-actions>
-        <button class="btn_blue" mat-button type="submit" [mat-dialog-close]="1" (click)="stopEdit()">Salva</button>
-        <button class="btn_blue" mat-button (click)="onNoClick()" tabindex="-1">Cancella</button>
+        <button class="btn_blue" mat-button type="submit" [mat-dialog-close]="1" (click)="confirmEdit()">Salva</button>
+        <button class="btn_blue" mat-button (click)="exit()" tabindex="-1">Cancella</button>
       </div>
     </form>
   </div>
