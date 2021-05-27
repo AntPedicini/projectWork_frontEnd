@@ -47,7 +47,9 @@
 
     <ng-container matColumnDef="cognome">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Cognome</th>
-      <td mat-cell *matCellDef="let row,let socio" (click)="setActive(socio)">{{row.cognome}}</td>
+      <td mat-cell *matCellDef="let row,let socio" (click)="setActive(socio)">{{row.cognome}}
+        <mat-icon color="primary" class ="info" aria-label="Edit">info</mat-icon>
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="nato_il">

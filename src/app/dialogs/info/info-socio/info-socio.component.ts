@@ -3,7 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { EXAMPLE_DATA as DATI_TABELLA, InfoSocioDataSource, InfoSocioItem } from './info-socio-datasource';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TableAutoItem } from 'src/app/table-auto/table-auto-datasource';
 
 
