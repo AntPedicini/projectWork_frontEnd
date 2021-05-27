@@ -19,15 +19,15 @@
                 <p>
                     <mat-form-field appearance="outline">
                         <mat-label>Password</mat-label>
-                        <input name="password" matInput [type]="hide ? 'password' : 'text'" formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
-                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <input name="password" id="myInput" matInput [type]="hide ? 'password' : 'text'" formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+                        <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                         </button>
                         <!-- <mat-error *ngIf="submitted && f.password.errors"></mat-error> -->
                         <mat-error *ngIf="f.password.errors">Password non valida</mat-error>
                     </mat-form-field>
                 </p>
-                <button [disabled]="loading" mat-raised-button color="primary" (click)="onSubmit()">
+                <button id="myBtn" [disabled]="loading" mat-raised-button color="primary" (click)="onSubmit()">
                     Login
                 </button>
                 <mat-error *ngIf="error">{{error}}</mat-error>

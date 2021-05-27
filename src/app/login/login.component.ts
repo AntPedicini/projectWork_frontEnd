@@ -8,9 +8,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthenticationService } from '../_services';
 
 
-@Component({ 
-        styleUrls: ['./login.component.css'],
-        templateUrl: 'login.component.html' })
+@Component({
+    styleUrls: ['./login.component.css'],
+    templateUrl: 'login.component.html'
+})
 
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
@@ -18,7 +19,8 @@ export class LoginComponent implements OnInit {
     submitted = false;
     returnUrl: string;
     error = '';
-    hide=true;
+    hide = true;
+
 
     constructor(
         private popErrore: MatSnackBar,
@@ -26,10 +28,10 @@ export class LoginComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService,
-        
-    ) { 
+
+    ) {
         // redirect to home if already logged in
-        if (this.authenticationService.currentUserValue) { 
+        if (this.authenticationService.currentUserValue) {
             this.router.navigate(['/']);
         }
     }
@@ -56,7 +58,7 @@ export class LoginComponent implements OnInit {
         }
 
         this.loading = true;
-        
+
         this.authenticationService.login(this.f.username.value, this.f.password.value)
             .pipe(first())
             .subscribe(
@@ -64,11 +66,14 @@ export class LoginComponent implements OnInit {
                     this.router.navigate([this.returnUrl]);
                 },
                 error => {
-                    this.popErrore.open('dati inseriti non validi','', {duration: 2000, panelClass: ['coloreRed']});
+                    this.popErrore.open('dati inseriti non validi', '', { duration: 2000, panelClass: ['coloreRed'] });
                     this.loading = false;
                 });
     }
-    
+
+
+
+
 
 
 }
