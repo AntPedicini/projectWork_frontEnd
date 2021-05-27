@@ -97,25 +97,16 @@ export class MemberFormComponent {
     }
   }
   
-  //Submit
+  //Metodi di invocazione servizi REST
   onSubmitSocio(): void {
-    console.log("Registrazione socio");
-    //console.log(this.addressForm.value);
     this.insertSocio(this.memberForm.value);
-    //this.addressForm.reset();
+    this.memberForm.reset();
   }
 
   onSubmitAuto(): void {
-    console.log("Registrazione auto");
-    //alert('Registrazione auto avvenuta con successo');
-    //console.log(this.addressForm.value);
     this.insertAuto(this.autoForm.value);
+    this.autoForm.reset();
   }
-
-  click(){
-    console.log(this.memberForm.get('targa_esistente').value);
-  }
-
 
 //=======================
 //INSERIMENTO SOCIO/AUTO
@@ -144,15 +135,18 @@ export class MemberFormComponent {
       if(socio.targa != null)
         socio.targa= socio.targa.toUpperCase();
 
-      if(socio.targa_esistente != '--')
+      //verifico se è stata selezionata un auto esistente dalla select del form socio
+      //se si la assegno alla targa del DTO...Il backEnd si occupa del resto ;)
+      if(socio.targa_esistente != '--'){
         socio.targa = socio.targa_esistente;
+      }
 
   //=============================CHIAMATA AL SERVIZIO=======================================
 
     this.serviceSocio.insertSocio(socio).subscribe(res=>{
         alert('Socio inserito con successo');
       },
-      (error:HttpErrorResponse) => {                       //Error callback
+      (error:HttpErrorResponse) => {
        if(error.status==400)
         alert('Qualcosa è andato storto... :(\n Prova a ricontrollare tutti i campi \n NB:Verifica che la targa inserita non appartenente a un altro socio ');
       if (error.status==404)
@@ -239,6 +233,11 @@ insertAuto(auto:any): void {
   onChange(targa_selezionata:any){
     if(targa_selezionata != '--')
       this.accordion.closeAll();
+  }
+
+  //verifica infoOnClick
+  click(){
+    console.log(this.memberForm.get('targa_esistente').value);
   }
   
 }

@@ -10,8 +10,8 @@ import { ServiceEventoService } from '../service-evento.service';
   styleUrls: ['./event-form.component.css']
 })
 export class EventFormComponent {
-  addressForm = this.fb.group({
-    cod_evento: [null, Validators.required],
+  eventForm = this.fb.group({
+    cod_evento: [null],
     nome_evento: [null, Validators.required],
     data_inizio: [null, Validators.required],
     data_fine: [null, Validators.required],
@@ -32,10 +32,9 @@ export class EventFormComponent {
 
   constructor(private fb: FormBuilder, private serviceEvento: ServiceEventoService, public datepipe: DatePipe) { }
 
+  //motodo invocazione servizio REST
   onSubmit(): void {
-    console.log("Registrazione evento");
-    console.log(this.addressForm.value);
-    this.insertEvento(this.addressForm.value);
+    this.insertEvento(this.eventForm.value);
   }
 
   //=======================
@@ -57,6 +56,7 @@ export class EventFormComponent {
 
     this.serviceEvento.insertEvento(evento).subscribe(res => {
       alert('Evento inserito con successo');
+      this.eventForm.reset();
     },
       (error: HttpErrorResponse) => {                       //Error callback
         console.error('error caught in component')
