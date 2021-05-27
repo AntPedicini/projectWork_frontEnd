@@ -5,6 +5,7 @@ import { ServiceAutoService } from 'src/app/service-auto.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { InfoSocioComponent } from '../../info/info-socio/info-socio.component';
 import { TableAutoItem } from 'src/app/table-auto/table-auto-datasource';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-baza.dialog',
@@ -28,7 +29,8 @@ export class AutoEditComponent {
   constructor(@Inject(MatDialogRef) public dialogRef: MatDialogRef<AutoEditComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
               private fb: FormBuilder,
-              private serviceAuto: ServiceAutoService) { }
+              private serviceAuto: ServiceAutoService,
+              private snackBar:MatSnackBar) { }
 
   formControl = new FormControl('', [
     Validators.required
@@ -69,13 +71,14 @@ editAuto(auto:TableAutoItem): void {
   //=============================CHIAMATA AL SERVIZIO=======================================
 
     this.serviceAuto.editAuto( auto ).subscribe(res=>{
-        alert('Il veicolo con targa '+ auto.targa +' modificato con successo :D');
+        this.snackBar.open('Il veicolo con targa '+ auto.targa +' modificato con successo','X', {horizontalPosition: 'center' ,verticalPosition: 'top' , panelClass: ['coloreBlue']});
+
       },
       (error:HttpErrorResponse) => {                       //Error callback
         if(error.status==400)
-          alert('Qualcosa è andato storto... :(\n Prova a ricontrollare tutti i campi');
+        this.snackBar.open('Qualcosa è andato storto... Prova a ricontrollare tutti i campi','X', {horizontalPosition: 'center' , verticalPosition: 'top' , panelClass: ['coloreRed']});
         if(error.status==404)
-          alert('Qualcosa è andato storto... :(\n Socio associato inesistente ');
+        this.snackBar.open('Qualcosa è andato storto... Socio associato inesistente','X', {horizontalPosition: 'center' , verticalPosition: 'top' , panelClass: ['coloreRed']});
        } );
   
   } 

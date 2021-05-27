@@ -11,6 +11,7 @@ import { AutoEditComponent } from '../dialogs/edit/auto-edit/auto-edit.component
 import { AutoDeleteComponent } from '../dialogs/delete/auto-delete/auto-delete.component';
 import { MatDialog } from '@angular/material/dialog';
 import { TableEventItem } from '../table-event/table-event-datasource';
+import { MatSnackBar } from '@angular/material/snack-bar';
 //import { auto } from '../_models/auto.model';
 
 @Component({
@@ -33,7 +34,7 @@ export class TableAutoComponent {
   displayedColumns = ['targa', 'tessera_socio', 'marca', 'modello', 'anno', 'immatricolazione', 'asi', 'edit'];
 
 
-  constructor(private fb: FormBuilder, private serviceAuto: ServiceAutoService, private dialog: MatDialog) {
+  constructor(private fb: FormBuilder, private serviceAuto: ServiceAutoService, private dialog: MatDialog, private snackBar:MatSnackBar) {
 
     this.getAllAuto();
     this.dataSource = new MatTableDataSource(EXAMPLE_DATA);
@@ -71,7 +72,7 @@ export class TableAutoComponent {
     },
       (error: HttpErrorResponse) => {
         console.log('[[' + error.name + ' || ' + error.message + ']]');
-        alert('Nessuna auto presente in database');
+        this.snackBar.open('Nessuna auto presente in database','X', {horizontalPosition: 'center' , verticalPosition: 'top' , panelClass: ['coloreRed']});
         this.refreshTable();
       });
   }

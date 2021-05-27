@@ -11,6 +11,7 @@ import {MemberEditComponent} from '../dialogs/edit/member-edit/member-edit.compo
 import {MemberDeleteComponent} from '../dialogs/delete/member-delete/member-delete.component';
 import { MatDialog } from '@angular/material/dialog';
 import { InfoSocioComponent } from '../dialogs/info/info-socio/info-socio.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 
@@ -34,7 +35,7 @@ export class TableMemberComponent implements OnInit {
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['tessera', 'validita', 'nome', 'cognome', 'nato_il', 'codice_fiscale', 'indirizzo', 'email', 'consiglio', 'segretario', 'edit'];
 
-  constructor(private fb: FormBuilder, private serviceSocio: ServiceSocioService, private dialog: MatDialog) {
+  constructor(private fb: FormBuilder, private serviceSocio: ServiceSocioService, private dialog: MatDialog, private snackBar:MatSnackBar) {
 
     this.getAllSocio();
     this.dataSource = new MatTableDataSource(EXAMPLE_DATA);
@@ -73,7 +74,7 @@ export class TableMemberComponent implements OnInit {
 
       (error: HttpErrorResponse) => {
         console.log('[[' + error.name + ' || ' + error.message + ']]');
-        alert('Nessun Socio presente in database');
+        this.snackBar.open('Nessun Socio presente in database','X', {horizontalPosition: 'center' , verticalPosition: 'top' , panelClass: ['coloreRed']});
         this.refreshTable();
       }
     );

@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { ServiceAutoService } from '../service-auto.service';
 import { ServiceEventoService } from '../service-evento.service';
@@ -33,7 +34,8 @@ export class RegistrationFormComponent {
   constructor(private fb: FormBuilder, 
               private serviceEvento: ServiceEventoService,
               private serviceAuto:ServiceAutoService,
-              private serviceIscrizione:ServicePresenceService) {
+              private serviceIscrizione:ServicePresenceService,
+              private snackBar:MatSnackBar) {
     
     //this.dataSource = new MatTableDataSource(DATA);
     this.getInfoEventi();
@@ -70,7 +72,7 @@ export class RegistrationFormComponent {
     },
       (error: HttpErrorResponse) => {
         console.log('[[' + error.name + ' || ' + error.message + ']]');
-        alert('Nessun Evento presente in database');
+        this.snackBar.open('Nessun Evento presente in database','X', {horizontalPosition: 'center' , verticalPosition: 'top' , panelClass: ['coloreRed']});
       }
     );
   }
@@ -93,7 +95,7 @@ export class RegistrationFormComponent {
     },
       (error: HttpErrorResponse) => {
         console.log('[[' + error.name + ' || ' + error.message + ']]');
-        alert('Nessuna auto presente in database');
+        this.snackBar.open('Nessun Auto presente in database','X', {horizontalPosition: 'center' , verticalPosition: 'top' , panelClass: ['coloreRed']});
       });
   }
 
@@ -120,7 +122,7 @@ insertIscrizione(iscrizione:any): void {
   //=============================CHIAMATA AL SERVIZIO=======================================
 
     this.serviceIscrizione.insertIscrizione( iscrizione ).subscribe(res=>{
-        alert('Iscrizione inserita con successo');
+        this.snackBar.open('Iscrizione inserita con successo','X', {horizontalPosition: 'center' ,verticalPosition: 'top' , panelClass: ['coloreBlue']});
         this.addressForm.reset();
         this.getInfoEventi();
         this.getInfoAuto();
@@ -128,11 +130,12 @@ insertIscrizione(iscrizione:any): void {
       (error:HttpErrorResponse) => {                       //Error callback
         console.error('error caught in component')
         if(error.status==400)
-          alert('Qualcosa è andato storto... :(\n Iscrizione già presente in database');
+        this.snackBar.open('Qualcosa è andato storto... Iscrizione già presente in database','X', {horizontalPosition: 'center' , verticalPosition: 'top' , panelClass: ['coloreRed']});
         if(error.status==404)
-          alert('Qualcosa è andato storto... :(\n Verifica i dati inseriti');
+        this.snackBar.open('Qualcosa è andato storto... Verifica i dati inseriti','X', {horizontalPosition: 'center' , verticalPosition: 'top' , panelClass: ['coloreRed']});
         if(error.status==500)
-          alert('Qualcosa è andato storto... :(\n Errore Sconosciuto');
+        this.snackBar.open('Qualcosa è andato storto... Errore Sconosciuto','X', {horizontalPosition: 'center' , verticalPosition: 'top' , panelClass: ['coloreRed']});
+
        } );
   
   }

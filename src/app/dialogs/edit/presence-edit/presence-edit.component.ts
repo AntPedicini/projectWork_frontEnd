@@ -1,9 +1,10 @@
-  
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
-import {Component, Inject} from '@angular/core';
-import {FormBuilder, FormControl, Validators} from '@angular/forms';
+
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ServicePresenceService } from 'src/app/service-presence.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-baza.dialog',
@@ -12,7 +13,7 @@ import { ServicePresenceService } from 'src/app/service-presence.service';
 })
 export class PresenceEditComponent {
 
-  cod_evento:number=0;
+  cod_evento: number = 0;
 
   registrationForm = this.fb.group({
     nome_evento: [null, Validators.required],
@@ -23,12 +24,13 @@ export class PresenceEditComponent {
   });
 
   constructor(@Inject(MatDialogRef) public dialogRef: MatDialogRef<PresenceEditComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any,
-              private fb: FormBuilder,
-              private serviceIscrizione: ServicePresenceService) { }
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private fb: FormBuilder,
+    private serviceIscrizione: ServicePresenceService,
+    private snackBar: MatSnackBar) { }
 
   formControl = new FormControl('', [
-    Validators.required 
+    Validators.required
     // Validators.email,
   ]);
 
@@ -41,36 +43,36 @@ export class PresenceEditComponent {
   }
 
   confirmEdit(): void {
-    
+
     console.log(this.registrationForm.value);
     this.editIscrizione(this.registrationForm.value);
   }
 
-  
-//=======================
-//INSERIMENTO ISCRIZIONE
-//=======================
 
-editIscrizione(iscrizione:any): void {
+  //=======================
+  //INSERIMENTO ISCRIZIONE
+  //=======================
 
-  //=============================Controlli sull'inserimento=======================================
-      if(iscrizione.targa != null)
-        iscrizione.targa = iscrizione.targa.toUpperCase();
+  editIscrizione(iscrizione: any): void {
 
-      iscrizione.cod_evento=this.data.cod_evento;
-      iscrizione.targa=this.data.targa;
+    //=============================Controlli sull'inserimento=======================================
+    if (iscrizione.targa != null)
+      iscrizione.targa = iscrizione.targa.toUpperCase();
 
-  //=============================CHIAMATA AL SERVIZIO=======================================
+    iscrizione.cod_evento = this.data.cod_evento;
+    iscrizione.targa = this.data.targa;
 
-    this.serviceIscrizione.editIscrizione( iscrizione ).subscribe(res=>{
-        alert('Iscrizione modificata con successo :D');
-      },
-      (error:HttpErrorResponse) => {                       //Error callback
+    //=============================CHIAMATA AL SERVIZIO=======================================
+
+    this.serviceIscrizione.editIscrizione(iscrizione).subscribe(res => {
+      this.snackBar.open('Iscrizione modificata con successo', 'X', { horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreBlue'] });
+    },
+      (error: HttpErrorResponse) => {                       //Error callback
         console.error('error caught in component')
-        if(error.status==404)
-          alert('Qualcosa è andato storto... :(\n Verifica i dati inseriti');
-        if(error.status==500)
-          alert('Qualcosa è andato storto... :(\n Errore Sconosciuto');
-       } );
+        if (error.status == 404)
+          this.snackBar.open('Qualcosa è andato storto... Verifica i dati inseriti', 'X', { horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreRed'] });
+        if (error.status == 500)
+          this.snackBar.open('Qualcosa è andato storto... Errore Sconosciuto', 'X', { horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreRed'] });
+      });
   }
 }

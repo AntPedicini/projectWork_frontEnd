@@ -13,6 +13,7 @@ import { TableEventItem } from '../table-event/table-event-datasource';
 import { PresenceEditComponent } from '../dialogs/edit/presence-edit/presence-edit.component';
 import { PresenceDeleteComponent } from '../dialogs/delete/presence-delete/presence-delete.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 
@@ -53,7 +54,9 @@ export class TablePresenceComponent {
     private servicePresence: ServicePresenceService,
     private serviceEvento: ServiceEventoService,
     private serviceAuto: ServiceAutoService,
-    private dialog: MatDialog) {
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar
+  ) {
 
     this.getAllIscrizioni();
     this.refreshSelect();
@@ -89,7 +92,7 @@ export class TablePresenceComponent {
 
       (error: HttpErrorResponse) => {
         console.log('[[' + error.name + ' || ' + error.message + ']]');
-        alert('Nessun Socio presente in database');
+        this.snackBar.open('Nessun Socio presente in database', 'X', { horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreRed'] });
         this.refreshTable();
         this.refreshSelect();
       }
@@ -127,7 +130,7 @@ export class TablePresenceComponent {
 
       (error: HttpErrorResponse) => {
         console.log('[[' + error.name + ' || ' + error.message + ']]');
-        alert('Nessun Evento presente in database');
+        this.snackBar.open('Nessun Evento presente in database', 'X', { horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreRed'] });
         this.refreshTable();
       }
     );
@@ -151,7 +154,7 @@ export class TablePresenceComponent {
     },
       (error: HttpErrorResponse) => {
         console.log('[[' + error.name + ' || ' + error.message + ']]');
-        alert('Nessuna auto presente in database');
+        this.snackBar.open('Nessuna auto presente in database', 'X', { horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreRed'] });
       });
   }
 
@@ -164,20 +167,21 @@ export class TablePresenceComponent {
     iscrizione.partecipanti_effettivi = iscrizione.partecipanti;
     console.log(iscrizione);
     this.servicePresence.checkout(iscrizione).subscribe((res: any) => {
-      alert('Pagamento effettuato con successo :D')
-      
+      this.snackBar.open('Pagamento effettuato con successo', 'X', { horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreBlue'] });
+
+
       this.getAllIscrizioni();
       this.isWait = true;
       setTimeout(() => {
         this.onChange(this.select);
       }, 100);
-      this.isWait = false;    
+      this.isWait = false;
     },
       (error: HttpErrorResponse) => {                       //Error callback
         if (error.status == 400)
-          alert('Qualcosa è andato storto... :(\n Controlla i dati inseriti ');
+          this.snackBar.open('Qualcosa è andato storto... Controlla i dati inseriti', 'X', { horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreRed'] });
         if (error.status == 404)
-          alert('Qualcosa è andato storto... \n Iscrizione non presente in Database')
+          this.snackBar.open('Qualcosa è andato storto... \n Iscrizione non presente in Database', 'X', { horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreRed'] });
       });
 
   }

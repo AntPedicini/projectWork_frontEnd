@@ -6,6 +6,7 @@ import { DatePipe, formatCurrency } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ServiceAutoService } from '../service-auto.service';
 import { MatAccordion } from '@angular/material/expansion';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -34,7 +35,7 @@ export class MemberFormComponent {
     ],
     consiglio: false,
     segretario: false,
-    targa_esistente: ['--', Validators.required ],
+    targa_esistente: ['--', Validators.required],
 
     //Auto
     targa: [null],
@@ -63,8 +64,8 @@ export class MemberFormComponent {
   elenco_targhe: any = [];
   selected = '--';
   dataSource: any;
-  
-  constructor(private fb: FormBuilder,private serviceSocio:ServiceSocioService, private serviceAuto:ServiceAutoService, public datepipe: DatePipe) {
+
+  constructor(private fb: FormBuilder, private serviceSocio: ServiceSocioService, private serviceAuto: ServiceAutoService, public datepipe: DatePipe, private snackBar: MatSnackBar) {
     this.getInfoAuto();
     this.getInfoSocio();
 
@@ -73,13 +74,13 @@ export class MemberFormComponent {
 
   //Import foto
   //Import 1++ foto
-  urls:any[]=[]
-  selectFiles(event: any){
-    if(event.target.files){
-      for(var i=0;i<File.length;i++){
-        var reader=new FileReader()
+  urls: any[] = []
+  selectFiles(event: any) {
+    if (event.target.files) {
+      for (var i = 0; i < File.length; i++) {
+        var reader = new FileReader()
         reader.readAsDataURL(event.target.files[i])
-        reader.onload=(event:any)=>{
+        reader.onload = (event: any) => {
           this.urls.push(event.target.result)
         }
       }
@@ -92,11 +93,11 @@ export class MemberFormComponent {
 
   reset() {
     this.InputVar.nativeElement.value = "";
-    while(this.urls.length!=0){
+    while (this.urls.length != 0) {
       this.urls.length--;
     }
   }
-  
+
   //Submit
   onSubmitSocio(): void {
     console.log("Registrazione socio");
@@ -112,85 +113,84 @@ export class MemberFormComponent {
     this.insertAuto(this.autoForm.value);
   }
 
-  click(){
+  click() {
     console.log(this.memberForm.get('targa_esistente').value);
   }
 
 
-//=======================
-//INSERIMENTO SOCIO/AUTO
-//=======================
+  //=======================
+  //INSERIMENTO SOCIO/AUTO
+  //=======================
 
-  insertSocio(socio:any): void {
+  insertSocio(socio: any): void {
 
-  //=============================Controlli sull'inserimento=======================================
+    //=============================Controlli sull'inserimento=======================================
 
-      //formatta le date in base alle necessità del backend
-      socio.nato_il = this.datepipe.transform(socio.nato_il,'yyyy-MM-dd');
-      if(socio.validita == null){
-        let thisYear:Date = new Date();
-        socio.validita = this.datepipe.transform(thisYear,'yyyy');
-      }
-      socio.validita = this.datepipe.transform(socio.validita,'yyyy');
-      socio.immatricolazione = this.datepipe.transform(socio.immatricolazione,'yyyy-MM-dd');
+    //formatta le date in base alle necessità del backend
+    socio.nato_il = this.datepipe.transform(socio.nato_il, 'yyyy-MM-dd');
+    if (socio.validita == null) {
+      let thisYear: Date = new Date();
+      socio.validita = this.datepipe.transform(thisYear, 'yyyy');
+    }
+    socio.validita = this.datepipe.transform(socio.validita, 'yyyy');
+    socio.immatricolazione = this.datepipe.transform(socio.immatricolazione, 'yyyy-MM-dd');
 
-      //memorizza l'indirizzo in un unica variabile
-      if(socio.citta!=null && socio.provincia!=null)
-        socio.indirizzo = socio.indirizzo +' '+ socio.citta.toUpperCase() +' '+ socio.postalCode +' '+ socio.provincia.toUpperCase();
-      
-      //converto il Codice Fiscale e la targa in maiuscolo
-      if(socio.codice_fiscale != null)
-        socio.codice_fiscale = socio.codice_fiscale.toUpperCase();
-      if(socio.targa != null)
-        socio.targa= socio.targa.toUpperCase();
+    //memorizza l'indirizzo in un unica variabile
+    if (socio.citta != null && socio.provincia != null)
+      socio.indirizzo = socio.indirizzo + ' ' + socio.citta.toUpperCase() + ' ' + socio.postalCode + ' ' + socio.provincia.toUpperCase();
 
-      if(socio.targa_esistente != '--')
-        socio.targa = socio.targa_esistente;
+    //converto il Codice Fiscale e la targa in maiuscolo
+    if (socio.codice_fiscale != null)
+      socio.codice_fiscale = socio.codice_fiscale.toUpperCase();
+    if (socio.targa != null)
+      socio.targa = socio.targa.toUpperCase();
 
-  //=============================CHIAMATA AL SERVIZIO=======================================
+    if (socio.targa_esistente != '--')
+      socio.targa = socio.targa_esistente;
 
-    this.serviceSocio.insertSocio(socio).subscribe(res=>{
-        alert('Socio inserito con successo');
-      },
-      (error:HttpErrorResponse) => {                       //Error callback
-       if(error.status==400)
-        alert('Qualcosa è andato storto... :(\n Prova a ricontrollare tutti i campi \n NB:Verifica che la targa inserita non appartenente a un altro socio ');
-      if (error.status==404)
-      alert('Qualcosa è andato storto... :(\n Prova a ricontrollare tutti i campi \n NB:Verifica che la targa inserita non appartenente a un altro socio ');
-      } );
-  
+    //=============================CHIAMATA AL SERVIZIO=======================================
+
+    this.serviceSocio.insertSocio(socio).subscribe(res => {
+      this.snackBar.open('Socio inserito con successo', 'X', { horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreBlue'] });
+    },
+      (error: HttpErrorResponse) => {                       //Error callback
+        if (error.status == 400 || error.status == 404)
+          this.snackBar.open('Qualcosa è andato storto... Prova a ricontrollare tutti i campi NB:Verifica che la targa inserita non appartenente a un altro socio', 'X', { horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreRed'] });
+
+      });
+
   }
 
-//=======================
-//INSERIMENTO SOLO AUTO
-//=======================
+  //=======================
+  //INSERIMENTO SOLO AUTO
+  //=======================
 
-insertAuto(auto:any): void {
+  insertAuto(auto: any): void {
 
-  //=============================Controlli sull'inserimento=======================================
+    //=============================Controlli sull'inserimento=======================================
 
-      if(auto.targa != null)
-        auto.targa = auto.targa.toUpperCase();
+    if (auto.targa != null)
+      auto.targa = auto.targa.toUpperCase();
 
-      if(auto.tessera_socio = "Ospite")
-        auto.tessera_socio = 0;
+    if (auto.tessera_socio = "Ospite")
+      auto.tessera_socio = 0;
 
-      console.log(auto.tessera_socio);
+    console.log(auto.tessera_socio);
 
-  //=============================CHIAMATA AL SERVIZIO=======================================
+    //=============================CHIAMATA AL SERVIZIO=======================================
 
-    this.serviceAuto.insertAuto( auto ).subscribe(res=>{
-        alert('Veicolo inserito con successo');
-      },
-      (error:HttpErrorResponse) => {                       //Error callback
-        if(error.status==400)
-          alert('Qualcosa è andato storto... :(\n Prova a ricontrollare tutti i campi');
-        if(error.status==404)
-          alert('Qualcosa è andato storto... :(\n Socio associato inesistente ');
-       } );
-  
-  } 
-  
+    this.serviceAuto.insertAuto(auto).subscribe(res => {
+      this.snackBar.open('Veicolo inserito con successo', 'X', { horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreBlue'] });
+    },
+      (error: HttpErrorResponse) => {                       //Error callback
+        if (error.status == 400)
+        this.snackBar.open('Qualcosa è andato storto... Prova a ricontrollare tutti i campi','X', {horizontalPosition: 'center' , verticalPosition: 'top' , panelClass: ['coloreRed']});
+        if (error.status == 404)
+        this.snackBar.open('Qualcosa è andato storto... Socio associato inesistente','X', {horizontalPosition: 'center' , verticalPosition: 'top' , panelClass: ['coloreRed']});
+      });
+
+  }
+
   //=====================================
   //RECUPERO DATI AUTO DAL DATABASE
   //=====================================
@@ -209,7 +209,7 @@ insertAuto(auto:any): void {
     },
       (error: HttpErrorResponse) => {
         console.log('[[' + error.name + ' || ' + error.message + ']]');
-        alert('Nessuna auto presente in database');
+        this.snackBar.open('Nessuna auto presente in database','X', {horizontalPosition: 'center' , verticalPosition: 'top' , panelClass: ['coloreRed']});
       });
   }
 
@@ -231,19 +231,19 @@ insertAuto(auto:any): void {
     },
       (error: HttpErrorResponse) => {
         console.log('[[' + error.name + ' || ' + error.message + ']]');
-        alert('Nessun socio presente in database');
+        this.snackBar.open('Nessun socio presente in database','X', {horizontalPosition: 'center' , verticalPosition: 'top' , panelClass: ['coloreRed']});
       });
   }
 
   //metodo in ascolta della select delle targhe per il controllo del pannello espandibile
-  onChange(targa_selezionata:any){
-    if(targa_selezionata != '--')
+  onChange(targa_selezionata: any) {
+    if (targa_selezionata != '--')
       this.accordion.closeAll();
   }
-  
+
 }
 
-export class DatepickerOverviewExample {}
+export class DatepickerOverviewExample { }
 function push(result: any): never[] {
   throw new Error('Function not implemented.');
 }

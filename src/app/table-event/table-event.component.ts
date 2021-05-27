@@ -10,6 +10,7 @@ import { EventEditComponent } from '../dialogs/edit/event-edit/event-edit.compon
 import { EventDeleteComponent } from '../dialogs/delete/event-delete/event-delete.component';
 import { MatDialog } from '@angular/material/dialog';
 import { InfoEventoComponent } from '../dialogs/info/info-evento/info-evento.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-table-event',
@@ -29,7 +30,7 @@ export class TableEventComponent implements AfterViewInit {
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['cod_evento', 'nome_evento', 'data_inizio', 'data_fine', 'location', 'costo_unitario', 'posti_disponibili', 'edit'];
 
-  constructor(private fb: FormBuilder, private serviceEvento: ServiceEventoService, private dialog: MatDialog) {
+  constructor(private fb: FormBuilder, private serviceEvento: ServiceEventoService, private dialog: MatDialog, private snackBar:MatSnackBar) {
     this.getAllEventi();
     this.dataSource = new MatTableDataSource(EXAMPLE_DATA);
   }
@@ -60,7 +61,7 @@ export class TableEventComponent implements AfterViewInit {
 
       (error: HttpErrorResponse) => {
         console.log('[[' + error.name + ' || ' + error.message + ']]');
-        alert('Nessun Evento presente in database');
+        this.snackBar.open('Nessun Evento presente in database','X', {horizontalPosition: 'center' , verticalPosition: 'top' , panelClass: ['coloreRed']});
         this.refreshTable();
       }
     );

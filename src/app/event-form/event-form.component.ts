@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ServiceEventoService } from '../service-evento.service';
 
 @Component({
@@ -30,7 +31,7 @@ export class EventFormComponent {
 
   hasUnitNumber = false;
 
-  constructor(private fb: FormBuilder, private serviceEvento: ServiceEventoService, public datepipe: DatePipe) { }
+  constructor(private fb: FormBuilder, private serviceEvento: ServiceEventoService, public datepipe: DatePipe, private snackBar: MatSnackBar) { }
 
   onSubmit(): void {
     console.log("Registrazione evento");
@@ -50,17 +51,17 @@ export class EventFormComponent {
       evento.data_fine = this.datepipe.transform(evento.data_fine, 'yyyy-MM-dd');
     }
 
-    if(evento.indirizzo!=null&&evento.citta!=null&&evento.provincia!=null&&evento.postalCode!=null)
-      evento.location = evento.indirizzo+' '+evento.citta.toUpperCase()+' '+evento.postalCode+' '+evento.provincia.toUpperCase();
+    if (evento.indirizzo != null && evento.citta != null && evento.provincia != null && evento.postalCode != null)
+      evento.location = evento.indirizzo + ' ' + evento.citta.toUpperCase() + ' ' + evento.postalCode + ' ' + evento.provincia.toUpperCase();
 
     //=============================CHIAMATA AL SERVIZIO=======================================
 
     this.serviceEvento.insertEvento(evento).subscribe(res => {
-      alert('Evento inserito con successo');
+      this.snackBar.open('Evento inserito con successo', 'X', { horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreBlue'] });
     },
       (error: HttpErrorResponse) => {                       //Error callback
         console.error('error caught in component')
-        alert('Qualcosa è andato storto... :(\n Prova a ricontrollare tutti i campi ');
+        this.snackBar.open('Qualcosa è andato storto... Prova a ricontrollare tutti i campi', 'X', { horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreRed'] });
       });
 
   }

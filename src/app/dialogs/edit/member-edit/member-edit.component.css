@@ -2,23 +2,23 @@
     display: flex;
     flex-direction: column;
     min-width: 450px;
-  }
-  
-  .container > * {
+}
+
+.container>* {
     width: 100%;
-  }
-  
-  .form {
+}
+
+.form {
     display: flex;
     padding-top: 6px;
-  }
-  
-  .mat-form-field {
+}
+
+.mat-form-field {
     font-size: 16px;
     flex-grow: 1;
-  }
+}
 
-  .btn_blue{
+.btn_blue {
     background-color: rgb(3, 169, 244);
     color: white;
     border-radius: 5px;
@@ -29,8 +29,30 @@
     font-weight: 450;
     width: 10em;
     height: 3em;
-  }
+}
 
-  mat-checkbox{
+mat-checkbox {
     margin: 1em;
-  }
+}
+
+ ::ng-deep .coloreRed {
+    background-color: rgb(255, 0, 0);
+    color: white;
+}
+
+::ng-deep .coloreBlue {
+    background-color: rgb(106, 106, 255);
+    color: white;
+}
+
+::ng-deep .coloreRed .mat-simple-snackbar-action {
+    color: white;
+    background-color: rgb(255, 68, 68);
+    border-radius: 3px;
+}
+
+::ng-deep .coloreBlue .mat-simple-snackbar-action {
+    color: white;
+    background-color: rgb(128, 128, 255);
+    border-radius: 3px;
+}

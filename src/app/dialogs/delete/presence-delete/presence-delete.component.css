@@ -1,13 +1,13 @@
 .container {
     display: flex;
     flex-direction: column;
-  }
-  
-  .container > * {
-    width: 100%;
-  }
+}
 
-  .btn_blue{
+.container>* {
+    width: 100%;
+}
+
+.btn_blue {
     background-color: rgb(3, 169, 244);
     color: white;
     border-radius: 5px;
@@ -18,4 +18,26 @@
     font-weight: 450;
     width: 10em;
     height: 3em;
-  }
+}
+
+ ::ng-deep .coloreRed {
+    background-color: rgb(255, 0, 0);
+    color: white;
+}
+
+::ng-deep .coloreBlue {
+    background-color: rgb(106, 106, 255);
+    color: white;
+}
+
+::ng-deep .coloreRed .mat-simple-snackbar-action {
+    color: white;
+    background-color: rgb(255, 68, 68);
+    border-radius: 3px;
+}
+
+::ng-deep .coloreBlue .mat-simple-snackbar-action {
+    color: white;
+    background-color: rgb(128, 128, 255);
+    border-radius: 3px;
+}

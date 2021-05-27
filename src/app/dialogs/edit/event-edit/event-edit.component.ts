@@ -3,6 +3,7 @@ import {Component, Inject} from '@angular/core';
 import {FormBuilder, FormControl, Validators} from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ServiceEventoService } from 'src/app/service-evento.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-baza.dialog',
@@ -25,7 +26,8 @@ export class EventEditComponent {
   constructor(@Inject(MatDialogRef) public dialogRef: MatDialogRef<EventEditComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any,
               private fb: FormBuilder,
-              private serviceEvento: ServiceEventoService) { } 
+              private serviceEvento: ServiceEventoService,
+              private snackBar:MatSnackBar) { } 
 
   formControl = new FormControl('', [
     Validators.required
@@ -61,11 +63,11 @@ export class EventEditComponent {
     //=============================CHIAMATA AL SERVIZIO=======================================
 
     this.serviceEvento.editEvento(evento).subscribe(res => {
-      alert('Evento '+evento.nome_evento+' modificato con successo :D');
+      this.snackBar.open('Evento '+evento.nome_evento+' modificato con successo','X', {horizontalPosition: 'center' ,verticalPosition: 'top' , panelClass: ['coloreBlue']});
     },
       (error: HttpErrorResponse) => {                       //Error callback
         console.error('error caught in component')
-        alert('Qualcosa è andato storto... :(\n Prova a ricontrollare tutti i campi ');
+        this.snackBar.open('Qualcosa è andato storto... Prova a ricontrollare tutti i campi','X', {horizontalPosition: 'center' , verticalPosition: 'top' , panelClass: ['coloreRed']});
       });
 
   }

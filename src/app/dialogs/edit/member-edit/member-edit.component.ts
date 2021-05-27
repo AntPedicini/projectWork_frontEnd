@@ -5,6 +5,7 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ServiceSocioService } from 'src/app/service-socio.service';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { HttpErrorResponse } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -38,7 +39,8 @@ export class MemberEditComponent {
   constructor(@Inject(MatDialogRef) public dialogRef: MatDialogRef<MemberEditComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private serviceSocio: ServiceSocioService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    private snackBar:MatSnackBar) { }
 
   formControl = new FormControl('', [
     Validators.required
@@ -75,13 +77,11 @@ export class MemberEditComponent {
     //=============================CHIAMATA AL SERVIZIO=======================================
 
     this.serviceSocio.editSocio(socio).subscribe(res => {
-      alert('Socio modificato con successo');
+      this.snackBar.open('Socio modificato con successo','X', {horizontalPosition: 'center' ,verticalPosition: 'top' , panelClass: ['coloreBlue']});
     },
       (error: HttpErrorResponse) => {                       //Error callback
-        if (error.status == 400)
-          alert('Qualcosa è andato storto... :(\n Prova a ricontrollare tutti i campi ');
-        if (error.status == 404)
-          alert('Qualcosa è andato storto... :(\n Prova a ricontrollare tutti i campi ');
+        if (error.status == 400 || error.status == 404)
+        this.snackBar.open('Qualcosa è andato storto... Prova a ricontrollare tutti i campi','X', {horizontalPosition: 'center' , verticalPosition: 'top' , panelClass: ['coloreRed']});
       });
 
   }

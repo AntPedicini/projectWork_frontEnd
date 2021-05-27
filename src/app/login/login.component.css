@@ -36,3 +36,9 @@ mat-card-content {
     background-color: rgb(255, 0, 0);
     color: white;
 }
+
+::ng-deep .coloreRed .mat-simple-snackbar-action {
+    color: white;
+    background-color: rgb(255, 68, 68);
+    border-radius: 3px;
+}
