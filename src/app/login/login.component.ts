@@ -64,7 +64,7 @@ export class LoginComponent implements OnInit {
                     this.router.navigate([this.returnUrl]);
                 },
                 error => {
-                    this.popErrore.open('dati inseriti non validi','esci', {duration: 2000, panelClass: ['coloreRed']});
+                    this.popErrore.open('dati inseriti non validi','', {duration: 2000, panelClass: ['coloreRed']});
                     this.loading = false;
                 });
     }
