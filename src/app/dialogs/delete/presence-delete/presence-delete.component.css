@@ -1,0 +1,21 @@
+.container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .container > * {
+    width: 100%;
+  }
+
+  .btn_blue{
+    background-color: rgb(3, 169, 244);
+    color: white;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    display: inline-block;
+    cursor: pointer;
+    font-size: 100%;
+    font-weight: 450;
+    width: 10em;
+    height: 3em;
+  }

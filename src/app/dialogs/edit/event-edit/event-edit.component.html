@@ -1,61 +1,61 @@
 <div class="container">
-    <h3 mat-dialog-title>Codice evento: {{data.cod_evento}}</h3>
+    <h3 mat-dialog-title><strong>Edit evento con codice: {{data.cod_evento}}</strong></h3>
   
-    <form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">
+    <form  [formGroup]="eventForm" class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">
   
       <div class="form">
         <mat-form-field color="accent">
-          <input matInput #input class="form-control" placeholder="Codice evento" [(ngModel)]="data.cod_evento" name="cod_evento" required readonly="readonly">
+          <input matInput #input [disabled]="true" class="form-control" placeholder="Codice evento" [(ngModel)]="data.cod_evento" formControlName="cod_evento" name="cod_evento" readonly="readonly">
         </mat-form-field>
       </div>
   
   
       <div class="form">
         <mat-form-field color="accent">
-          <input matInput #input class="form-control" placeholder="Nome evento" [(ngModel)]="data.nome_evento" name="nome_evento" required >
+          <input matInput #input class="form-control" placeholder="Nome evento" [(ngModel)]="data.nome_evento" formControlName="nome_evento" name="nome_evento" >
         </mat-form-field>
       </div>
   
     
       <div class="form">
         <mat-form-field color="accent">
-          <input matInput #input class="form-control" placeholder="Data inizio" [(ngModel)]="data.data_inizio" name="data_inizio" required >
+          <input matInput #input class="form-control" placeholder="Data inizio (yyyy-MM-dd)" [(ngModel)]="data.data_inizio" formControlName="data_inizio" name="data_inizio" >
         </mat-form-field>
       </div>
   
       <div class="form">
           <mat-form-field color="accent">
-            <input matInput #input class="form-control" placeholder="Data fine" [(ngModel)]="data.data_fine" name="data_fine" required>
+            <input matInput #input class="form-control" placeholder="Data fine (yyyy-MM-dd)" [(ngModel)]="data.data_fine" formControlName="data_fine" name="data_fine">
           </mat-form-field>
       </div>
   
       <div class="form">
         <mat-form-field color="accent">
-          <input matInput #input class="form-control" placeholder="Location" [(ngModel)]="data.location" name="location" required>
+          <input matInput #input class="form-control" placeholder="Location" [(ngModel)]="data.location" formControlName="location" name="location">
         </mat-form-field>
       </div>
   
       <div class="form">
         <mat-form-field color="accent">
-          <input matInput #input class="form-control" placeholder="Costo unitario" [(ngModel)]="data.costo_unitario" name="costo_unitario" required>
+          <input matInput #input class="form-control" placeholder="Costo unitario" [(ngModel)]="data.costo_unitario" formControlName="costo_unitario" name="costo_unitario">
         </mat-form-field>
       </div>
 
       <div class="form">
         <mat-form-field color="accent">
-          <input matInput #input class="form-control" placeholder="Posti disponibili" [(ngModel)]="data.posti_disponibili" name="posti_disponibili" required>
+          <input matInput #input class="form-control" placeholder="Posti disponibili" [(ngModel)]="data.posti_disponibili" formControlName="posti_disponibili" name="posti_disponibili">
         </mat-form-field>
       </div>
 
       <div class="form">
         <mat-form-field color="accent">
-          <input matInput #input class="form-control" placeholder="Descrizione" [(ngModel)]="data.descrizione" name="descrizione" required>
+          <textarea matInput rows="10" #input class="form-control" placeholder="Descrizione" [(ngModel)]="data.descrizione" formControlName="descrizione" name="descrizione"></textarea>
         </mat-form-field>
       </div>
   
       <div mat-dialog-actions>
-        <button mat-button type="submit" [mat-dialog-close]="1" (click)="stopEdit()">Salva</button>
-        <button mat-button (click)="onNoClick()" tabindex="-1">Cancella</button>
+        <button class="btn_blue" mat-button type="submit" [mat-dialog-close]="1" (click)="confirmEdit()">Salva</button>
+        <button class="btn_blue" mat-button (click)="exit()" tabindex="-1">Cancella</button>
       </div>
     </form>
   </div>

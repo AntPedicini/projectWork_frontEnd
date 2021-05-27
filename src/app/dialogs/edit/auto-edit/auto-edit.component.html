@@ -1,55 +1,54 @@
 <div class="container"> 
-    <h3 mat-dialog-title>Targa: {{data.targa}}</h3>
+    <h3 mat-dialog-title><strong>Edit auto con targa: {{data.targa}}</strong></h3>
   
-    <form class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">
+    <form [formGroup]="autoForm" class="mat-dialog-content" (ngSubmit)="submit" #formControl="ngForm">
   
       <div class="form">
         <mat-form-field color="accent">
-          <input matInput #input class="form-control" placeholder="Targa" [(ngModel)]="data.targa" name="targa" required readonly="readonly">
+          <input matInput #input [disabled]="true"class="form-control" placeholder="Targa" [(ngModel)]="data.targa" formControlName="targa" name="targa" readonly="readonly">
+        </mat-form-field>
+      </div>
+    
+      <div class="form">
+        <mat-form-field color="accent">
+          <input matInput #input class="form-control" placeholder="Tessera proprietario" [(ngModel)]="data.tessera_socio" formControlName="tessera_socio" name="tessera_socio" >
         </mat-form-field>
       </div>
   
     
       <div class="form">
         <mat-form-field color="accent">
-          <input matInput #input class="form-control" placeholder="Tessera" [(ngModel)]="data.tessera" name="tessera" required >
-        </mat-form-field>
-      </div>
-  
-    
-      <div class="form">
-        <mat-form-field color="accent">
-          <input matInput #input class="form-control" placeholder="Marca" [(ngModel)]="data.marca" name="marca" required >
+          <input matInput #input class="form-control" placeholder="Marca" [(ngModel)]="data.marca" formControlName="marca" name="marca" >
         </mat-form-field>
       </div>
   
       <div class="form">
           <mat-form-field color="accent">
-            <input matInput #input class="form-control" placeholder="Modello" [(ngModel)]="data.modello" name="modello" required>
+            <input matInput #input class="form-control" placeholder="Modello" [(ngModel)]="data.modello" formControlName="modello" name="modello">
           </mat-form-field>
       </div>
   
       <div class="form">
         <mat-form-field color="accent">
-          <input matInput #input class="form-control" placeholder="Anno" [(ngModel)]="data.anno" name="anno" required>
+          <input matInput #input class="form-control" placeholder="Anno" [(ngModel)]="data.anno" formControlName="anno" name="anno">
         </mat-form-field>
       </div>
   
       <div class="form">
         <mat-form-field color="accent">
-          <input matInput #input class="form-control" placeholder="Immatricolazione" [(ngModel)]="data.immatricolazione" name="immatricolazione" required>
+          <input matInput #input class="form-control" placeholder="Immatricolazione" [(ngModel)]="data.immatricolazione" formControlName="immatricolazione" name="immatricolazione">
         </mat-form-field>
       </div>
 
       <div class="form">
         <mat-form-field color="accent">
-          <input matInput #input class="form-control" placeholder="ASI" [(ngModel)]="data.ASI" name="ASI" required>
+          <input matInput #input class="form-control" placeholder="ASI" [(ngModel)]="data.asi" formControlName="asi" name="asi">
         </mat-form-field>
       </div>
   
       <div mat-dialog-actions>
-        <button mat-button type="submit" [mat-dialog-close]="1" (click)="stopEdit()">Salva</button>
-        <button mat-button (click)="onNoClick()" tabindex="-1">Cancella</button>
+        <button class="btn_blue" mat-button type="submit" [mat-dialog-close]="1" (click)="confirmEdit()">Salva</button>
+        <button class="btn_blue" mat-button (click)="exit()" tabindex="-1">Cancella</button>
       </div>
     </form>
   </div>

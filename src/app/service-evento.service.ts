@@ -15,16 +15,20 @@ export class ServiceEventoService {
 
   getAllEventi(): Observable<any> {
     return this.http.get<any>(this.url + '/getAll').pipe(map((res: any) => res));
- }
+  }
 
- insertEvento( newEvent:TableEventItem): Observable<any> {
+  insertEvento(newEvent: TableEventItem): Observable<any> {
 
-  console.log(newEvent);
-  return this.http.post<any>(this.url+'/newRaduno', newEvent).pipe(map((res: any) => res));
-} 
+    console.log(newEvent);
+    return this.http.post<any>(this.url + '/newRaduno', newEvent).pipe(map((res: any) => res));
+  }
 
-deleteEvento(id_evento:number):Observable<any>{
-  return this.http.delete(this.url +'/'+ id_evento).pipe(map((res: any)=> res));
-}
+  deleteEvento(id_evento: number): Observable<any> {
+    return this.http.delete(this.url + '/' + id_evento).pipe(map((res: any) => res));
+  }
+
+  editEvento(evento: TableEventItem): Observable<any> {
+    return this.http.put(this.url + '/' + evento.cod_evento, evento).pipe(map((res: any) => res));
+  }
 
 }

@@ -1,0 +1,26 @@
+<div class="container">
+    <h3 mat-dialog-title><strong>Sei sicuro di voler eliminare l'evento?</strong></h3>
+    <div mat-dialog-content>
+      <strong>Codice Evento:</strong> {{data.cod_evento}}
+      <p></p>
+      <strong>Nome evento:</strong> {{data.nome_evento}}
+      <p></p>
+      <strong>Data inzio:</strong> {{data.data_inizio}}
+      <p></p>
+      <strong>Data fine:</strong> {{data.data_fine}}
+      <p></p>
+      <strong>Location:</strong> {{data.location}}
+      <p></p>
+      <strong>Costo unitario:</strong> {{data.costo_unitario}}
+      <p></p>
+      <strong>Posti disponibili:</strong> {{data.posti_disponibili}}
+      <p></p>
+      <strong>Descrizione:</strong> {{data.descrizione}}
+      <p></p>
+    </div>
+  
+    <div mat-dialog-actions>
+      <button class="btn_blue" mat-button mat-dialog-close="1" (click)="confirmDelete()">Elimina</button>
+      <button class="btn_blue" mat-button (click)="onNoClick()" tabindex="-1">Cancella</button>
+    </div>
+  </div>

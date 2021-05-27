@@ -6,11 +6,11 @@ import { EXAMPLE_DATA, TableAutoDataSource, TableAutoItem } from './table-auto-d
 import { MatTableDataSource } from '@angular/material/table';
 import { HttpClient, HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
-import { auto } from '../_models/auto.model';
 import { ServiceAutoService } from '../service-auto.service';
 import { AutoEditComponent } from '../dialogs/edit/auto-edit/auto-edit.component';
-import {DeleteDialogComponent} from '../dialogs/delete/delete.dialog.component';
+import { AutoDeleteComponent } from '../dialogs/delete/auto-delete/auto-delete.component';
 import { MatDialog } from '@angular/material/dialog';
+import { TableEventItem } from '../table-event/table-event-datasource';
 //import { auto } from '../_models/auto.model';
 
 @Component({
@@ -30,7 +30,7 @@ export class TableAutoComponent {
   index:number=0;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['targa', 'tessera_socio', 'marca', 'modello', 'anno', 'immatricolazione', 'ASI', 'edit'];
+  displayedColumns = ['targa', 'tessera_socio', 'marca', 'modello', 'anno', 'immatricolazione', 'asi', 'edit'];
 
 
   constructor(private fb: FormBuilder, private serviceAuto: ServiceAutoService, private dialog: MatDialog) {
@@ -58,6 +58,10 @@ export class TableAutoComponent {
     this.serviceAuto.getAllAuto().subscribe((res: any) => {
 
       res.forEach((element: TableAutoItem) => {
+
+        if(element.tessera_socio==null)
+          element.tessera_socio = NaN; 
+
         EXAMPLE_DATA.push(element);
         this.auto = res;
       });
@@ -72,26 +76,6 @@ export class TableAutoComponent {
       });
   }
 
-  //====================
-  //CANCELLAZIONE AUTO
-  //====================
-
-  deleteAuto(targa: string) {
-    if (targa == null)
-      alert('Devi specificare la Targa del veicolo');
-    else {
-      console.log(targa);
-      this.serviceAuto.deleteAuto( targa ).subscribe((res: any) => {
-        alert('Veicolo con TARGA \''+ targa +'\' eliminato con successo dal database \n NB: Tutte le eventuali iscrizioni del veicolo ad eventi rimosse. :D');
-        this.getAllAuto();
-
-      },
-        (error: HttpErrorResponse) => {                       //Error callback
-          console.error('error caught in component')
-          alert('Qualcosa è andato storto... :(\n Controlla la TARGA inserita ');
-        });
-    }
-  }
 
   //Metodo per refreshare la tabella
   private refreshTable() {
@@ -121,6 +105,8 @@ export class TableAutoComponent {
 
     //imposta i campi di ricerca sul quale agisce il filtro
     this.dataSource.filterPredicate = (data: TableAutoItem, filter: any) => {
+      if(data.tessera_socio==null)
+        data.tessera_socio=NaN;
       return data.tessera_socio.toString().includes(filter);
     };
 
@@ -131,11 +117,17 @@ export class TableAutoComponent {
 
 
   allFilter(event: Event) {
-
+   
     this.dataSource.filterPredicate = (data: TableAutoItem, filter: any) => {
+      if(data.tessera_socio==null)
+        data.tessera_socio=NaN;
+
+      if(data.asi==null)
+        data.asi='';
+
       return data.targa.trim().toLowerCase().includes(filter.trim().toLowerCase()) ||
         data.tessera_socio.toString().trim().toLowerCase().includes(filter.trim().toLowerCase()) ||
-        data.ASI.trim().toLowerCase().includes(filter.trim().toLowerCase()) ||
+        data.asi.trim().toLowerCase().includes(filter.trim().toLowerCase()) ||
         data.anno.toString().trim().toLowerCase().includes(filter.trim().toLowerCase()) ||
         data.immatricolazione.trim().toLowerCase().includes(filter.trim().toLowerCase()) ||
         data.marca.trim().toLowerCase().includes(filter.trim().toLowerCase()) ||
@@ -169,7 +161,7 @@ export class TableAutoComponent {
   ASIFilter(event: Event) {
 
     this.dataSource.filterPredicate = (data: TableAutoItem, filter: any) => {
-      return data.ASI.trim().toLowerCase().includes(filter.trim().toLowerCase());
+      return data.asi.trim().toLowerCase().includes(filter.trim().toLowerCase());
     };
 
     const filterValue = (event.target as HTMLInputElement).value;
@@ -184,32 +176,40 @@ export class TableAutoComponent {
     console.log(auto.foto);
   }
 
-  startEdit(i:number, targa: string, tessera_socio: number, marca:string, modello: string, anno: number, immatricolazione: string, ASI: string) {
-    var auto:TableAutoItem={targa: '', tessera_socio: 0, marca:'', modello: '', anno: 0, immatricolazione: '', ASI: ''};
-    auto.targa=targa;
-    auto.tessera_socio=tessera_socio;
-    auto.marca= marca;
-    auto.modello= modello;
-    auto.anno= anno;
-    auto.immatricolazione= immatricolazione;
-    auto.ASI= ASI;
-    this.index = i;
-    console.log(this.index);
-    console.log(auto);
+  startEdit(auto:TableAutoItem) {
     const dialogRef = this.dialog.open(AutoEditComponent, {
-      data: {targa: targa, tessera_socio: tessera_socio, marca: marca, modello: modello, anno: anno, immatricolazione: immatricolazione, ASI: ASI}
-    }
-  )}
+      data: {targa: auto.targa, 
+             tessera_socio: auto.tessera_socio, 
+             marca: auto.marca, 
+             modello: auto.modello, 
+             anno: auto.anno, 
+             immatricolazione: auto.immatricolazione, 
+             asi: auto.asi,
+             tessera:auto.tessera_socio}
+    });
 
-   deleteItem(i: number, targa: string) {
-      this.index = i;
-      console.log(this.index);
-      console.log(targa);
-      const dialogRef = this.dialog.open(DeleteDialogComponent, {
-       data: {cod_evento:targa}
-      }
-    )};
-
+    dialogRef.afterClosed().subscribe(res => {
+      this.getAllAuto();
+    });
 }
 
+   deleteItem(auto:any) {
+      console.log(auto);
+      const dialogRef = this.dialog.open(AutoDeleteComponent, {
+       data: {targa:auto.targa, 
+              tessera_socio: auto.tessera_socio, 
+              marca: auto.marca, 
+              modello: auto.modello, 
+              anno: auto.anno, 
+              immatricolazione: auto.immatricolazione, 
+              asi: auto.asi,
+              tessera:auto.tessera_socio} 
+      });
+      dialogRef.afterClosed().subscribe(res => {
+        this.getAllAuto();
+      });
+    
+    
+    };
 
+}

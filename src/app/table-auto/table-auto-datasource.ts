@@ -13,7 +13,7 @@ export interface TableAutoItem {
   modello: string;
   anno: number;
   immatricolazione : string;
-  ASI: string;
+  asi: string;
   //foto: Blob;
 }
 
@@ -24,7 +24,7 @@ export class TableAutoItem{
   modello!: string;
   anno!: number;
   immatricolazione!: string;
-  ASI!: string;
+  asi!: string;
   //foto: Blob;
 
   constructor(){}

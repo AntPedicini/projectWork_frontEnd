@@ -8,8 +8,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ServiceSocioService } from '../service-socio.service';
 import { EXAMPLE_DATA, TableMemberDataSource, TableMemberItem } from './table-member-datasource';
 import {MemberEditComponent} from '../dialogs/edit/member-edit/member-edit.component';
-import {DeleteDialogComponent} from '../dialogs/delete/delete.dialog.component';
+import {MemberDeleteComponent} from '../dialogs/delete/member-delete/member-delete.component';
 import { MatDialog } from '@angular/material/dialog';
+import { InfoSocioComponent } from '../dialogs/info/info-socio/info-socio.component';
+
 
 
 @Component({
@@ -17,6 +19,7 @@ import { MatDialog } from '@angular/material/dialog';
   templateUrl: './table-member.component.html',
   styleUrls: ['./table-member.component.css']
 })
+
 export class TableMemberComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -38,10 +41,7 @@ export class TableMemberComponent implements OnInit {
 
   }
 
-  //funzione legata alle righe della tabella che prende tutte le info di un socio(comprese quelle non visualizzate provenienti dal backend)
-  setActive(socio:any){
-    console.log(socio);
-  }
+
 
   ngOnInit(): void {
 
@@ -80,29 +80,6 @@ export class TableMemberComponent implements OnInit {
 
   }
 
-  //====================
-  //CANCELLAZIONE SOCIO
-  //====================
-
-  deleteSocio(id_socio: number) {
-    if (id_socio == null)
-      alert('Devi specificare il numero TESSERA del socio');
-    else {
-      var numberValue = Number(id_socio);
-      console.log(numberValue);
-      this.serviceSocio.deleteSocio(numberValue).subscribe((res: any) => {
-        alert('Socio con TESSERA \''+ numberValue +'\' eliminato con successo dal database \n NB: Le eventuali auto associate non sono state cancellate :D');
-        this.getAllSocio();
-
-      },
-        (error: HttpErrorResponse) => {                       //Error callback
-          if(error.status == 404)
-            alert('Qualcosa è andato storto... :(\n Socio con TESSERA '+numberValue+' non presente in database ');
-          if(error.status == 400)
-            alert('Qualcosa è andato storto... :(\n Controlla idati inseriti e riprova ');
-        });
-    }
-  }
 
   //metodo per refreshare la tabella
   private refreshTable() {
@@ -195,32 +172,58 @@ export class TableMemberComponent implements OnInit {
     tessera: [null, Validators.required],
   });
 
-  startEdit(i: number, tessera: number, validita: number, nome: string, cognome: string, nato_il: string, codice_fiscale: string, indirizzo: string, email: string, consiglio: string, segretario: string) {
-    var socio:TableMemberItem={tessera:0,validita:0,nome:'',nato_il:'', cognome:'',codice_fiscale:'',indirizzo:'',email:'',segretario:false,consiglio:false,targa:''};
-    socio.tessera=tessera;
-    socio.validita= validita;
-    socio.nome=nome;
-    socio.cognome= cognome;
-    socio.nato_il= nato_il;
-    socio.codice_fiscale= codice_fiscale;
-    socio.indirizzo= indirizzo;
-    socio.email= email;
-    this.index = i;
-    console.log(this.index);
-    console.log(socio);
+  startEdit(socio: TableMemberItem) {
+ 
     const dialogRef = this.dialog.open(MemberEditComponent, {
-      data: {validita: validita, nome: nome, nato_il: nato_il, cognome: cognome, codice_fiscale: codice_fiscale, indirizzo: indirizzo, email: email, segretario: segretario, consiglio: consiglio }
+      data: {tessera :socio.tessera, 
+             validita: socio.validita, 
+             nome: socio.nome, 
+             nato_il: socio.nato_il, 
+             cognome: socio.cognome, 
+             codice_fiscale: socio.codice_fiscale, 
+             indirizzo: socio.indirizzo, 
+             email: socio.email, 
+             segretario: socio.segretario, 
+             consiglio: socio.consiglio }
+    });
+    dialogRef.afterClosed().subscribe(res => {
+      this.getAllSocio();
+    });
+}
+
+   deleteItem(socio:TableMemberItem) {
+      const dialogRef = this.dialog.open(MemberDeleteComponent, {
+       data: {tessera:socio.tessera,
+              nome:socio.nome,
+              cognome:socio.cognome,
+              nato_il:socio.nato_il,
+              codice_fiscale: socio.codice_fiscale, 
+              indirizzo: socio.indirizzo, 
+              email: socio.email, 
+              segretario: socio.segretario, 
+              consiglio: socio.consiglio}
+      });
+      dialogRef.afterClosed().subscribe(res => {
+        this.getAllSocio();
+      });
     }
-  )}
 
-   deleteItem(i: number, tessera: number) {
-      this.index = i;
-      console.log(this.index);
-      console.log(tessera);
-      const dialogRef = this.dialog.open(DeleteDialogComponent, {
-       data: {tessera:tessera}
-      }
-    )}
-
+    //funzione legata alle righe della tabella che prende tutte le info di un socio(comprese quelle non visualizzate provenienti dal backend)
+  setActive(socio:any){
+    console.log(socio);
+    const dialogRef = this.dialog.open(InfoSocioComponent, {
+      data: {tessera:socio.tessera,
+             nome:socio.nome,
+             cognome:socio.cognome,
+             nato_il:socio.nato_il,
+             codice_fiscale: socio.codice_fiscale, 
+             indirizzo: socio.indirizzo, 
+             email: socio.email, 
+             segretario: socio.segretario, 
+             consiglio: socio.consiglio,
+             listaAuto: socio.listaAuto
+          }
+     });
+  }
 }
 

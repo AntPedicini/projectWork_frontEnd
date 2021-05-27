@@ -5,9 +5,7 @@ import { ServiceSocioService } from '../service-socio.service';
 import { DatePipe, formatCurrency } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ServiceAutoService } from '../service-auto.service';
-import { MatTableDataSource } from '@angular/material/table';
-import { EXAMPLE_DATA } from '../table-member/table-member-datasource';
-
+import { MatAccordion } from '@angular/material/expansion';
 
 
 @Component({
@@ -17,10 +15,10 @@ import { EXAMPLE_DATA } from '../table-member/table-member-datasource';
 })
 
 export class MemberFormComponent {
+  @ViewChild(MatAccordion) accordion: MatAccordion;
   //Socio
-  addressForm = this.fb.group({
-    tessera_socio: [null, Validators.required],
-    validita: [null, Validators.required],
+  memberForm = this.fb.group({
+    validita: [null],
     nome: [null, Validators.required],
     cognome: [null, Validators.required],
     codice_fiscale: [null, Validators.required],
@@ -36,8 +34,20 @@ export class MemberFormComponent {
     ],
     consiglio: false,
     segretario: false,
+    targa_esistente: ['--', Validators.required ],
 
     //Auto
+    targa: [null],
+    marca: [null],
+    modello: [null],
+    anno: [null],
+    immatricolazione: [null],
+    ASI: null,
+    foto: null
+  });
+
+  autoForm = this.fb.group({
+    tessera_socio: [null],
     targa: [null, Validators.required],
     marca: [null, Validators.required],
     modello: [null, Validators.required],
@@ -50,18 +60,15 @@ export class MemberFormComponent {
   allComplete: boolean = false;
   hasUnitNumber = false;
   elenco_tessere: any[] = [];
-  selected = null;
+  elenco_targhe: any = [];
+  selected = '--';
   dataSource: any;
   
   constructor(private fb: FormBuilder,private serviceSocio:ServiceSocioService, private serviceAuto:ServiceAutoService, public datepipe: DatePipe) {
-    this.dataSource = new MatTableDataSource(EXAMPLE_DATA);
-    var n:any=null;
-    EXAMPLE_DATA.forEach(element => {
-      if(element.tessera!=n){
-        this.elenco_tessere.push(element.tessera);
-        n=element.tessera;
-      }
-    });
+    this.getInfoAuto();
+    this.getInfoSocio();
+
+    console.log(this.memberForm.value);
   }
 
   //Import foto
@@ -93,18 +100,22 @@ export class MemberFormComponent {
   //Submit
   onSubmitSocio(): void {
     console.log("Registrazione socio");
-    //alert('Registrazione avvenuta con successo');
-    console.log(this.addressForm.value);
-    this.insertSocio(this.addressForm.value);
-    this.addressForm.reset();
+    //console.log(this.addressForm.value);
+    this.insertSocio(this.memberForm.value);
+    //this.addressForm.reset();
   }
 
   onSubmitAuto(): void {
     console.log("Registrazione auto");
     //alert('Registrazione auto avvenuta con successo');
-    console.log(this.addressForm.value);
-    this.insertAuto(this.addressForm.value);
+    //console.log(this.addressForm.value);
+    this.insertAuto(this.autoForm.value);
   }
+
+  click(){
+    console.log(this.memberForm.get('targa_esistente').value);
+  }
+
 
 //=======================
 //INSERIMENTO SOCIO/AUTO
@@ -133,15 +144,20 @@ export class MemberFormComponent {
       if(socio.targa != null)
         socio.targa= socio.targa.toUpperCase();
 
+      if(socio.targa_esistente != '--')
+        socio.targa = socio.targa_esistente;
+
   //=============================CHIAMATA AL SERVIZIO=======================================
 
     this.serviceSocio.insertSocio(socio).subscribe(res=>{
         alert('Socio inserito con successo');
       },
       (error:HttpErrorResponse) => {                       //Error callback
-        console.error('error caught in component')
-        alert('Qualcosa è andato storto... :(\n Prova a ricontrollare tutti i campi ');
-       } );
+       if(error.status==400)
+        alert('Qualcosa è andato storto... :(\n Prova a ricontrollare tutti i campi \n NB:Verifica che la targa inserita non appartenente a un altro socio ');
+      if (error.status==404)
+      alert('Qualcosa è andato storto... :(\n Prova a ricontrollare tutti i campi \n NB:Verifica che la targa inserita non appartenente a un altro socio ');
+      } );
   
   }
 
@@ -155,22 +171,75 @@ insertAuto(auto:any): void {
 
       if(auto.targa != null)
         auto.targa = auto.targa.toUpperCase();
-      if(auto.tessera_socio != null){
-        var valueNumber = Number(auto.tessera_socio);
-        auto.tessera_socio = valueNumber; 
-      }
+
+      if(auto.tessera_socio = "Ospite")
+        auto.tessera_socio = 0;
+
+      console.log(auto.tessera_socio);
+
   //=============================CHIAMATA AL SERVIZIO=======================================
 
     this.serviceAuto.insertAuto( auto ).subscribe(res=>{
         alert('Veicolo inserito con successo');
       },
       (error:HttpErrorResponse) => {                       //Error callback
-        console.error('error caught in component')
-        alert('Qualcosa è andato storto... :(\n Prova a ricontrollare tutti i campi ');
+        if(error.status==400)
+          alert('Qualcosa è andato storto... :(\n Prova a ricontrollare tutti i campi');
+        if(error.status==404)
+          alert('Qualcosa è andato storto... :(\n Socio associato inesistente ');
        } );
   
-  }
+  } 
   
+  //=====================================
+  //RECUPERO DATI AUTO DAL DATABASE
+  //=====================================
+
+  getInfoAuto(): any {
+    this.serviceAuto.getAllAuto().subscribe((res: any) => {
+
+      this.elenco_targhe = [];
+      var n: any = null;
+      res.forEach((element: any) => {
+        if (element.targa != n) {
+          this.elenco_targhe.push(element.targa);
+          n = element.targa;
+        }
+      });
+    },
+      (error: HttpErrorResponse) => {
+        console.log('[[' + error.name + ' || ' + error.message + ']]');
+        alert('Nessuna auto presente in database');
+      });
+  }
+
+  //=====================================
+  //RECUPERO DATI SOCIO DAL DATABASE
+  //=====================================
+
+  getInfoSocio(): any {
+    this.serviceSocio.getAllSocio().subscribe((res: any) => {
+
+      this.elenco_tessere = [];
+      var n: any = null;
+      res.forEach((element: any) => {
+        if (element.tessera != n) {
+          this.elenco_tessere.push(element.tessera);
+          n = element.tessera;
+        }
+      });
+    },
+      (error: HttpErrorResponse) => {
+        console.log('[[' + error.name + ' || ' + error.message + ']]');
+        alert('Nessun socio presente in database');
+      });
+  }
+
+  //metodo in ascolta della select delle targhe per il controllo del pannello espandibile
+  onChange(targa_selezionata:any){
+    if(targa_selezionata != '--')
+      this.accordion.closeAll();
+  }
   
 }
 

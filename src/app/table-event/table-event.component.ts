@@ -6,8 +6,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { ServiceEventoService } from '../service-evento.service';
 import { EXAMPLE_DATA, TableEventDataSource, TableEventItem } from './table-event-datasource';
-import {EventEditComponent} from '../dialogs/edit/event-edit/event-edit.component';
-import {DeleteDialogComponent} from '../dialogs/delete/delete.dialog.component';
+import { EventEditComponent } from '../dialogs/edit/event-edit/event-edit.component';
+import { EventDeleteComponent } from '../dialogs/delete/event-delete/event-delete.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
@@ -23,7 +23,7 @@ export class TableEventComponent implements AfterViewInit {
   elenco_eventi: any[] = [];
   selected = null;
   eventi: TableEventItem[] = [];
-  index:number=0;
+  index: number = 0;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['cod_evento', 'nome_evento', 'data_inizio', 'data_fine', 'location', 'costo_unitario', 'posti_disponibili', 'edit'];
@@ -40,7 +40,7 @@ export class TableEventComponent implements AfterViewInit {
   }
 
   //=================================
-  //RECUPERO DATI SOCI DAL DATABASE
+  //RECUPERO DATI EVENTI DAL DATABASE
   //=================================
 
   //=======================METODO CHE RICHIAMA IL SERVIZIO========================
@@ -65,27 +65,6 @@ export class TableEventComponent implements AfterViewInit {
     );
   }
 
-  //====================
-  //CANCELLAZIONE EVENTO
-  //====================
-
-  deleteEvento(cod_evento: number) {
-    if (cod_evento == null)
-      alert('Devi specificare il Codice Evento da eliminare');
-    else {
-      //var numberValue = Number(cod_evento);
-      console.log(cod_evento);
-      this.serviceEvento.deleteEvento(cod_evento).subscribe((res: any) => {
-        alert('Evento con ID \''+ cod_evento +'\' eliminato con successo dal database \n NB: Le eventuali iscrizioni associate sono state cancellate :D');
-        this.getAllEventi();
-
-      },
-        (error: HttpErrorResponse) => {                       //Error callback
-          console.error('error caught in component')
-          alert('Qualcosa è andato storto... :(\n Controlla il Codice Evento inserito ');
-        });
-    }
-  }
 
   //metodo per refreshare la tabella
   private refreshTable() {
@@ -106,8 +85,8 @@ export class TableEventComponent implements AfterViewInit {
     var n: any = null;
     EXAMPLE_DATA.forEach(element => {
       if (element.cod_evento != n) {
-        this.elenco_eventi.push(element.cod_evento);
-        n = element.cod_evento;
+        this.elenco_eventi.push(element.nome_evento);
+        n = element.nome_evento;
       }
     });
   }
@@ -176,37 +155,46 @@ export class TableEventComponent implements AfterViewInit {
     cod_evento: [null, Validators.required],
   });
 
-  setActive(evento:any){
+  setActive(evento: any) {
     console.log(evento);
 
   }
 
-  startEdit(i:number, cod_evento: number, nome_evento: string, data_inizio: string, data_fine: string, location: string, costo_unitario: number, posti_disponibili: number, descrizione: string) {
-    var eventi:TableEventItem={cod_evento: 0, nome_evento: '', data_inizio: '', data_fine: '', location: '', costo_unitario: 0, posti_disponibili: 0, descrizione: ''};
-    eventi.cod_evento=cod_evento;
-    eventi.nome_evento=nome_evento;
-    eventi.data_inizio=data_inizio;
-    eventi.data_fine=data_fine;
-    eventi.location=location;
-    eventi.costo_unitario=costo_unitario;
-    eventi.posti_disponibili=posti_disponibili;
-    eventi.descrizione=descrizione;
-    this.index = i;
-    console.log(this.index);
-    console.log(eventi);
+  startEdit(evento: TableEventItem) {
+
     const dialogRef = this.dialog.open(EventEditComponent, {
-      data: {cod_evento: cod_evento, nome_evento: nome_evento, data_inizio: data_inizio, data_fine: data_fine, location: location, costo_unitario: costo_unitario, posti_disponibili: posti_disponibili, descrizione: descrizione}
-    }
-  )}
-
-   deleteItem(i: number, cod_evento: number) {
-      this.index = i;
-      console.log(this.index);
-      console.log(cod_evento);
-      const dialogRef = this.dialog.open(DeleteDialogComponent, {
-       data: {cod_evento:cod_evento}
+      data: {
+        cod_evento: evento.cod_evento,
+        nome_evento: evento.nome_evento,
+        data_inizio: evento.data_inizio,
+        data_fine: evento.data_fine,
+        location: evento.location,
+        costo_unitario: evento.costo_unitario,
+        posti_disponibili: evento.posti_disponibili,
+        descrizione: evento.descrizione
       }
-    )};
+    });
+    dialogRef.afterClosed().subscribe(res => {
+      this.getAllEventi();
+    });
+  }
 
+  deleteItem(evento: TableEventItem) {
+    const dialogRef = this.dialog.open(EventDeleteComponent, {
+      data: {
+        cod_evento: evento.cod_evento,
+        nome_evento: evento.nome_evento,
+        data_inizio: evento.data_inizio,
+        data_fine: evento.data_fine,
+        location: evento.location,
+        costo_unitario: evento.costo_unitario,
+        posti_disponibili: evento.posti_disponibili,
+        descrizione: evento.descrizione
+      }
+    });
+    dialogRef.afterClosed().subscribe(res => {
+      this.getAllEventi();
+    });
+  };
 
 }

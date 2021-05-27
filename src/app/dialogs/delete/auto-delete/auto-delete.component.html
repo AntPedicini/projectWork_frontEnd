@@ -1,0 +1,24 @@
+<div class="container">
+    <h3 mat-dialog-title><strong>Sei sicuro di volere eliminare l'auto?</strong></h3>
+    <div mat-dialog-content>
+      <strong>Targa:</strong> {{data.targa}}
+      <p></p>
+      <strong>Tessera:</strong> {{data.tessera_socio}}
+      <p></p>
+      <strong>Marca:</strong> {{data.marca}}
+      <p></p>
+      <strong>Modello:</strong> {{data.modello}}
+      <p></p>
+      <strong>Anno:</strong> {{data.anno}}
+      <p></p>
+      <strong>Immatricolazione:</strong> {{data.immatricolazione}}
+      <p></p>
+      <strong>ASI:</strong> {{data.ASI}}
+      <p></p>
+    </div>
+  
+    <div mat-dialog-actions>
+      <button class="btn_blue" mat-button [mat-dialog-close]="1" (click)="confirmDelete()">Elimina</button>
+      <button class="btn_blue" mat-button (click)="onNoClick()" tabindex="-1">Cancella</button>
+    </div>
+  </div>

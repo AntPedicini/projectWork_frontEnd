@@ -45,13 +45,22 @@ import { ServiceEventoService } from './service-evento.service';
 import { LoginComponent } from './login/login.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatDialogModule} from '@angular/material/dialog';
-import {DeleteDialogComponent} from './dialogs/delete/delete.dialog.component';
 import { FormsModule } from '@angular/forms';
 import { MemberEditComponent } from './dialogs/edit/member-edit/member-edit.component';
 import { PresenceEditComponent } from './dialogs/edit/presence-edit/presence-edit.component';
 import { AutoEditComponent } from './dialogs/edit/auto-edit/auto-edit.component';
 import { EventEditComponent } from './dialogs/edit/event-edit/event-edit.component';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { AutoDeleteComponent } from './dialogs/delete/auto-delete/auto-delete.component';
+import { MemberDeleteComponent } from './dialogs/delete/member-delete/member-delete.component';
+import { EventDeleteComponent } from './dialogs/delete/event-delete/event-delete.component';
+import { PresenceDeleteComponent } from './dialogs/delete/presence-delete/presence-delete.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { InfoSocioComponent } from './dialogs/info/info-socio/info-socio.component';
+import { InfoEventoComponent } from './dialogs/info/info-evento/info-evento.component';
+import { InfoAutoComponent } from './dialogs/info/info-auto/info-auto.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 
@@ -73,11 +82,19 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
     RegistrationFormComponent,
     MenuComponent,
     LoginComponent,
-    DeleteDialogComponent,
     MemberEditComponent,
     PresenceEditComponent,
     AutoEditComponent,
-    EventEditComponent
+    EventEditComponent,
+    AutoDeleteComponent,
+    MemberDeleteComponent,
+    EventDeleteComponent,
+    PresenceDeleteComponent,
+    InfoSocioComponent,
+    InfoEventoComponent,
+    InfoAutoComponent
+    
+    
    
   ],
   imports: [
@@ -105,11 +122,15 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
     MatNativeDateModule,
     MatSlideToggleModule,
     HttpClientModule,
+    MatDialogModule,
+    FormsModule,
+    MatProgressSpinnerModule,
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
     MatDialogModule,
-    
+    MatTabsModule,
+    MatExpansionModule
     
   ],
   providers: [
