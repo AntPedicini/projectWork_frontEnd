@@ -3,6 +3,10 @@ import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 
 import { OnInit } from '@angular/core';
+import { getAllLifecycleHooks } from '@angular/compiler/src/lifecycle_reflector';
+import { ServiceAutoService } from '../service-auto.service';
+import { ServiceSocioService } from '../service-socio.service';
+import { ServiceEventoService } from '../service-evento.service';
 
 @Component({
   selector: 'app-mat-board',
@@ -58,14 +62,64 @@ export class MatBoardComponent implements OnInit{
     })
   );
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  contAuto : number = 0;
+  contSoci: number = 0;
+  contEventi: number = 0;
+
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private servizioAuto: ServiceAutoService,
+    private ServizioSoci: ServiceSocioService,
+    private ServizioEventi: ServiceEventoService
+    ) {
+      this.getNumAuto();   
+      this.getNumSoci();   
+      this.getNumEventi();
+    }
 
   displayedColumns: string[] = ['position', 'name', 'campo'];
   //soci = VIS_SOCI;
   eventi = VIS_EVENTI;
 
   ngOnInit(): void {
+
+
+
+
   }
+
+  getNumAuto() {
+    this.servizioAuto.getAllAuto().subscribe((res: any) => {
+
+      this.contAuto=0;
+      res.forEach((element: any) => {
+        this.contAuto++;
+      });
+  })
+}
+
+getNumSoci() {
+  this.ServizioSoci.getAllSocio().subscribe((res: any) => {
+
+    this.contSoci=0;
+    res.forEach((element: any) => {
+      this.contSoci++;
+    });
+})
+}
+
+getNumEventi() {
+  this.ServizioEventi.getAllEventi().subscribe((res: any) => {
+
+    this.contEventi=0;
+    res.forEach((element: any) => {
+      this.contEventi++;
+    });
+})
+}
+
+
+
 
 }
 
@@ -106,3 +160,4 @@ const VIS_EVENTI: Costruttore_eventi[] = [
   {position: 9, name: 'Evento9', campo: '?'},
   {position: 10, name: 'Evento10', campo: '?'},
 ];
+

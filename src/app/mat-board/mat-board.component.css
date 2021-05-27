@@ -144,11 +144,12 @@ i {
     transform: translateY(0);
 }
 
-.container .card .face.face2 .content p {
+.container .card .face.face2 .content h2 {
     margin: 0;
     padding: 0;
     text-align: center;
     color: #414141;
+    font-size: 3em;
 }
 
 .container .card .face.face2 .content h3 {
