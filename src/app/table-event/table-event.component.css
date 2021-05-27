@@ -40,3 +40,8 @@
   font-style: oblique;
   text-shadow: 2px, 2px, 5px, black;
 }
+
+.info{
+  font-size: 100%;
+  margin-bottom: 2px;
+}

@@ -9,6 +9,7 @@ import { EXAMPLE_DATA, TableEventDataSource, TableEventItem } from './table-even
 import { EventEditComponent } from '../dialogs/edit/event-edit/event-edit.component';
 import { EventDeleteComponent } from '../dialogs/delete/event-delete/event-delete.component';
 import { MatDialog } from '@angular/material/dialog';
+import { InfoEventoComponent } from '../dialogs/info/info-evento/info-evento.component';
 
 @Component({
   selector: 'app-table-event',
@@ -155,10 +156,6 @@ export class TableEventComponent implements AfterViewInit {
     cod_evento: [null, Validators.required],
   });
 
-  setActive(evento: any) {
-    console.log(evento);
-
-  }
 
   startEdit(evento: TableEventItem) {
 
@@ -195,6 +192,18 @@ export class TableEventComponent implements AfterViewInit {
     dialogRef.afterClosed().subscribe(res => {
       this.getAllEventi();
     });
-  };
+  }
+  //funzione legata alle righe della tabella che prende tutte le info di un socio(comprese quelle non visualizzate provenienti dal backend)
+  setActive(evento: any) {
+    console.log(evento);
+    const dialogRef = this.dialog.open(InfoEventoComponent, {
+      data: {
+        nome_evento: evento.nome_evento,
+        descrizione: evento.descrizione
+      }
+    });
+  }
+
+
 
 }
