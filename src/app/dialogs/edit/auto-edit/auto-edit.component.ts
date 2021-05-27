@@ -51,7 +51,7 @@ export class AutoEditComponent {
     //console.log(this.autoForm.value);
     if(this.autoForm.value.tessera_socio=="")
       this.autoForm.value.tessera_socio=null;
-    this.insertAuto(this.autoForm.value);
+    this.editAuto(this.autoForm.value);
 
   }
 
@@ -59,7 +59,7 @@ export class AutoEditComponent {
 //INSERIMENTO AUTO
 //=======================
 
-insertAuto(auto:TableAutoItem): void {
+editAuto(auto:TableAutoItem): void {
 
   //=============================Controlli sull'inserimento=======================================
 

@@ -18,3 +18,13 @@
     width: 10em;
     height: 3em;
   }
+
+  ::ng-deep .coloreRed {
+    background-color: rgb(255, 0, 0);
+    color: white;
+}
+
+::ng-deep .coloreBlue {
+  background-color:rgb(106, 106, 255);
+  color: white;
+}

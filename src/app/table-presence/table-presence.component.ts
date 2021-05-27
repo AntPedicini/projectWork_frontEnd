@@ -1,12 +1,10 @@
-import { DataSource } from '@angular/cdk/collections';
 import { AfterViewInit, Component, Output, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
-import { DATA as PRESENCE_DATA, TablePresenceDataSource, TablePresenceItem } from './table-presence-datasource';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { DATA as PRESENCE_DATA, TablePresenceItem } from './table-presence-datasource';
+import { Validators } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
-import { element, EventEmitter } from 'protractor';
 import { ServicePresenceService } from '../service-presence.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ServiceEventoService } from '../service-evento.service';
@@ -15,7 +13,7 @@ import { TableEventItem } from '../table-event/table-event-datasource';
 import { PresenceEditComponent } from '../dialogs/edit/presence-edit/presence-edit.component';
 import { PresenceDeleteComponent } from '../dialogs/delete/presence-delete/presence-delete.component';
 import { MatDialog } from '@angular/material/dialog';
-import { timeout } from 'rxjs/operators';
+
 
 
 
@@ -167,8 +165,13 @@ export class TablePresenceComponent {
     console.log(iscrizione);
     this.servicePresence.checkout(iscrizione).subscribe((res: any) => {
       alert('Pagamento effettuato con successo :D')
+      
       this.getAllIscrizioni();
-      this.registrationForm.reset();
+      this.isWait = true;
+      setTimeout(() => {
+        this.onChange(this.select);
+      }, 100);
+      this.isWait = false;    
     },
       (error: HttpErrorResponse) => {                       //Error callback
         if (error.status == 400)
@@ -294,9 +297,7 @@ export class TablePresenceComponent {
 
       setTimeout(() => {
         this.onChange(this.select);
-        //this.onChange(this.select);
       }, 50);
-      //this.onChange(this.select);
       this.isWait = false;
     });
   }

@@ -33,6 +33,6 @@ mat-card-content {
 }
 
 ::ng-deep .coloreRed {
-    background-color: rgb(109, 97, 97);
+    background-color: rgb(255, 0, 0);
     color: white;
 }
