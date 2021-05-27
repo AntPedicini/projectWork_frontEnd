@@ -11,7 +11,7 @@
                              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                         </button>-->
 
-                        <input name = "username" matInput type="text" formControlName="username" [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
+                        <input name="username" matInput type="text" formControlName="username" [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
                         <!--<mat-error *ngIf="submitted && f.username.errors"> Dati non validi</mat-error>-->
                         <mat-error *ngIf="f.username.errors">username non valido</mat-error>
                     </mat-form-field>
@@ -19,7 +19,7 @@
                 <p>
                     <mat-form-field appearance="outline">
                         <mat-label>Password</mat-label>
-                        <input name = "password" matInput [type]="hide ? 'password' : 'text'" formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+                        <input name="password" matInput [type]="hide ? 'password' : 'text'" formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
                         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                         </button>
