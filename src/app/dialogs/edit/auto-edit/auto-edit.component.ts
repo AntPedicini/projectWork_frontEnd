@@ -71,7 +71,7 @@ editAuto(auto:TableAutoItem): void {
   //=============================CHIAMATA AL SERVIZIO=======================================
 
     this.serviceAuto.editAuto( auto ).subscribe(res=>{
-        this.snackBar.open('Il veicolo con targa '+ auto.targa +' modificato con successo','X', {horizontalPosition: 'center' ,verticalPosition: 'top' , panelClass: ['coloreBlue']});
+        this.snackBar.open('Il veicolo con targa '+ auto.targa +' modificato con successo','X', {duration: 5000, horizontalPosition: 'center' ,verticalPosition: 'top' , panelClass: ['coloreBlue']});
 
       },
       (error:HttpErrorResponse) => {                       //Error callback

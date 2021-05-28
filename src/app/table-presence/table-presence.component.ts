@@ -168,7 +168,7 @@ export class TablePresenceComponent {
     iscrizione.partecipanti_effettivi = iscrizione.partecipanti;
     console.log(iscrizione);
     this.servicePresence.checkout(iscrizione).subscribe((res: any) => {
-      this.snackBar.open('Pagamento effettuato con successo', 'X', { horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreBlue'] });
+      this.snackBar.open('Pagamento effettuato con successo', 'X', {duration: 5000, horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreBlue'] });
 
 
       this.getAllIscrizioni();

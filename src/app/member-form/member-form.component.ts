@@ -152,7 +152,7 @@ export class MemberFormComponent {
     //=============================CHIAMATA AL SERVIZIO=======================================
 
     this.serviceSocio.insertSocio(socio).subscribe(res => {
-      this.snackBar.open('Socio inserito con successo', 'X', { horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreBlue'] });
+      this.snackBar.open('Socio inserito con successo', 'X', {duration: 5000, horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreBlue'] });
     },
       (error: HttpErrorResponse) => {                       //Error callback
         if (error.status == 400 || error.status == 404)
@@ -182,7 +182,7 @@ export class MemberFormComponent {
     //=============================CHIAMATA AL SERVIZIO=======================================
 
     this.serviceAuto.insertAuto(auto).subscribe(res => {
-      this.snackBar.open('Veicolo inserito con successo', 'X', { horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreBlue'] });
+      this.snackBar.open('Veicolo inserito con successo', 'X', {duration: 5000, horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreBlue'] });
     },
       (error: HttpErrorResponse) => {                       //Error callback
         if (error.status == 400)

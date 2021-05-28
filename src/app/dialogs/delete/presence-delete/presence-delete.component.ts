@@ -24,7 +24,7 @@ export class PresenceDeleteComponent {
   deleteIscrizione(cod_evento: number, targa: string) {
 
     this.serviceIscrizioni.deleteIscrizione(cod_evento, targa).subscribe((res: any) => {
-      this.snackBar.open('L\'Iscrizione del veicolo con TARGA ' + targa + ' dall\'evento è stata cancellata con successo', 'X', { horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreBlue'] });
+      this.snackBar.open('L\'Iscrizione del veicolo con TARGA ' + targa + ' dall\'evento è stata cancellata con successo', 'X', {duration: 5000, horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreBlue'] });
     },
       (error: HttpErrorResponse) => {                       //Error callback
         console.log(error)
