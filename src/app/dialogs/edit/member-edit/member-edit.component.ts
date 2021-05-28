@@ -77,7 +77,7 @@ export class MemberEditComponent {
     //=============================CHIAMATA AL SERVIZIO=======================================
 
     this.serviceSocio.editSocio(socio).subscribe(res => {
-      this.snackBar.open('Socio modificato con successo','X', {horizontalPosition: 'center' ,verticalPosition: 'top' , panelClass: ['coloreBlue']});
+      this.snackBar.open('Socio modificato con successo','X', {duration: 5000, horizontalPosition: 'center' ,verticalPosition: 'top' , panelClass: ['coloreBlue']});
     },
       (error: HttpErrorResponse) => {                       //Error callback
         if (error.status == 400 || error.status == 404)

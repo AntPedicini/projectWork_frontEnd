@@ -32,13 +32,13 @@ export class MemberDeleteComponent {
 
   deleteSocio(id_socio: number) {
     if (id_socio == null)
-      this.snackBar.open('Devi specificare il numero TESSERA del socio', 'X', { horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreRed'] });
+      this.snackBar.open('Devi specificare il numero TESSERA del socio', 'X', {horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreRed'] });
 
     else {
       var numberValue = Number(id_socio);
       console.log(numberValue);
       this.serviceSocio.deleteSocio(numberValue).subscribe((res: any) => {
-        this.snackBar.open('Socio con TESSERA \'' + numberValue + '\' eliminato con successo dal database NB: Le eventuali auto associate non sono state cancellate', 'X', { horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreBlue'] });
+        this.snackBar.open('Socio con TESSERA \'' + numberValue + '\' eliminato con successo dal database NB: Le eventuali auto associate non sono state cancellate', 'X', {duration: 5000, horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreBlue'] });
 
       },
         (error: HttpErrorResponse) => {                       //Error callback

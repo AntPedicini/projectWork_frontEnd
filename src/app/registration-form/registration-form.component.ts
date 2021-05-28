@@ -122,7 +122,7 @@ insertIscrizione(iscrizione:any): void {
   //=============================CHIAMATA AL SERVIZIO=======================================
 
     this.serviceIscrizione.insertIscrizione( iscrizione ).subscribe(res=>{
-        this.snackBar.open('Iscrizione inserita con successo','X', {horizontalPosition: 'center' ,verticalPosition: 'top' , panelClass: ['coloreBlue']});
+        this.snackBar.open('Iscrizione inserita con successo','X', {duration: 5000, horizontalPosition: 'center' ,verticalPosition: 'top' , panelClass: ['coloreBlue']});
         this.addressForm.reset();
         this.getInfoEventi();
         this.getInfoAuto();

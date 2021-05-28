@@ -63,7 +63,7 @@ export class EventEditComponent {
     //=============================CHIAMATA AL SERVIZIO=======================================
 
     this.serviceEvento.editEvento(evento).subscribe(res => {
-      this.snackBar.open('Evento '+evento.nome_evento+' modificato con successo','X', {horizontalPosition: 'center' ,verticalPosition: 'top' , panelClass: ['coloreBlue']});
+      this.snackBar.open('Evento '+evento.nome_evento+' modificato con successo','X', {duration: 5000, horizontalPosition: 'center' ,verticalPosition: 'top' , panelClass: ['coloreBlue']});
     },
       (error: HttpErrorResponse) => {                       //Error callback
         console.error('error caught in component')
