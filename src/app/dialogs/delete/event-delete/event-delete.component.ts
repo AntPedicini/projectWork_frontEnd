@@ -37,7 +37,7 @@ export class EventDeleteComponent {
       //var numberValue = Number(cod_evento);
       console.log(cod_evento);
       this.serviceEvento.deleteEvento(cod_evento).subscribe((res: any) => {
-        this.popError.open('Evento con ID \''+ cod_evento +'\' eliminato con successo dal database \n NB: Le eventuali iscrizioni associate sono state cancellate :D','X', {horizontalPosition: 'center' ,verticalPosition: 'top' , panelClass: ['coloreBlue']});
+        this.popError.open('Evento con ID \''+ cod_evento +'\' eliminato con successo dal database \n NB: Le eventuali iscrizioni associate sono state cancellate :D','X', {duration: 5000, horizontalPosition: 'center' ,verticalPosition: 'top' , panelClass: ['coloreBlue']});
 
       },
         (error: HttpErrorResponse) => {                       //Error callback

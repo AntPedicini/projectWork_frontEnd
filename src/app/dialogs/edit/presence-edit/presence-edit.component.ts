@@ -65,7 +65,7 @@ export class PresenceEditComponent {
     //=============================CHIAMATA AL SERVIZIO=======================================
 
     this.serviceIscrizione.editIscrizione(iscrizione).subscribe(res => {
-      this.snackBar.open('Iscrizione modificata con successo', 'X', { horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreBlue'] });
+      this.snackBar.open('Iscrizione modificata con successo', 'X', {duration: 5000, horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreBlue'] });
     },
       (error: HttpErrorResponse) => {                       //Error callback
         console.error('error caught in component')

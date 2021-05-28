@@ -57,7 +57,7 @@ export class EventFormComponent {
     //=============================CHIAMATA AL SERVIZIO=======================================
 
     this.serviceEvento.insertEvento(evento).subscribe(res => {
-      this.snackBar.open('Evento inserito con successo', 'X', { horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreBlue'] });
+      this.snackBar.open('Evento inserito con successo', 'X', {duration: 5000, horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreBlue'] });
     },
       (error: HttpErrorResponse) => {                       //Error callback
         console.error('error caught in component')

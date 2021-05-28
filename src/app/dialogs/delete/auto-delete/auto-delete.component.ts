@@ -36,7 +36,7 @@ export class AutoDeleteComponent {
     else {
       console.log(targa);
       this.serviceAuto.deleteAuto(targa).subscribe((res: any) => {
-        this.snackBar.open('Veicolo con TARGA \'' + targa + '\' eliminato con successo dal database  NB: Tutte le eventuali iscrizioni del veicolo ad eventi rimosse', 'X', { horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreBlue'] });
+        this.snackBar.open('Veicolo con TARGA \'' + targa + '\' eliminato con successo dal database  NB: Tutte le eventuali iscrizioni del veicolo ad eventi rimosse', 'X', {duration: 5000, horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreBlue'] });
       },
         (error: HttpErrorResponse) => {                       //Error callback
           console.error('error caught in component')
