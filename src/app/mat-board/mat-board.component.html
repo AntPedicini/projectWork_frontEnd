@@ -13,56 +13,67 @@
 
 <body>
     <div class="container">
+        <!-- CARD SOCI -->
         <div class="card">
-            <div class="face face1">
-                <div class="content">
-                    <div class="icon">
-                        <mat-icon>perm_identity</mat-icon>
+            <a routerLink="../showMember">
+                <div class="face face1">
+                    <div class="content">
+                        <div class="icon">
+                            <mat-icon>perm_identity</mat-icon>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="face face2">
-                <div class="content">
-                    <h3>
-                        soci registrati:
-                    </h3>
-                    <h2> {{ contSoci }} </h2>
+                <div class="face face2">
+                    <div class="content">
+                        <h3>
+                            Soci registrati:
+                        </h3>
+                        <h2> {{ contSoci }} </h2>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
+
+        <!-- CARD AUTO -->
         <div class="card">
-            <div class="face face1">
-                <div class="content">
-                    <div class="icon">
-                        <mat-icon>directions_car</mat-icon>
+            <a routerLink="../showCar">
+                <div class="face face1">
+                    <div class="content">
+                        <div class="icon">
+                            <mat-icon>directions_car</mat-icon>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="face face2">
-                <div class="content">
-                    <h3>
-                        auto registrate:
-                    </h3>
-                    <h2> {{ contAuto }}</h2>
+                <div class="face face2">
+                    <div class="content">
+                        <h3>
+                            Auto registrate:
+                        </h3>
+                        <h2> {{ contAuto }}</h2>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
+
+        <!-- CARD EVENTI -->
         <div class="card">
-            <div class="face face1">
-                <div class="content">
-                    <div class="icon">
-                        <mat-icon>event</mat-icon>
+            <a routerLink="../showEvent">
+                <div class="face face1">
+                    <div class="content">
+                        <div class="icon">
+                            <mat-icon>event</mat-icon>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="face face2">
-                <div class="content">
-                    <h3>
-                        eventi registrati:
-                    </h3>
-                    <h2> {{ contEventi }}</h2>
+                <div class="face face2">
+                    <div class="content">
+                        <h3>
+                            Eventi registrati:
+                        </h3>
+                        <h2> {{ contEventi }}</h2>
+                    </div>
                 </div>
-            </div>
+            </a>    
         </div>
     </div>
 
