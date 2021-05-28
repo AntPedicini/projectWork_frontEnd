@@ -11,8 +11,8 @@ import { ServiceEventoService } from '../service-evento.service';
   styleUrls: ['./event-form.component.css']
 })
 export class EventFormComponent {
-  addressForm = this.fb.group({
-    cod_evento: [null, Validators.required],
+  eventForm = this.fb.group({
+    cod_evento: [null],
     nome_evento: [null, Validators.required],
     data_inizio: [null, Validators.required],
     data_fine: [null, Validators.required],
@@ -35,8 +35,8 @@ export class EventFormComponent {
 
   onSubmit(): void {
     console.log("Registrazione evento");
-    console.log(this.addressForm.value);
-    this.insertEvento(this.addressForm.value);
+    console.log(this.eventForm.value);
+    this.insertEvento(this.eventForm.value);
   }
 
   //=======================

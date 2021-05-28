@@ -88,7 +88,7 @@
             <!-- PROVINCIA -->
             <div class="col">
               <mat-form-field class="full-width">
-                <input name="provincia" matInput maxlength="2" placeholder="Provincia" formControlName="provincia">
+                <input name="provincia" matInput maxlength="2" placeholder="Provincia" formControlName="provincia" #input>
                 <mat-hint align="end">{{input.value?.length || 0}}/2</mat-hint>
                 <mat-error *ngIf="memberForm.controls['provincia'].hasError('required')">
                   Provincia <strong>obbligatoria!</strong>
@@ -99,7 +99,7 @@
             <div class="col">
               <mat-form-field class="full-width">
                 <input name="postalCode" matInput #postalCode maxlength="5" placeholder="CAP" type="number"
-                  formControlName="postalCode">
+                  formControlName="postalCode" #input>
                 <mat-hint align="end">{{postalCode.value?.length || 0}}/5</mat-hint>
                 <mat-error *ngIf="memberForm.controls['provincia'].hasError('required')">
                   CAP <strong>obbligatorio!</strong>
@@ -279,10 +279,11 @@
             <div class="col">
               <mat-form-field class="full-width">
                 <mat-label>Scegli una tessera</mat-label>
-                <mat-select [value]="tessera_selezionata" formControlName="tessera_socio" matInput placeholder="Ospite"  (ngModelChange)="socioSelezionato($event)" #input>
-                  <mat-option value = "Ospite">Ospite</mat-option>
+                <mat-select [value]="ospite" formControlName="tessera_socio" matInput placeholder="Ospite"  (ngModelChange)="socioSelezionato($event)" #selectTessera>
+                  <mat-option value = "0">Ospite</mat-option>
                   <mat-option *ngFor="let tessera of elenco_tessere" [value]="tessera">{{tessera}}</mat-option>
                 </mat-select>
+
                 <mat-error *ngIf="autoForm.controls['tessera_socio'].hasError('required')">
                   Tessera <strong>obbligatorio!</strong>
                 </mat-error>

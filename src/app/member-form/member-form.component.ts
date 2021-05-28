@@ -63,7 +63,7 @@ export class MemberFormComponent {
   elenco_tessere: any[] = [];
   elenco_targhe: any = [];
   selected = '--';
-  tessera_selezionata = null;
+  ospite = 0;
   dataSource: any;
 
   constructor(private fb: FormBuilder, private serviceSocio: ServiceSocioService, private serviceAuto: ServiceAutoService, public datepipe: DatePipe, private snackBar: MatSnackBar) {

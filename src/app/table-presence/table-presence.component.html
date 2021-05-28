@@ -128,7 +128,7 @@
     </mat-card>
     <br />
     <div class="btn">
-      <button mat-raised-button color="primary" type="submit" name="checkout" (click)='onSubmit()'>Registra
+      <button [disabled]="!registrationForm.valid" mat-raised-button color="primary" type="submit" name="checkout" (click)='onSubmit()'>Registra
         pagamento</button>
     </div>
 

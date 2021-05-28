@@ -24,7 +24,7 @@ export class RegistrationFormComponent {
 
   eventi:TableEventItem[]=[];
 
-  addressForm = this.fb.group({
+  registrationForm = this.fb.group({
     nome_evento: [null, Validators.required],
     targa: [null, Validators.required],
     posti: null,
@@ -45,8 +45,8 @@ export class RegistrationFormComponent {
 
   onSubmit(): void {
     console.log("Registrazione iscrizione");
-    console.log(this.addressForm.value);
-    this.insertIscrizione(this.addressForm.value);
+    console.log(this.registrationForm.value);
+    this.insertIscrizione(this.registrationForm.value);
 
   }
 
@@ -123,7 +123,7 @@ insertIscrizione(iscrizione:any): void {
 
     this.serviceIscrizione.insertIscrizione( iscrizione ).subscribe(res=>{
         this.snackBar.open('Iscrizione inserita con successo','X', {duration: 5000, horizontalPosition: 'center' ,verticalPosition: 'top' , panelClass: ['coloreBlue']});
-        this.addressForm.reset();
+        this.registrationForm.reset();
         this.getInfoEventi();
         this.getInfoAuto();
       },
@@ -150,7 +150,7 @@ insertIscrizione(iscrizione:any): void {
     let posti_disponibili:number=0;
     this.eventi.forEach(element => {
       
-      if(element.nome_evento == this.addressForm.value.nome_evento)
+      if(element.nome_evento == this.registrationForm.value.nome_evento)
         posti_disponibili = element.posti_disponibili;
     });
     return posti_disponibili;

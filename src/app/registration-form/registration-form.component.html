@@ -1,4 +1,4 @@
-<form [formGroup]="addressForm" novalidate>
+<form [formGroup]="registrationForm" novalidate>
   <mat-card class="shipping-card">
     <mat-card-header>
       <mat-card-title class="title">Nuova iscrizione</mat-card-title>
@@ -13,7 +13,7 @@
               placeholder="Nome Evento" #evento>
               <mat-option *ngFor="let evento of elenco_eventi" [value]="evento">{{evento}}</mat-option>
             </mat-select>
-            <mat-error *ngIf="addressForm.controls['nome_evento'].hasError('required')">
+            <mat-error *ngIf="registrationForm.controls['nome_evento'].hasError('required')">
               Nome evento <strong>obbligatorio!</strong>
             </mat-error>
           </mat-form-field>
@@ -36,7 +36,7 @@
             <mat-select matInput name="targa" [value]="selected" formControlName="targa" placeholder="Targa" #targa>
               <mat-option *ngFor="let targa of elenco_targhe" [value]="targa">{{targa}}</mat-option>
             </mat-select>
-            <mat-error *ngIf="addressForm.controls['targa'].hasError('required')">
+            <mat-error *ngIf="registrationForm.controls['targa'].hasError('required')">
               Targa <strong>obbligatorio!</strong>
             </mat-error>
           </mat-form-field>
@@ -46,7 +46,7 @@
           <mat-form-field class="full-width">
             <input matInput type="number" name="iscritti" min="1" max="5" placeholder="Partecipanti iscritti"
               formControlName="partecipanti_iscritti">
-            <mat-error *ngIf="addressForm.controls['partecipanti_iscritti'].hasError('required')">
+            <mat-error *ngIf="registrationForm.controls['partecipanti_iscritti'].hasError('required')">
               Partecipanti iscritti <strong>obbligatori!</strong>
             </mat-error>
           </mat-form-field>
@@ -54,7 +54,7 @@
       </div>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button color="primary" type="submit" (click)="onSubmit()">Registra iscrizione</button>
+      <button [disabled]="!registrationForm.valid" mat-raised-button color="primary" type="submit" (click)="onSubmit()">Registra iscrizione</button>
     </mat-card-actions>
   </mat-card>
 </form>
