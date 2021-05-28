@@ -63,6 +63,7 @@ export class MemberFormComponent {
   elenco_tessere: any[] = [];
   elenco_targhe: any = [];
   selected = '--';
+  tessera_selezionata = null;
   dataSource: any;
 
   constructor(private fb: FormBuilder, private serviceSocio: ServiceSocioService, private serviceAuto: ServiceAutoService, public datepipe: DatePipe, private snackBar: MatSnackBar) {
@@ -172,7 +173,8 @@ export class MemberFormComponent {
     if (auto.targa != null)
       auto.targa = auto.targa.toUpperCase();
 
-    if (auto.tessera_socio = "Ospite")
+    //se selezionato ospite imposto la tessera a zero, il backend fa il resto ;)
+    if (auto.tessera_socio == "Ospite")
       auto.tessera_socio = 0;
 
     console.log(auto.tessera_socio);
@@ -239,6 +241,10 @@ export class MemberFormComponent {
   onChange(targa_selezionata: any) {
     if (targa_selezionata != '--')
       this.accordion.closeAll();
+  }
+
+  socioSelezionato(evento:any){
+    console.log(evento);
   }
 
 }

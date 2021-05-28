@@ -34,6 +34,7 @@ export class TablePresenceComponent {
   elenco_eventi: TableEventItem[] = [];
   elenco_nomi: String[] = [];
   elenco_targhe: any = [];
+  elenco_targhe_evento: any = [];
   selected = null;
   presenze: TablePresenceItem[] = [];
   select: any;
@@ -340,6 +341,13 @@ export class TablePresenceComponent {
   onChange(nome_evento: any) {
     this.dataSource.filter = '';
     this.dataSource.filter = nome_evento;
+
+    this.elenco_targhe_evento = [];
+    PRESENCE_DATA.forEach(element => {
+      if (element.nome_evento == this.select)
+        this.elenco_targhe_evento.push(element.targa)
+    });
+
     console.log(this.select);
   }
 

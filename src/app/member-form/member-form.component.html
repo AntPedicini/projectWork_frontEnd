@@ -279,7 +279,7 @@
             <div class="col">
               <mat-form-field class="full-width">
                 <mat-label>Scegli una tessera</mat-label>
-                <mat-select [value]="selected" formControlName="tessera_socio" matInput placeholder="Ospite" #input>
+                <mat-select [value]="tessera_selezionata" formControlName="tessera_socio" matInput placeholder="Ospite"  (ngModelChange)="socioSelezionato($event)" #input>
                   <mat-option value = "Ospite">Ospite</mat-option>
                   <mat-option *ngFor="let tessera of elenco_tessere" [value]="tessera">{{tessera}}</mat-option>
                 </mat-select>
