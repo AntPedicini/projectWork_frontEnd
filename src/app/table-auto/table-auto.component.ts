@@ -1,16 +1,15 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { EXAMPLE_DATA, TableAutoDataSource, TableAutoItem } from './table-auto-datasource';
 import { MatTableDataSource } from '@angular/material/table';
-import { HttpClient, HttpClientModule, HttpErrorResponse } from '@angular/common/http';
-import { FormBuilder, Validators } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
+import { FormBuilder } from '@angular/forms';
 import { ServiceAutoService } from '../service-auto.service';
 import { AutoEditComponent } from '../dialogs/edit/auto-edit/auto-edit.component';
 import { AutoDeleteComponent } from '../dialogs/delete/auto-delete/auto-delete.component';
 import { MatDialog } from '@angular/material/dialog';
-import { TableEventItem } from '../table-event/table-event-datasource';
 import { MatSnackBar } from '@angular/material/snack-bar';
 //import { auto } from '../_models/auto.model';
 
@@ -28,13 +27,13 @@ export class TableAutoComponent {
   elenco_targhe: any[] = [];
   selected = null;
   auto: TableAutoItem[] = [];
-  index:number=0;
+  index: number = 0;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['targa', 'tessera_socio', 'marca', 'modello', 'anno', 'immatricolazione', 'asi', 'edit'];
 
 
-  constructor(private fb: FormBuilder, private serviceAuto: ServiceAutoService, private dialog: MatDialog, private snackBar:MatSnackBar) {
+  constructor(private fb: FormBuilder, private serviceAuto: ServiceAutoService, private dialog: MatDialog, private snackBar: MatSnackBar) {
 
     this.getAllAuto();
     this.dataSource = new MatTableDataSource(EXAMPLE_DATA);
@@ -60,8 +59,8 @@ export class TableAutoComponent {
 
       res.forEach((element: TableAutoItem) => {
 
-        if(element.tessera_socio==null)
-          element.tessera_socio = NaN; 
+        if (element.tessera_socio == null)
+          element.tessera_socio = NaN;
 
         EXAMPLE_DATA.push(element);
         this.auto = res;
@@ -72,7 +71,7 @@ export class TableAutoComponent {
     },
       (error: HttpErrorResponse) => {
         console.log('[[' + error.name + ' || ' + error.message + ']]');
-        this.snackBar.open('Nessuna auto presente in database','X', {horizontalPosition: 'center' , verticalPosition: 'top' , panelClass: ['coloreRed']});
+        this.snackBar.open('Nessuna auto presente in database', 'X', { horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreRed'] });
         this.refreshTable();
       });
   }
@@ -102,12 +101,16 @@ export class TableAutoComponent {
     });
   }
 
+  //=====================================
+  //METODI FILTRI TABELLA
+  //=====================================
+
   tesseraFilter(event: Event) {
 
     //imposta i campi di ricerca sul quale agisce il filtro
     this.dataSource.filterPredicate = (data: TableAutoItem, filter: any) => {
-      if(data.tessera_socio==null)
-        data.tessera_socio=NaN;
+      if (data.tessera_socio == null)
+        data.tessera_socio = NaN;
       return data.tessera_socio.toString().includes(filter);
     };
 
@@ -118,13 +121,13 @@ export class TableAutoComponent {
 
 
   allFilter(event: Event) {
-   
-    this.dataSource.filterPredicate = (data: TableAutoItem, filter: any) => {
-      if(data.tessera_socio==null)
-        data.tessera_socio=NaN;
 
-      if(data.asi==null)
-        data.asi='';
+    this.dataSource.filterPredicate = (data: TableAutoItem, filter: any) => {
+      if (data.tessera_socio == null)
+        data.tessera_socio = NaN;
+
+      if (data.asi == null)
+        data.asi = '';
 
       return data.targa.trim().toLowerCase().includes(filter.trim().toLowerCase()) ||
         data.tessera_socio.toString().trim().toLowerCase().includes(filter.trim().toLowerCase()) ||
@@ -169,48 +172,54 @@ export class TableAutoComponent {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  registrationForm = this.fb.group({
-    targa: [null, Validators.required],
-  });
+  //=====================================
+  //INVOCAZIONE DIALOG MODIFICA/DELETE
+  //=====================================
 
-  setActive(auto:any){
-    console.log(auto.foto);
-  }
-
-  startEdit(auto:TableAutoItem) {
+  startEdit(auto: TableAutoItem) {
     const dialogRef = this.dialog.open(AutoEditComponent, {
-      data: {targa: auto.targa, 
-             tessera_socio: auto.tessera_socio, 
-             marca: auto.marca, 
-             modello: auto.modello, 
-             anno: auto.anno, 
-             immatricolazione: auto.immatricolazione, 
-             asi: auto.asi,
-             tessera:auto.tessera_socio}
+      data: {
+        targa: auto.targa,
+        tessera_socio: auto.tessera_socio,
+        marca: auto.marca,
+        modello: auto.modello,
+        anno: auto.anno,
+        immatricolazione: auto.immatricolazione,
+        asi: auto.asi,
+        tessera: auto.tessera_socio
+      }
     });
 
     dialogRef.afterClosed().subscribe(res => {
       this.getAllAuto();
     });
-}
+  }
 
-   deleteItem(auto:any) {
-      console.log(auto);
-      const dialogRef = this.dialog.open(AutoDeleteComponent, {
-       data: {targa:auto.targa, 
-              tessera_socio: auto.tessera_socio, 
-              marca: auto.marca, 
-              modello: auto.modello, 
-              anno: auto.anno, 
-              immatricolazione: auto.immatricolazione, 
-              asi: auto.asi,
-              tessera:auto.tessera_socio} 
-      });
-      dialogRef.afterClosed().subscribe(res => {
-        this.getAllAuto();
-      });
-    
-    
-    };
+  deleteItem(auto: any) {
+    console.log(auto);
+    const dialogRef = this.dialog.open(AutoDeleteComponent, {
+      data: {
+        targa: auto.targa,
+        tessera_socio: auto.tessera_socio,
+        marca: auto.marca,
+        modello: auto.modello,
+        anno: auto.anno,
+        immatricolazione: auto.immatricolazione,
+        asi: auto.asi,
+        tessera: auto.tessera_socio
+      }
+    });
+    dialogRef.afterClosed().subscribe(res => {
+      this.getAllAuto();
+    });
+  }
+
+  //=====================================
+  //INVOCAZIONE METODO INFOONCLICK
+  //=====================================
+
+  setActive(auto: any) {
+    console.log(auto.foto);
+  }
 
 }

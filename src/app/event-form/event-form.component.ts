@@ -51,6 +51,7 @@ export class EventFormComponent {
       evento.data_fine = this.datepipe.transform(evento.data_fine, 'yyyy-MM-dd');
     }
 
+    //inserisco l' indirizzo in un unica variabile
     if (evento.indirizzo != null && evento.citta != null && evento.provincia != null && evento.postalCode != null)
       evento.location = evento.indirizzo + ' ' + evento.citta.toUpperCase() + ' ' + evento.postalCode + ' ' + evento.provincia.toUpperCase();
 
@@ -59,16 +60,12 @@ export class EventFormComponent {
     this.serviceEvento.insertEvento(evento).subscribe(res => {
       this.snackBar.open('Evento inserito con successo', 'X', {duration: 5000, horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreBlue'] });
     },
-      (error: HttpErrorResponse) => {                       //Error callback
+      (error: HttpErrorResponse) => {                      
         console.error('error caught in component')
         this.snackBar.open('Qualcosa è andato storto... Prova a ricontrollare tutti i campi', 'X', { horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreRed'] });
       });
 
   }
-
-  registrationForm = this.fb.group({
-    tessera: [null, Validators.required],
-  });
 
 }
 

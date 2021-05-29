@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Output, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
@@ -30,6 +30,8 @@ export class TablePresenceComponent {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<TablePresenceItem>;
   dataSource: MatTableDataSource<TablePresenceItem>;
+ 
+ //campi di utility a popolare le select con i relativi dati
   elenco_iscrizioni: TablePresenceItem[] = [];
   elenco_eventi: TableEventItem[] = [];
   elenco_nomi: String[] = [];
@@ -159,6 +161,21 @@ export class TablePresenceComponent {
       });
   }
 
+  //==================================
+  //METODO PER FINALIZZARE IL CHECKOUT
+  //==================================
+
+  onSubmit() {
+    console.log("Funzione registrazione");
+    this.registrationForm.value.partecipanti_effettivi = this.registrationForm.value.partecipanti;
+    this.elenco_eventi.forEach(element => {
+      if (element.nome_evento == this.registrationForm.value.nome_evento)
+        this.registrationForm.value.cod_evento = element.cod_evento;
+    });
+    this.checkout(this.registrationForm.value);
+
+  }
+
   //======================================================================
   //METODO CHECKOUT
   //======================================================================
@@ -178,7 +195,7 @@ export class TablePresenceComponent {
       }, 100);
       this.isWait = false;
     },
-      (error: HttpErrorResponse) => {                       //Error callback
+      (error: HttpErrorResponse) => {              
         if (error.status == 400)
           this.snackBar.open('Qualcosa è andato storto... Controlla i dati inseriti', 'X', { horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreRed'] });
         if (error.status == 404)
@@ -207,9 +224,11 @@ export class TablePresenceComponent {
     });
 
   }
+
   //======================================================================
   //Metodi per impostare i filtri nella ricerca
   //======================================================================
+
   allFilter(event: Event) {
 
     this.dataSource.filterPredicate = (data: TablePresenceItem, filter: any) => {
@@ -267,19 +286,10 @@ export class TablePresenceComponent {
     //console.log(this.registrationForm.value.partecipanti)
     return costoTot.toFixed(2); //Number.toFixed(n:number):string -> converte il numero in una stringa considerando n cifre dopo la virgola
   }
-  //======================================================================
 
-  onSubmit() {
-    // TODO: Use EventEmitter with form value
-    console.log("Funzione registrazione");
-    this.registrationForm.value.partecipanti_effettivi = this.registrationForm.value.partecipanti;
-    this.elenco_eventi.forEach(element => {
-      if (element.nome_evento == this.registrationForm.value.nome_evento)
-        this.registrationForm.value.cod_evento = element.cod_evento;
-    });
-    this.checkout(this.registrationForm.value);
-
-  }
+  //==========================================================
+  //METODI CHE RICHIAMANO I DIALOG DI MODIFICA/CANCELLAZIONE
+  //==========================================================
 
   startEdit(iscrizione: TablePresenceItem) {
 
@@ -299,7 +309,7 @@ export class TablePresenceComponent {
 
       this.isWait = true;
       this.getAllIscrizioni();
-
+      //ritardo per recupero dati dal database
       setTimeout(() => {
         this.onChange(this.select);
       }, 50);
@@ -332,12 +342,7 @@ export class TablePresenceComponent {
     });
   };
 
-
-  setActive(iscrizione: any) {
-    console.log(iscrizione);
-    this.onChange(this.select);
-  }
-
+  //refresh select nomi eventi
   onChange(nome_evento: any) {
     this.dataSource.filter = '';
     this.dataSource.filter = nome_evento;
@@ -349,6 +354,12 @@ export class TablePresenceComponent {
     });
 
     console.log(this.select);
+  }
+
+  //metodo per recuperare le info di una riga
+    setActive(iscrizione: any) {
+    console.log(iscrizione);
+    this.onChange(this.select);
   }
 
 }

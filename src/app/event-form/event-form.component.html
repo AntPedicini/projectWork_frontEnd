@@ -1,19 +1,12 @@
 <form [formGroup]="eventForm" novalidate>
-  <mat-card class="shipping-card">
+  <mat-card class="event-card">
     <mat-card-header>
       <mat-card-title class = "title">Nuovo evento</mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <div class="row">
-        <!-- CODICE EVENTO -->
-<!--         <div class="col">
-          <mat-form-field class="full-width">
-            <input name = "cod_evento" matInput placeholder="Codice evento" formControlName="cod_evento">
-            <mat-error *ngIf="eventForm.controls['cod_evento'].hasError('required')">
-              Codice evento <strong>obbligatorio!</strong>
-            </mat-error>
-          </mat-form-field>
-        </div> -->
+        <!-- CODICE EVENTO AUTOINCREMENTALE-->
+
         <!-- NOME EVENTO -->
         <div class="col">
           <mat-form-field class="full-width">

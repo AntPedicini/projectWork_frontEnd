@@ -136,16 +136,11 @@ export class MemberFormComponent {
     socio.validita = this.datepipe.transform(socio.validita, 'yyyy');
     socio.immatricolazione = this.datepipe.transform(socio.immatricolazione, 'yyyy-MM-dd');
 
-    //memorizza l'indirizzo in un unica variabile
+    //memorizza l'indirizzo in un unica stringa
     if (socio.citta != null && socio.provincia != null)
       socio.indirizzo = socio.indirizzo + ' ' + socio.citta.toUpperCase() + ' ' + socio.postalCode + ' ' + socio.provincia.toUpperCase();
 
-    //converto il Codice Fiscale e la targa in maiuscolo
-    if (socio.codice_fiscale != null)
-      socio.codice_fiscale = socio.codice_fiscale.toUpperCase();
-    if (socio.targa != null)
-      socio.targa = socio.targa.toUpperCase();
-
+    //se è stata selezionata una targa dalla select imposto la targa giusta nel DTO da mandare al backend
     if (socio.targa_esistente != '--')
       socio.targa = socio.targa_esistente;
 
@@ -154,7 +149,7 @@ export class MemberFormComponent {
     this.serviceSocio.insertSocio(socio).subscribe(res => {
       this.snackBar.open('Socio inserito con successo', 'X', {duration: 5000, horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreBlue'] });
     },
-      (error: HttpErrorResponse) => {                       //Error callback
+      (error: HttpErrorResponse) => {                 
         if (error.status == 400 || error.status == 404)
           this.snackBar.open('Qualcosa è andato storto... Prova a ricontrollare tutti i campi NB:Verifica che la targa inserita non appartenente a un altro socio', 'X', { horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreRed'] });
 
@@ -170,14 +165,9 @@ export class MemberFormComponent {
 
     //=============================Controlli sull'inserimento=======================================
 
-    if (auto.targa != null)
-      auto.targa = auto.targa.toUpperCase();
-
     //se selezionato ospite imposto la tessera a zero, il backend fa il resto ;)
     if (auto.tessera_socio == "Ospite")
       auto.tessera_socio = 0;
-
-    console.log(auto.tessera_socio);
 
     //=============================CHIAMATA AL SERVIZIO=======================================
 

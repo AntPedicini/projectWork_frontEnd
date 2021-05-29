@@ -5,7 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { ServiceEventoService } from '../service-evento.service';
-import { EXAMPLE_DATA, TableEventDataSource, TableEventItem } from './table-event-datasource';
+import { EXAMPLE_DATA as EVENT_DATA, TableEventDataSource, TableEventItem } from './table-event-datasource';
 import { EventEditComponent } from '../dialogs/edit/event-edit/event-edit.component';
 import { EventDeleteComponent } from '../dialogs/delete/event-delete/event-delete.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -28,11 +28,11 @@ export class TableEventComponent implements AfterViewInit {
   index: number = 0;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['cod_evento', 'nome_evento', 'data_inizio', 'data_fine', 'location', 'costo_unitario', 'posti_disponibili', 'edit'];
+  displayedColumns = ['nome_evento', 'data_inizio', 'data_fine', 'location', 'costo_unitario', 'posti_disponibili', 'edit'];
 
   constructor(private fb: FormBuilder, private serviceEvento: ServiceEventoService, private dialog: MatDialog, private snackBar:MatSnackBar) {
     this.getAllEventi();
-    this.dataSource = new MatTableDataSource(EXAMPLE_DATA);
+    this.dataSource = new MatTableDataSource(EVENT_DATA);
   }
 
   ngAfterViewInit(): void {
@@ -47,11 +47,11 @@ export class TableEventComponent implements AfterViewInit {
 
   //=======================METODO CHE RICHIAMA IL SERVIZIO========================
   getAllEventi() {
-    EXAMPLE_DATA.splice(0, EXAMPLE_DATA.length); //workaround per svuotare l'array ad ogni update pagina
+    EVENT_DATA.splice(0, EVENT_DATA.length); //workaround per svuotare l'array ad ogni update pagina
     this.serviceEvento.getAllEventi().subscribe((res: any) => {
 
       res.forEach((element: TableEventItem) => {
-        EXAMPLE_DATA.push(element);
+        EVENT_DATA.push(element);
         this.eventi.push(element);
       });
       console.log(this.eventi);
@@ -85,7 +85,7 @@ export class TableEventComponent implements AfterViewInit {
   private refreshSelect() {
     this.elenco_eventi = [];
     var n: any = null;
-    EXAMPLE_DATA.forEach(element => {
+    EVENT_DATA.forEach(element => {
       if (element.cod_evento != n) {
         this.elenco_eventi.push(element.nome_evento);
         n = element.nome_evento;
@@ -153,10 +153,9 @@ export class TableEventComponent implements AfterViewInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  registrationForm = this.fb.group({
-    cod_evento: [null, Validators.required],
-  });
-
+  //========================================================
+  //METODI PER RICHIAMARE I DIALOG DI MODIFICA/ELIMINAZIONE
+  //========================================================
 
   startEdit(evento: TableEventItem) {
 
@@ -194,6 +193,7 @@ export class TableEventComponent implements AfterViewInit {
       this.getAllEventi();
     });
   }
+  
   //funzione legata alle righe della tabella che prende tutte le info di un socio(comprese quelle non visualizzate provenienti dal backend)
   setActive(evento: any) {
     console.log(evento);

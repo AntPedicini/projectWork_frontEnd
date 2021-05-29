@@ -20,7 +20,7 @@ export class RegistrationFormComponent {
   elenco_eventi: any[] = [];
   elenco_targhe:any[] = [];
   selected = null;
-  hasUnitNumber = false;
+ 
 
   eventi:TableEventItem[]=[];
 
@@ -50,9 +50,9 @@ export class RegistrationFormComponent {
 
   }
 
-  //==================================
+  //=================================================
   //RECUPERO DATI EVENTI DAL DATABASE (per la select)
-  //==================================
+  //=================================================
 
   //Metodo per recuperare tutti i dati relativi a un evento e popolare così la tabella iscrizioni
   getInfoEventi() {
@@ -127,7 +127,7 @@ insertIscrizione(iscrizione:any): void {
         this.getInfoEventi();
         this.getInfoAuto();
       },
-      (error:HttpErrorResponse) => {                       //Error callback
+      (error:HttpErrorResponse) => {   
         console.error('error caught in component')
         if(error.status==400)
         this.snackBar.open('Qualcosa è andato storto... Iscrizione già presente in database','X', {horizontalPosition: 'center' , verticalPosition: 'top' , panelClass: ['coloreRed']});
@@ -141,10 +141,6 @@ insertIscrizione(iscrizione:any): void {
   }
   
   
-
-
-  
-
   //funzione per mostrare i posti liberi rimanenti
   setPostiRimanenti():number{
     let posti_disponibili:number=0;

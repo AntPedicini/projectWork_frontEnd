@@ -2,12 +2,10 @@
   <mat-tab class="back" label="Aggiungi Nuovo Socio">
 
     <form [formGroup]="memberForm">
-      <!-- (ngSubmit)="onSubmit()" -->
       <mat-card class="shipping-card">
         <mat-card-header>
-
           <!-- REGISTRAZIONE SOCIO -->
-          <mat-card-title  class="title">Nuovo socio</mat-card-title>
+          <mat-card-title class="title">Nuovo socio</mat-card-title>
         </mat-card-header>
         <mat-card-content>
           <div class="row">
@@ -88,7 +86,8 @@
             <!-- PROVINCIA -->
             <div class="col">
               <mat-form-field class="full-width">
-                <input name="provincia" matInput maxlength="2" placeholder="Provincia" formControlName="provincia" #input>
+                <input name="provincia" matInput maxlength="2" placeholder="Provincia" formControlName="provincia"
+                  #input>
                 <mat-hint align="end">{{input.value?.length || 0}}/2</mat-hint>
                 <mat-error *ngIf="memberForm.controls['provincia'].hasError('required')">
                   Provincia <strong>obbligatoria!</strong>
@@ -112,7 +111,8 @@
             <div class="col">
               <mat-form-field class="width">
                 <mat-label>Scegli una targa</mat-label>
-                <mat-select [value]="selected" formControlName="targa_esistente" matInput placeholder="targa" (ngModelChange)="onChange($event)" #selectTarga>
+                <mat-select [value]="selected" formControlName="targa_esistente" matInput placeholder="targa"
+                  (ngModelChange)="onChange($event)" #selectTarga>
                   <mat-option value="--">nuova auto</mat-option>
                   <mat-option *ngFor="let targa of elenco_targhe" [value]="targa">{{targa}}</mat-option>
                 </mat-select>
@@ -120,7 +120,8 @@
                   Targa <strong>obbligatorio!</strong>
                 </mat-error>
               </mat-form-field>
-              <mat-label> *Seleziona targa se vuoi aggiungere un auto già presente in Database</mat-label>
+              <mat-label class="info"> *Aggiungi veicolo già presente in database, oppure inserisci una nuova auto
+                contestualmente</mat-label>
             </div>
           </div>
           <div class="row">
@@ -146,11 +147,12 @@
           </div>
         </mat-card-content>
 
+        <!--PANNELLO ESPANDIBILE-->
         <mat-accordion class="menu-compatto" multi>
           <mat-expansion-panel [disabled]="memberForm.get('targa_esistente').value != '--'">
             <mat-expansion-panel-header>
               <mat-panel-title>
-
+                <!--Titolo non inserito-->
               </mat-panel-title>
               <mat-panel-description>
                 <b> Clicca qui se vuoi inserire un veicolo non presente in database</b>
@@ -158,15 +160,12 @@
               </mat-panel-description>
             </mat-expansion-panel-header>
 
-            <mat-card-content >
+            <mat-card-content>
               <!-- REGISTRAZIONE AUTO -->
               <mat-card-header>
                 <mat-card-title class="title">Nuova auto</mat-card-title>
               </mat-card-header>
               <div class="row">
-
-                <!-- ID TESSERA -->
-
                 <!-- TARGA -->
                 <div class="col">
                   <mat-form-field class="full-width">
@@ -255,9 +254,9 @@
         </mat-accordion>
 
         <mat-card-actions>
-          <button [disabled]="!memberForm.valid" name="insertSocio" mat-raised-button color="primary" type="submit" 
-            (click)="onSubmitSocio()">Registra Socio</button>                                 <!-- [disabled]="!memberForm.valid" -->
-            <button  name="insertSocio" mat-raised-button color="primary" type="submit" 
+          <button [disabled]="!memberForm.valid" name="insertSocio" mat-raised-button color="primary" type="submit"
+            (click)="onSubmitSocio()">Registra Socio</button> <!-- [disabled]="!memberForm.valid" -->
+          <button name="insertSocio" mat-raised-button color="primary" type="submit"
             (click)="memberForm.reset()">Reset</button>
         </mat-card-actions>
       </mat-card>
@@ -266,9 +265,8 @@
   </mat-tab>
   <mat-tab class="back" label="Aggiungi Auto a Socio Esistente">
 
-    <form [formGroup]="autoForm" >
-      <!-- (ngSubmit)="onSubmit()" -->
-      <mat-card class="shipping-card">
+    <form [formGroup]="autoForm">
+      <mat-card class="form-auto">
         <mat-card-content>
           <!-- REGISTRAZIONE AUTO -->
           <mat-card-header>
@@ -277,18 +275,22 @@
           <div class="row">
             <!-- ID TESSERA -->
             <div class="col">
-              <mat-form-field class="full-width">
+              <mat-form-field class="tessera">
                 <mat-label>Scegli una tessera</mat-label>
-                <mat-select [value]="ospite" formControlName="tessera_socio" matInput placeholder="Ospite"  (ngModelChange)="socioSelezionato($event)" #selectTessera>
-                  <mat-option value = "0">Ospite</mat-option>
+                <mat-select [value]="ospite" formControlName="tessera_socio" matInput placeholder="Ospite"
+                  (ngModelChange)="socioSelezionato($event)" #selectTessera>
+                  <mat-option value="0">Ospite</mat-option>
                   <mat-option *ngFor="let tessera of elenco_tessere" [value]="tessera">{{tessera}}</mat-option>
                 </mat-select>
-
                 <mat-error *ngIf="autoForm.controls['tessera_socio'].hasError('required')">
                   Tessera <strong>obbligatorio!</strong>
                 </mat-error>
               </mat-form-field>
+              <mat-label class="info"> *Specifica se il veicolo appartiene ad un ospite oppure ad un socio in database
+              </mat-label>
             </div>
+          </div>
+          <div class="row">
             <!-- TARGA -->
             <div class="col">
               <mat-form-field class="full-width">
@@ -299,21 +301,21 @@
                 </mat-error>
               </mat-form-field>
             </div>
-            <!-- MODELLO -->
-            <div class="col">
-              <mat-form-field class="full-width">
-                <input name="modello" matInput placeholder="Modello" formControlName="modello">
-                <mat-error *ngIf="autoForm.controls['modello'].hasError('required')">
-                  Modello <strong>obbligatorio!</strong>
-                </mat-error>
-              </mat-form-field>
-            </div>
             <!-- MARCA -->
             <div class="col">
               <mat-form-field class="full-width">
                 <input name="marca" matInput placeholder="Marca" formControlName="marca">
                 <mat-error *ngIf="autoForm.controls['marca'].hasError('required')">
                   Marca <strong>obbligatoria!</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+            <!-- MODELLO -->
+            <div class="col">
+              <mat-form-field class="full-width">
+                <input name="modello" matInput placeholder="Modello" formControlName="modello">
+                <mat-error *ngIf="autoForm.controls['modello'].hasError('required')">
+                  Modello <strong>obbligatorio!</strong>
                 </mat-error>
               </mat-form-field>
             </div>
@@ -371,11 +373,13 @@
           <img class="image" *ngFor="let url of urls" [src]="url" alt="">
         </mat-card-content>
         <mat-card-actions>
-          <button [disabled]="!autoForm.valid" name="insertAuto" mat-raised-button color="primary" type="submit" value="aggiungi_auto"
-            (click)="onSubmitAuto()">Registra Auto</button>
-            <button name="insertAuto" mat-raised-button color="primary" type="submit" 
+          <button [disabled]="!autoForm.valid" name="insertAuto" mat-raised-button color="primary" type="submit"
+            value="aggiungi_auto" (click)="onSubmitAuto()">Registra Auto</button>
+          <button name="insertAuto" mat-raised-button color="primary" type="submit"
             (click)="autoForm.reset()">Reset</button>
         </mat-card-actions>
+
+
       </mat-card>
     </form>
 

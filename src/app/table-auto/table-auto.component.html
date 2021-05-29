@@ -1,5 +1,7 @@
 <h2 class = "title">Auto</h2>
 
+<!--CAMPI RICERCA-->
+
 <mat-form-field>
   <mat-label>Cerca in tutti i campi </mat-label>
   <input name = "findAll" matInput (keyup)="allFilter($event)" placeholder="Inserisci testo" #input>
@@ -20,45 +22,48 @@
   <input name = "findByYear" matInput (keyup)="annoFilter($event)" placeholder="Inserisci Anno" #input>
 </mat-form-field>
 
-<!-- <mat-form-field class="find">
-  <mat-label>Cerca per ASI</mat-label>
-  <input name = "findByASI" matInput (keyup)="ASIFilter($event)" placeholder="Inserisci ASI" #input>
-</mat-form-field> -->
+<!--TABELLA AUTO-->
 
 <div class="mat-elevation-z8">
   <table mat-table class="full-width-table" matSort aria-label="targa">
-    <!-- Id Column -->
+    
+    <!-- TARGA -->
     <ng-container matColumnDef="targa">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Targa</th>
       <td mat-cell *matCellDef="let row, let auto" (click) = "setActive(auto)">{{row.targa}}</td>
     </ng-container>
 
-    <!-- Name Column -->
+    <!-- TESSERA SOCIO -->
     <ng-container matColumnDef="tessera_socio">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Tessera Socio</th>
       <td mat-cell *matCellDef="let row">{{row.tessera_socio}}</td>
     </ng-container>
 
+    <!-- MARCA -->
     <ng-container matColumnDef="marca">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Marca</th>
       <td mat-cell *matCellDef="let row">{{row.marca}}</td>
     </ng-container>
 
+    <!-- MODELLO -->
     <ng-container matColumnDef="modello">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Modello</th>
       <td mat-cell *matCellDef="let row">{{row.modello}}</td>
     </ng-container>
 
+    <!-- ANNO -->
     <ng-container matColumnDef="anno">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Anno</th>
       <td mat-cell *matCellDef="let row">{{row.anno}}</td>
     </ng-container>
 
+    <!-- IMMATRICOLAZIONE -->
     <ng-container matColumnDef="immatricolazione">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Immatricolazione</th>
       <td mat-cell *matCellDef="let row">{{row.immatricolazione}}</td>
     </ng-container>
 
+    <!-- ASI -->
     <ng-container matColumnDef="asi">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>ASI</th>
       <td mat-cell *matCellDef="let row">{{row.asi}}</td>
