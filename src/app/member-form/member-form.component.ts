@@ -22,14 +22,14 @@ export class MemberFormComponent {
     validita: [null],
     nome: [null, Validators.required],
     cognome: [null, Validators.required],
-    codice_fiscale: [null, Validators.required],
+    codice_fiscale: [null, Validators.compose([
+      Validators.required, Validators.minLength(16), Validators.maxLength(16)])
+    ],
     nato_il: [null, Validators.required],
     email: [null, Validators.required],
     indirizzo: ['', Validators.required],
     citta: ['', Validators.required],
-    provincia: ['', Validators.compose([
-      Validators.required, Validators.minLength(2), Validators.maxLength(2)])
-    ],
+    provincia: ['', Validators.required],
     postalCode: [null, Validators.compose([
       Validators.required, Validators.minLength(5), Validators.maxLength(5)])
     ],
