@@ -16,16 +16,6 @@ export interface TableEventItem {
   posti_disponibili: number;
 }
 
-export class TableEventItem{
-  cod_evento!: number;
-  nome_evento!: string;
-  data_inizio!: string;
-  data_fine!: string;
-  location!: string;
-  descrizione!: string;
-  costo_unitario!: number;
-  posti_disponibili!: number;
-}
 
 // TODO: replace this with real data from your application
 export const EXAMPLE_DATA: TableEventItem[] = [];

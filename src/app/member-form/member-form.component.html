@@ -176,21 +176,21 @@
                     </mat-error>
                   </mat-form-field>
                 </div>
-                <!-- MODELLO -->
-                <div class="col">
-                  <mat-form-field class="full-width">
-                    <input name="modello" matInput placeholder="Modello" formControlName="modello">
-                    <mat-error *ngIf="memberForm.controls['modello'].hasError('required')">
-                      Modello <strong>obbligatorio!</strong>
-                    </mat-error>
-                  </mat-form-field>
-                </div>
                 <!-- MARCA -->
                 <div class="col">
                   <mat-form-field class="full-width">
                     <input name="marca" matInput placeholder="Marca" formControlName="marca">
                     <mat-error *ngIf="memberForm.controls['marca'].hasError('required')">
                       Marca <strong>obbligatoria!</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <!-- MODELLO -->
+                <div class="col">
+                  <mat-form-field class="full-width">
+                    <input name="modello" matInput placeholder="Modello" formControlName="modello">
+                    <mat-error *ngIf="memberForm.controls['modello'].hasError('required')">
+                      Modello <strong>obbligatorio!</strong>
                     </mat-error>
                   </mat-form-field>
                 </div>

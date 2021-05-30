@@ -3,10 +3,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
-import { TableEventItem } from '../table-event/table-event-datasource';
 
 
-// TODO: Replace this with your own data model type
+ // TODO: Replace this with your own data model type
 export interface TablePresenceItem {
   cod_evento: number;
   nome_evento: string;
@@ -16,9 +15,9 @@ export interface TablePresenceItem {
   partecipanti_iscritti: number;
   partecipanti_effettivi: number;
 
-}
+} 
 
-export class TablePresenceItem {
+/* export class TablePresenceItem {
 
   cod_evento: number;
   nome_evento: string;
@@ -28,7 +27,7 @@ export class TablePresenceItem {
   partecipanti_iscritti: number;
   partecipanti_effettivi: number;
 
-}
+} */
 
 // TODO: replace this with real data from your application
 export const DATA: TablePresenceItem[] = [];

@@ -17,30 +17,9 @@ export interface TableAutoItem {
   //foto: Blob;
 }
 
-export class TableAutoItem{
-  targa!: string;
-  tessera_socio!: number;
-  marca!: string;
-  modello!: string;
-  anno!: number;
-  immatricolazione!: string;
-  asi!: string;
-  //foto: Blob;
-
-  constructor(){}
-}
-
-
 
 // TODO: replace this with real data from your application
-export const EXAMPLE_DATA: TableAutoItem[] = [
-/*   {targa:'XXX111XXX', tessera_socio: 1, marca: 'Ferrari', modello: '250 GTO', anno: 1963, immatricolazione: '1970-02-20', ASI:'1111' },
-  {targa:'XXX112XXX', tessera_socio: 1, marca: 'Bugatti', modello: 'Type 57SC', anno: 1936, immatricolazione: '1940-06-04', ASI:'1112' },
-  {targa:'XXX222XXX', tessera_socio: 2, marca: 'Mercedes', modello: 'W196R', anno: 1954, immatricolazione: '1971-12-30', ASI:'2222' },
-  {targa:'XXX333XXX', tessera_socio: 3, marca: 'Ferrari', modello: '275 GTB/4 N.A.R.T', anno: 1967, immatricolazione: '1980-07-02', ASI: '' },
-  {targa:'XXX444XXX', tessera_socio: NaN, marca: 'Ferrari', modello: '275 GTB/C Speciale', anno: 1964, immatricolazione: '1975-04-13', ASI: '' } */
-
-];
+export const EXAMPLE_DATA: TableAutoItem[] = [];
 
 
 

@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
 
 
-/* // TODO: Replace this with your own data model type
+ // TODO: Replace this with your own data model type
 export interface TableMemberItem {
   tessera: number;
   validita: number;
@@ -17,87 +17,8 @@ export interface TableMemberItem {
   email: string;
   consiglio: boolean;
   segretario: boolean;
+  targa: string;
 }
-
-export interface Socio {
-  id_socio: number;
-  validita: number;
-  nome: string;
-  cognome: string;
-  nato_il: string;
-  codiceFiscale: string;
-  indirizzo: string;
-  email: string;
-  consiglio: boolean;
-  segretario: boolean;
-} */
-
-export class TableMemberItem {
-  tessera!: number;
-  validita!: number;
-  nome!: string;
-  cognome!: string;
-  nato_il!: string;
-  codice_fiscale!: string;
-  indirizzo!: string;
-  email!: string;
-  consiglio!: boolean;
-  segretario!: boolean;
-  targa!: string;
-
-  constructor(){}
-}
-
-
-/* export class Socio {
-  id_socio!: number;
-  validita!: number;
-  nome!: string;
-  cognome!: string;
-  nato_il!: string;
-  codiceFiscale!: string;
-  indirizzo!: string;
-  email!: string;
-  consiglio!: boolean;
-  segretario!: boolean;
-  id_auto!:string;
-
-  constructor(obj:TableMemberItem){
-    this.id_socio= obj.tessera;
-    this.validita=obj.validita;
-    this.nome=obj.nome;
-    this.cognome=obj.cognome;
-    this.nato_il=obj.nato_il;
-    this.codiceFiscale=obj.codice_fiscale;
-    this.indirizzo=obj.indirizzo;
-    this.email=obj.email;
-    this.consiglio=obj.consiglio;
-    this.segretario=obj.segretario;
-    this.id_auto='';
-    
-  }
-
-   toTableItem(res:any):TableMemberItem {
-    let tableItem:TableMemberItem = {
-      tessera: res.id_socio,
-      validita: res.validita,
-      nome: res.nome,
-      cognome: res.cognome,
-      nato_il: res.nato_il,
-      codice_fiscale: res.codiceFiscale,
-      indirizzo: res.indirizzo,
-      email: res.email,
-      consiglio: res.consiglio,
-      segretario: res.segretario,
-      targa: res.targa
-    };
-
-
-    return tableItem;
-  } 
-
-
-} */
 
 // TODO: replace this with real data from your application
  export const EXAMPLE_DATA: TableMemberItem[] = []; 
