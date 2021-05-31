@@ -97,30 +97,21 @@ export class MemberFormComponent {
       this.urls.length--;
     }
   }
-
-  //Submit
+  
+  //Metodi di invocazione servizi REST
   onSubmitSocio(): void {
-    console.log("Registrazione socio");
-    //console.log(this.addressForm.value);
     this.insertSocio(this.memberForm.value);
-    //this.addressForm.reset();
+    this.memberForm.reset();
   }
 
   onSubmitAuto(): void {
-    console.log("Registrazione auto");
-    //alert('Registrazione auto avvenuta con successo');
-    //console.log(this.addressForm.value);
     this.insertAuto(this.autoForm.value);
+    this.autoForm.reset();
   }
 
-  click() {
-    console.log(this.memberForm.get('targa_esistente').value);
-  }
-
-
-  //=======================
-  //INSERIMENTO SOCIO/AUTO
-  //=======================
+//=======================
+//INSERIMENTO SOCIO/AUTO
+//=======================
 
   insertSocio(socio: any): void {
 
@@ -159,6 +150,43 @@ export class MemberFormComponent {
 
       });
 
+      //formatta le date in base alle necessità del backend
+      socio.nato_il = this.datepipe.transform(socio.nato_il,'yyyy-MM-dd');
+      if(socio.validita == null){
+        let thisYear:Date = new Date();
+        socio.validita = this.datepipe.transform(thisYear,'yyyy');
+      }
+      socio.validita = this.datepipe.transform(socio.validita,'yyyy');
+      socio.immatricolazione = this.datepipe.transform(socio.immatricolazione,'yyyy-MM-dd');
+
+      //memorizza l'indirizzo in un unica variabile
+      if(socio.citta!=null && socio.provincia!=null)
+        socio.indirizzo = socio.indirizzo +' '+ socio.citta.toUpperCase() +' '+ socio.postalCode +' '+ socio.provincia.toUpperCase();
+      
+      //converto il Codice Fiscale e la targa in maiuscolo
+      if(socio.codice_fiscale != null)
+        socio.codice_fiscale = socio.codice_fiscale.toUpperCase();
+      if(socio.targa != null)
+        socio.targa= socio.targa.toUpperCase();
+
+      //verifico se è stata selezionata un auto esistente dalla select del form socio
+      //se si la assegno alla targa del DTO...Il backEnd si occupa del resto ;)
+      if(socio.targa_esistente != '--'){
+        socio.targa = socio.targa_esistente;
+      }
+
+  //=============================CHIAMATA AL SERVIZIO=======================================
+
+    this.serviceSocio.insertSocio(socio).subscribe(res=>{
+        alert('Socio inserito con successo');
+      },
+      (error:HttpErrorResponse) => {
+       if(error.status==400)
+        alert('Qualcosa è andato storto... :(\n Prova a ricontrollare tutti i campi \n NB:Verifica che la targa inserita non appartenente a un altro socio ');
+      if (error.status==404)
+      alert('Qualcosa è andato storto... :(\n Prova a ricontrollare tutti i campi \n NB:Verifica che la targa inserita non appartenente a un altro socio ');
+      } );
+  
   }
 
   //=======================
@@ -241,6 +269,11 @@ export class MemberFormComponent {
       this.accordion.closeAll();
   }
 
+  //verifica infoOnClick
+  click(){
+    console.log(this.memberForm.get('targa_esistente').value);
+  }
+  
 }
 
 export class DatepickerOverviewExample { }
