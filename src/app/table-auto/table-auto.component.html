@@ -42,13 +42,15 @@
     <!-- MARCA -->
     <ng-container matColumnDef="marca">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Marca</th>
-      <td mat-cell *matCellDef="let row">{{row.marca}}</td>
+      <td mat-cell *matCellDef="let row, let auto" (click) = "setActive(auto)">{{row.marca}}</td>
     </ng-container>
 
     <!-- MODELLO -->
     <ng-container matColumnDef="modello">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Modello</th>
-      <td mat-cell *matCellDef="let row">{{row.modello}}</td>
+      <td mat-cell *matCellDef="let row, let auto" (click) = "setActive(auto)">{{row.modello}}
+        <mat-icon color="primary" class ="info" aria-label="Edit">info</mat-icon>
+      </td>
     </ng-container>
 
     <!-- ANNO -->

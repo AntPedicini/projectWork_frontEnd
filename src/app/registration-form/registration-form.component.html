@@ -55,6 +55,8 @@
     </mat-card-content>
     <mat-card-actions>
       <button [disabled]="!registrationForm.valid" mat-raised-button color="primary" type="submit" (click)="onSubmit()">Registra iscrizione</button>
+      <button name="insertRegistration" mat-raised-button color="primary" type="submit"
+      (click)="registrationForm.reset()">Reset</button>
     </mat-card-actions>
   </mat-card>
 </form>

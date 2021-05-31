@@ -1,12 +1,13 @@
-import { Component, ElementRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ViewChild } from '@angular/core';
 import { ServiceSocioService } from '../service-socio.service';
-import { DatePipe, formatCurrency } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ServiceAutoService } from '../service-auto.service';
 import { MatAccordion } from '@angular/material/expansion';
 import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 
 @Component({
@@ -58,59 +59,83 @@ export class MemberFormComponent {
     foto: null
   });
 
-  allComplete: boolean = false;
-  hasUnitNumber = false;
   elenco_tessere: any[] = [];
   elenco_targhe: any = [];
   selected = '--';
   ospite = 0;
   dataSource: any;
 
-  constructor(private fb: FormBuilder, private serviceSocio: ServiceSocioService, private serviceAuto: ServiceAutoService, public datepipe: DatePipe, private snackBar: MatSnackBar) {
+  constructor(private fb: FormBuilder,
+    private serviceSocio: ServiceSocioService,
+    private serviceAuto: ServiceAutoService,
+    public datepipe: DatePipe, private snackBar: MatSnackBar) {
     this.getInfoAuto();
     this.getInfoSocio();
 
     console.log(this.memberForm.value);
   }
 
-  //Import foto
-  //Import 1++ foto
-  urls: any[] = []
-  selectFiles(event: any) {
-    if (event.target.files) {
-      for (var i = 0; i < File.length; i++) {
-        var reader = new FileReader()
-        reader.readAsDataURL(event.target.files[i])
-        reader.onload = (event: any) => {
-          this.urls.push(event.target.result)
-        }
+  //==========================================================
+  //GESTIONE IMMAGINE
+  //==========================================================
+  message: string;
+  selectedFile: File;
+  imagePath: any;
+  imgURL: any;
+
+  //====================PREVIEW=====================
+  preview(files: any, event: any) {
+    this.selectedFile = event.target.files[0];
+    console.log(this.selectedFile);
+    console.log(files);
+    if (files.length === 0)
+      return;
+
+    let mimeType = files[0].type;
+    if (mimeType.match(/image\/*/) == null) {
+      this.message = "Only images are supported.";
+      return;
+    }
+
+    let reader = new FileReader();
+    this.imagePath = files;
+    reader.readAsDataURL(files[0]);
+    reader.onload = (_event) => {
+      this.imgURL = reader.result;
+      console.log(this.imagePath);
+    }
+  }
+
+  //SUBMIT FOTO
+  submitPhoto(targa: string) {
+    const uploadImageData = new FormData();
+    uploadImageData.append('imageFile', this.selectedFile, this.selectedFile.name);
+
+    this.serviceAuto.submitPhoto(uploadImageData, targa).subscribe((res) => {
+      this.message = 'immagine caricata con successo';
+    },
+      (error: HttpErrorResponse) => {
+        this.message = 'Immagine non caricata';
       }
-    }
+    );
   }
 
-  //Reset import
-  @ViewChild('myInput', { static: false })
-  InputVar!: ElementRef;
-
+  //Funzione per resettare la preview immagine
   reset() {
-    this.InputVar.nativeElement.value = "";
-    while (this.urls.length != 0) {
-      this.urls.length--;
+    if (this.imgURL != null) {
+      this.imgURL = null;
+      this.imagePath = null;
+      this.selectedFile = null;
     }
   }
 
-  //Submit
+  //submit Socio
   onSubmitSocio(): void {
-    console.log("Registrazione socio");
-    //console.log(this.addressForm.value);
     this.insertSocio(this.memberForm.value);
-    //this.addressForm.reset();
   }
 
+  //submit Auto
   onSubmitAuto(): void {
-    console.log("Registrazione auto");
-    //alert('Registrazione auto avvenuta con successo');
-    //console.log(this.addressForm.value);
     this.insertAuto(this.autoForm.value);
   }
 
@@ -147,12 +172,15 @@ export class MemberFormComponent {
     //=============================CHIAMATA AL SERVIZIO=======================================
 
     this.serviceSocio.insertSocio(socio).subscribe(res => {
-      this.snackBar.open('Socio inserito con successo', 'X', {duration: 5000, horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreBlue'] });
+      this.snackBar.open('Socio inserito con successo', 'X', { duration: 5000, horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreBlue'] });
+      if (this.selectedFile != null) {
+        this.submitPhoto(socio.targa);
+      }
     },
-      (error: HttpErrorResponse) => {                 
-        if (error.status == 400 || error.status == 404)
-          this.snackBar.open('Qualcosa è andato storto... Prova a ricontrollare tutti i campi NB:Verifica che la targa inserita non appartenente a un altro socio', 'X', { horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreRed'] });
-
+      (error: HttpErrorResponse) => {
+        if (error.status == 400 || error.status == 404){
+          this.snackBar.open('Qualcosa è andato storto... Prova a ricontrollare tutti i campi   NB:Il socio inserito deve possedere un auto, oppure verifica che la targa inserita non appartenente a un altro socio', 'X', { horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreRed'] });
+        }
       });
 
   }
@@ -172,13 +200,18 @@ export class MemberFormComponent {
     //=============================CHIAMATA AL SERVIZIO=======================================
 
     this.serviceAuto.insertAuto(auto).subscribe(res => {
-      this.snackBar.open('Veicolo inserito con successo', 'X', {duration: 5000, horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreBlue'] });
+
+      this.snackBar.open('Veicolo inserito con successo', 'X', { duration: 5000, horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreBlue'] });
+      if (this.selectedFile != null) {
+        this.submitPhoto(auto.targa);
+
+      }
     },
-      (error: HttpErrorResponse) => {                       //Error callback
+      (error: HttpErrorResponse) => {
         if (error.status == 400)
-        this.snackBar.open('Qualcosa è andato storto... Prova a ricontrollare tutti i campi','X', {horizontalPosition: 'center' , verticalPosition: 'top' , panelClass: ['coloreRed']});
+          this.snackBar.open('Qualcosa è andato storto... Prova a ricontrollare tutti i campi', 'X', { horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreRed'] });
         if (error.status == 404)
-        this.snackBar.open('Qualcosa è andato storto... Socio associato inesistente','X', {horizontalPosition: 'center' , verticalPosition: 'top' , panelClass: ['coloreRed']});
+          this.snackBar.open('Qualcosa è andato storto... Socio associato inesistente', 'X', { horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreRed'] });
       });
 
   }
@@ -201,7 +234,7 @@ export class MemberFormComponent {
     },
       (error: HttpErrorResponse) => {
         console.log('[[' + error.name + ' || ' + error.message + ']]');
-        this.snackBar.open('Nessuna auto presente in database','X', {horizontalPosition: 'center' , verticalPosition: 'top' , panelClass: ['coloreRed']});
+        this.snackBar.open('Nessuna auto presente in database', 'X', { horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreRed'] });
       });
   }
 
@@ -223,7 +256,7 @@ export class MemberFormComponent {
     },
       (error: HttpErrorResponse) => {
         console.log('[[' + error.name + ' || ' + error.message + ']]');
-        this.snackBar.open('Nessun socio presente in database','X', {horizontalPosition: 'center' , verticalPosition: 'top' , panelClass: ['coloreRed']});
+        this.snackBar.open('Nessun socio presente in database', 'X', { horizontalPosition: 'center', verticalPosition: 'top', panelClass: ['coloreRed'] });
       });
   }
 
@@ -233,16 +266,19 @@ export class MemberFormComponent {
       this.accordion.closeAll();
   }
 
-  socioSelezionato(evento:any){
+  socioSelezionato(evento: any) {
     console.log(evento);
   }
 
 }
 
-export class DatepickerOverviewExample { }
+/* export class DatepickerOverviewExample { }
 function push(result: any): never[] {
   throw new Error('Function not implemented.');
-}
+} */
+
+
+
 
 
 

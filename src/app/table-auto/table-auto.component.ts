@@ -11,6 +11,7 @@ import { AutoEditComponent } from '../dialogs/edit/auto-edit/auto-edit.component
 import { AutoDeleteComponent } from '../dialogs/delete/auto-delete/auto-delete.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { InfoAutoComponent } from '../dialogs/info/info-auto/info-auto.component';
 //import { auto } from '../_models/auto.model';
 
 @Component({
@@ -220,6 +221,12 @@ export class TableAutoComponent {
 
   setActive(auto: any) {
     console.log(auto.foto);
+    const dialogRef = this.dialog.open(InfoAutoComponent, {
+      data: {
+        foto: auto.foto,
+        targa: auto.targa,
+      }
+    });
   }
 
 }

@@ -41,6 +41,10 @@
     text-shadow: 2px, 2px, 5px, black;
 }
 
+.info {
+    font-size: 100%;
+}
+
 ::ng-deep .coloreRed {
     background-color: rgb(255, 0, 0);
     color: white;

@@ -33,4 +33,12 @@ export class ServiceAutoService {
     return this.http.put(this.url +'/'+ auto.targa, auto).pipe(map((res:any)=> res));
   }
 
+  submitPhoto(photo:any, targa:string):Observable<any>{
+    return this.http.post('http://localhost:8080/image/upload/' + targa, photo).pipe(map((res:any) => res));
+  }
+
+  getPhoto(targa:string): Observable<any>{
+    return this.http.get<any>('http://localhost:8080/image/get/' + targa).pipe(map((res:any)=> res));
+  }
+
 }

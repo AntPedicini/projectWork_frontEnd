@@ -54,8 +54,8 @@
 .image {
     padding-right: 5px;
     margin-top: 10px;
-    width: 400px;
-    height: 200px;
+    width: auto;
+    max-height: 200px;
 }
 
 .field {

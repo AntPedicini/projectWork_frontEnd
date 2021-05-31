@@ -106,6 +106,8 @@
     </mat-card-content>
     <mat-card-actions>
       <button [disabled]="!eventForm.valid" mat-raised-button color="primary" type="submit" (click)="onSubmit()">Registra Evento</button>
+      <button name="insertEvent" mat-raised-button color="primary" type="submit"
+      (click)="eventForm.reset()">Reset</button>
     </mat-card-actions>
   </mat-card>
 </form>

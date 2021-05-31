@@ -14,7 +14,7 @@ export interface TableAutoItem {
   anno: number;
   immatricolazione : string;
   asi: string;
-  //foto: Blob;
+  foto: Blob;
 }
 
 
