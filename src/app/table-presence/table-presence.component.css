@@ -10,7 +10,7 @@
 }
 
 .find {
-    <<<<<<< HEAD width: 30%;
+    width: 30%;
     display: inline-block;
     padding-left: 10px;
     padding-right: 10px;
@@ -23,7 +23,7 @@
     height: 17em;
     background-color: white;
     box-shadow: 5px 5px 12px rgb(129, 129, 129);
-    =======width: 32%;
+    width: 32%;
     display: inline-block;
     padding-left: 10px;
     padding-right: 10px;
@@ -37,7 +37,6 @@
     background-color: white;
     box-shadow: 5px 5px 12px rgb(129, 129, 129);
     border-radius: 5px;
-    >>>>>>>origin/AntFront
 }
 
 .reg {
